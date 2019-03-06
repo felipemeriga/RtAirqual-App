@@ -1,0 +1,30 @@
+{
+    "expo": {
+        "sdkVersion": "32.0.0",
+        "version": "1.2.7",
+        "orientation": "portrait",
+        "privacy": "public",
+        "icon": "./assets/app.png",
+        "primaryColor": "#00BAFF",
+        "splash": {
+            "image": "./assets/splash.png",
+            "backgroundColor": "#00BAFF",
+            "resizeMode": "cover"
+        },
+        "androidStatusBar": {
+            "barStyle": "light-content",
+            "backgroundColor": "#00BAFF"
+        },
+        "packagerOpts": {
+            "assetExts": ["otf", "ttf"]
+        },
+        "ios": {
+            "bundleIdentifier": "com.wcandillon.dopurplesky"
+        },
+        "assetBundlePatterns": [
+            "**/*.ttf",
+            "**/*.otf",
+            "**/*.png"
+        ]
+    }
+}

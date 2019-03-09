@@ -28,7 +28,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
     render(): React.Node {
         return (
             <Container safe>
-                <Image source={Images.signUp} style={style.img} />
+                <Image source={Images.gradient} style={style.img} />
                 <Content style={Styles.flexGrow}>
                     <Header noShadow>
                         <Left>
@@ -37,52 +37,52 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                             </Button>
                         </Left>
                         <Body>
-                            <Title>Sign Up</Title>
+                            <Title>Criar Conta</Title>
                         </Body>
                         <Right />
                     </Header>
                     <View style={style.row}>
                         <Button transparent block style={style.btn}>
-                            <Icon name="logo-twitter" />
-                            <Text style={Styles.textCentered}>Connect with</Text>
-                            <Text style={Styles.textCentered}>Twitter</Text>
+                            <Icon name="logo-google" />
+                            <Text style={Styles.textCentered}>Conectar com</Text>
+                            <Text style={Styles.textCentered}>Google</Text>
                         </Button>
                         <Button transparent block style={[style.btn, style.facebook]}>
                             <Icon name="logo-facebook" />
-                            <Text style={Styles.textCentered}>Connect with</Text>
+                            <Text style={Styles.textCentered}>Conectar com</Text>
                             <Text style={Styles.textCentered}>Facebook</Text>
                         </Button>
                     </View>
                     <Button transparent block style={[style.btn, style.email]}>
                         <Icon name="ios-mail-outline" style={style.icon} />
-                        <Text>or use your email address</Text>
+                        <Text>Ou use um endereço de email válido</Text>
                     </Button>
                     <View style={Styles.form}>
                         <Field
-                            label="Name"
+                            label="Nome"
                             onSubmitEditing={this.goToUsername}
                             returnKeyType="next"
                         />
                         <Field
-                            label="Username"
+                            label="Email"
                             textInputRef={this.setUsernameRef}
                             onSubmitEditing={this.goToPassword}
                             returnKeyType="next"
                         />
                         <Field
-                            label="Password"
+                            label="Senha"
                             secureTextEntry
                             textInputRef={this.setPasswordRef}
                             onSubmitEditing={this.signIn}
                             returnKeyType="go"
                         />
-                        <Field label="Gender">
+                        <Field label="Sexo">
                             <SingleChoice labels={["Male", "Female"]} />
                         </Field>
                     </View>
                 </Content>
-                <Button primary block onPress={this.signIn} style={{ height: variables.footerHeight }}>
-                    <Text>CONTINUE</Text>
+                <Button info block onPress={this.signIn} style={{ height: variables.footerHeight }}>
+                    <Text>CONTINUAR</Text>
                 </Button>
             </Container>
         );

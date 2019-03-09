@@ -21,10 +21,10 @@ export default class Walkthrough extends React.Component<ScreenProps<>> {
             <Footer style={{ borderTopWidth: variables.borderWidth, borderBottomWidth: variables.borderWidth }}>
                 <FooterTab>
                     <Button onPress={this.home} transparent>
-                        <Text>SKIP</Text>
+                        <Text>PULAR</Text>
                     </Button>
                     <Button transparent onPress={() => this.swiper.current.scrollBy(1)} style={style.next}>
-                        <Text>NEXT</Text>
+                        <Text>PRÓXIMO</Text>
                     </Button>
                 </FooterTab>
             </Footer>
@@ -35,7 +35,7 @@ export default class Walkthrough extends React.Component<ScreenProps<>> {
         const {renderPagination} = this;
         return (
             <SafeAreaView style={style.container}>
-                <Image source={Images.walkthrough} style={style.img} />
+                <Image source={Images.gradient} style={style.img} />
                 {
                     // $FlowFixMe
                     <Swiper
@@ -47,7 +47,10 @@ export default class Walkthrough extends React.Component<ScreenProps<>> {
                     >
                         <View style={[Styles.center, Styles.flexGrow]}>
                             <Phone />
-                            <Text>Share with coworkers, friends, and family</Text>
+                            <Text>Tenha acesso a dados de temperatura</Text>
+                            <Text>umidade relativa e poluição do ar</Text>
+                            <Text>de locais específicos onde </Text>
+                            <Text>pratica sua corrida.</Text>
                         </View>
                         <View style={[Styles.center, Styles.flexGrow]}>
                             <Phone />

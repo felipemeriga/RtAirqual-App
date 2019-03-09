@@ -3,10 +3,12 @@
 import {Asset} from "expo";
 
 
-import Login from "../../../assets/images/login.jpg";
+import Gradient from "../../../assets/images/rainbowBlue.jpg";
 import SignUp from "../../../assets/images/signUp.jpg";
 import Walkthrough from "../../../assets/images/walkthrough.jpg";
 import Profile from "../../../assets/images/profile.jpg";
+import LogoSymbol from "../../../assets/images/logoSymbol.png";
+import LogoLetter from "../../../assets/images/logoLetter.png";
 
 import DefaultAvatar from "../../../assets/images/avatars/default-avatar.jpg";
 import DefaultAvatar1 from "../../../assets/images/avatars/avatar-1.jpg";
@@ -18,10 +20,12 @@ import Architecture from "../../../assets/images/architecture.jpg";
 import Travel from "../../../assets/images/travel.jpg";
 
 export default class Images {
-    static login = Login;
+    static gradient = Gradient;
     static signUp = SignUp;
     static walkthrough = Walkthrough;
     static profile = Profile;
+    static logoSymbol = LogoSymbol;
+    static logoLetter = LogoLetter;
 
     static defaultAvatar = DefaultAvatar;
     static avatar1 = DefaultAvatar1;
@@ -34,7 +38,9 @@ export default class Images {
 
     static downloadAsync(): Promise<*>[] {
         return [
-            Asset.fromModule(Images.login).downloadAsync(),
+            Asset.fromModule(Images.gradient).downloadAsync(),
+            Asset.fromModule(Images.logoSymbol).downloadAsync(),
+            Asset.fromModule(Images.logoLetter).downloadAsync(),
             Asset.fromModule(Images.signUp).downloadAsync(),
             Asset.fromModule(Images.walkthrough).downloadAsync(),
             Asset.fromModule(Images.profile).downloadAsync(),

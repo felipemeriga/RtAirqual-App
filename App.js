@@ -43,7 +43,7 @@ export default class App extends React.Component<{}, AppState> {
             "Avenir-Light": require("./fonts/Avenir-Light.ttf")
         }));
         Promise.all(promises.concat(Images.downloadAsync()))
-            .then(() => this.setState({ ready: true }))
+            .then(() => this.setState({ready: true}))
             // eslint-disable-next-line
             .catch(error => console.error(error));
     }
@@ -65,15 +65,15 @@ export default class App extends React.Component<{}, AppState> {
 }
 
 const MainNavigator = createDrawerNavigator({
-    Home: { screen: Home },
-    Calendar: { screen: Calendar },
-    Overview: { screen: Overview },
-    Groups: { screen: Groups },
-    Lists: { screen: Lists },
-    Profile: { screen: Profile },
-    Timeline: { screen: Timeline },
-    Settings: { screen: Settings },
-    Create: { screen: Create }
+    Home: {screen: Home},
+    Calendar: {screen: Calendar},
+    Overview: {screen: Overview},
+    Groups: {screen: Groups},
+    Lists: {screen: Lists},
+    Profile: {screen: Profile},
+    Timeline: {screen: Timeline},
+    Settings: {screen: Settings},
+    Create: {screen: Create}
 }, {
     drawerWidth: Dimensions.get("window").width,
     // eslint-disable-next-line flowtype/no-weak-types
@@ -82,10 +82,10 @@ const MainNavigator = createDrawerNavigator({
 });
 
 const AppNavigator = createAppContainer(createSwitchNavigator({
-    Login: { screen: Login },
-    SignUp: { screen: SignUp },
-    Walkthrough: { screen: Walkthrough },
-    Main: { screen: MainNavigator }
+    Login: {screen: Login},
+    SignUp: {screen: SignUp},
+    Walkthrough: {screen: Walkthrough},
+    Main: {screen: MainNavigator}
 }, {
     headerMode: "none",
     cardStyle: {

@@ -7,7 +7,7 @@
         "icon": "./assets/app.png",
         "primaryColor": "#00BAFF",
         "splash": {
-            "image": "./assets/splash.png",
+            "image": "./assets/images/splash.png",
             "backgroundColor": "#00BAFF",
             "resizeMode": "cover"
         },

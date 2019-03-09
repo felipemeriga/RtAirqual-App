@@ -22,7 +22,7 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
         const {title, navigation} = this.props;
         return (
             <Container safe>
-                <Image source={Images.signUp} style={[StyleSheet.absoluteFill, style.img]} />
+                <Image source={Images.gradient} style={[StyleSheet.absoluteFill, style.img]} />
                 <NBHeader noShadow>
                     <Left>
                         <Button onPress={() => navigation.openDrawer()} transparent>

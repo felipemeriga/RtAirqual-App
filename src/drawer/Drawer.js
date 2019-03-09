@@ -24,7 +24,7 @@ export default class Drawer extends React.Component<NavigationProps<>> {
         const {navigation} = this.props;
         return (
             <Container safe>
-                <Image source={Images.signUp} style={style.img} />
+                <Image source={Images.gradient} style={style.img} />
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.dispatch(DrawerActions.closeDrawer())}>

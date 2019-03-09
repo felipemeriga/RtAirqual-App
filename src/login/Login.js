@@ -1,10 +1,8 @@
 // @flow
 import * as React from "react";
 import {StyleSheet, Image, View, TextInput, SafeAreaView} from "react-native";
-import {H1, Button, Text, Content} from "native-base";
+import { Button, Text, Content} from "native-base";
 import {Constants} from "expo";
-
-import Mark from "./Mark";
 
 import {Images, WindowDimensions, Field, Small, Styles} from "../components";
 import {AnimatedView} from "../components/Animations";
@@ -17,35 +15,40 @@ export default class Login extends React.Component<ScreenProps<>> {
     // $FlowFixMe
     password: TextInput;
 
+
     // $FlowFixMe
-    setPasswordRef = (input: TextInput) => this.password = input._root
-    goToPassword = () => this.password.focus()
-    signIn = () => this.props.navigation.navigate("Walkthrough")
-    signUp = () => this.props.navigation.navigate("SignUp")
+    setPasswordRef = (input: TextInput) => this.password = input._root;
+    goToPassword = () => this.password.focus();
+    signIn = () => this.props.navigation.navigate("Walkthrough");
+    signUp = () => this.props.navigation.navigate("SignUp");
 
     render(): React.Node {
         return (
             <View style={styles.container}>
-                <Image source={Images.login} style={styles.image} />
+                <Image source={Images.gradient} style={styles.image} />
                 <SafeAreaView style={StyleSheet.absoluteFill}>
                     <Content style={[StyleSheet.absoluteFill, styles.content]}>
                         <AnimatedView style={styles.innerContent}>
                             <View style={styles.logo}>
                                 <View>
-                                    <Mark />
-                                    <H1 style={styles.title}>Get Started!</H1>
+                                    <Image source={Images.logoSymbol} style={styles.logoSymbol} />
+                                </View>
+                            </View>
+                            <View style={styles.logoLetterView}>
+                                <View>
+                                    <Image source={Images.logoLetter} style={styles.logoLetter} />
                                 </View>
                             </View>
                             <View>
                                 <Field
-                                    label="Username"
+                                    label="Usuário"
                                     autoCapitalize="none"
                                     returnKeyType="next"
                                     onSubmitEditing={this.goToPassword}
                                     inverse
                                 />
                                 <Field
-                                    label="Password"
+                                    label="Senha"
                                     secureTextEntry
                                     autoCapitalize="none"
                                     returnKeyType="go"
@@ -56,13 +59,13 @@ export default class Login extends React.Component<ScreenProps<>> {
                                 />
                                 <View>
                                     <View>
-                                        <Button primary full onPress={this.signIn}>
-                                            <Text>Sign In</Text>
+                                        <Button info full onPress={this.signIn}>
+                                            <Text>Entrar</Text>
                                         </Button>
                                     </View>
                                     <View>
                                         <Button transparent full onPress={this.signUp}>
-                                            <Small style={Styles.whiteText}>Don&apos;t have an account? Sign Up</Small>
+                                            <Small style={Styles.whiteText}>Ainda não possui conta? Crie agora!</Small>
                                         </Button>
                                     </View>
                                 </View>
@@ -94,11 +97,24 @@ const styles = StyleSheet.create({
     },
     logo: {
         marginVertical: variables.contentPadding * 2,
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center"
     },
-    title: {
-        marginVertical: variables.contentPadding * 2,
-        color: "white",
-        textAlign: "center"
+    logoLetterView: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 50
+    },
+    logoSymbol: {
+        width: width * 0.25,
+        height: height * 0.15,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    logoLetter: {
+        width: width * 0.4,
+        height: height * 0.1
     }
+
 });
+

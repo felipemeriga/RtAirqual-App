@@ -7,6 +7,9 @@ import {H3} from "native-base";
 import {BaseContainer, Task, TaskOverview, Styles} from "../components";
 import type {ScreenProps} from "../components/Types";
 
+import { Marker } from 'react-native-maps';
+import MapView from 'react-native-maps';
+
 import variables from "../../native-base-theme/variables/commonColor";
 
 export default class Home extends React.Component<ScreenProps<>> {
@@ -20,8 +23,9 @@ export default class Home extends React.Component<ScreenProps<>> {
         const date = today.format("MMMM D");
         const dayOfWeek = today.format("dddd").toUpperCase();
         const {navigation} = this.props;
+        const nomePagina = "Locais"
         return (
-            <BaseContainer title={dayOfWeek} {...{ navigation }} scrollable>
+            <BaseContainer title={nomePagina} {...{ navigation }} scrollable>
                 <View>
                     <View style={style.date}>
                         <H3 style={Styles.textCentered}>{date}</H3>

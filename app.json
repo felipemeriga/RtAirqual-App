@@ -7,7 +7,7 @@
         "icon": "./assets/app.png",
         "primaryColor": "#00BAFF",
         "splash": {
-            "image": "./assets/images/splash.png",
+            "image": "./assets/images/splash.jpg",
             "backgroundColor": "#00BAFF",
             "resizeMode": "cover"
         },
@@ -24,7 +24,8 @@
         "assetBundlePatterns": [
             "**/*.ttf",
             "**/*.otf",
-            "**/*.png"
+            "**/*.png",
+            "**/*.jpg"
         ]
     }
 }

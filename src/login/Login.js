@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import {StyleSheet, Image, View, TextInput, SafeAreaView} from "react-native";
-import { Button, Text, Content} from "native-base";
+import {Button, Text, Content} from "native-base";
 import {Constants} from "expo";
 
 import {Images, WindowDimensions, Field, Small, Styles} from "../components";
@@ -25,18 +25,20 @@ export default class Login extends React.Component<ScreenProps<>> {
     render(): React.Node {
         return (
             <View style={styles.container}>
-                <Image source={Images.gradient} style={styles.image} />
+                <Image source={Images.loginBackground} style={styles.image}/>
                 <SafeAreaView style={StyleSheet.absoluteFill}>
                     <Content style={[StyleSheet.absoluteFill, styles.content]}>
                         <AnimatedView style={styles.innerContent}>
-                            <View style={styles.logo}>
-                                <View>
-                                    <Image source={Images.logoSymbol} style={styles.logoSymbol} />
+                            <View style={styles.verticalAlign}>
+                                <View style={styles.logo}>
+                                    <View>
+                                        <Image source={Images.logoSymbol} style={styles.logoSymbol}/>
+                                    </View>
                                 </View>
-                            </View>
-                            <View style={styles.logoLetterView}>
-                                <View>
-                                    <Image source={Images.logoLetter} style={styles.logoLetter} />
+                                <View style={styles.logoLetterView}>
+                                    <View>
+                                        <Image source={Images.logoLetter} style={styles.logoLetter}/>
+                                    </View>
                                 </View>
                             </View>
                             <View>
@@ -45,7 +47,6 @@ export default class Login extends React.Component<ScreenProps<>> {
                                     autoCapitalize="none"
                                     returnKeyType="next"
                                     onSubmitEditing={this.goToPassword}
-                                    inverse
                                 />
                                 <Field
                                     label="Senha"
@@ -55,7 +56,6 @@ export default class Login extends React.Component<ScreenProps<>> {
                                     textInputRef={this.setPasswordRef}
                                     onSubmitEditing={this.signIn}
                                     last
-                                    inverse
                                 />
                                 <View>
                                     <View>
@@ -95,6 +95,9 @@ const styles = StyleSheet.create({
         height: height - Constants.statusBarHeight,
         justifyContent: "flex-end"
     },
+    verticalAlign: {
+        flexDirection: "column"
+    },
     logo: {
         marginVertical: variables.contentPadding * 2,
         alignItems: "center",
@@ -102,8 +105,7 @@ const styles = StyleSheet.create({
     },
     logoLetterView: {
         alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 50
+        justifyContent: "center"
     },
     logoSymbol: {
         width: width * 0.25,

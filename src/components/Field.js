@@ -34,7 +34,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     render(): React.Node {
         const {label, last, inverse, defaultValue, right, textInputRef, children} = this.props;
         const {value} = this.state;
-        const style = inverse ? { color: "white" } : {};
+        const style = inverse ? { color: "white"} : {color: "white", fontSize: 20};
         const itemStyle = inverse ? { borderColor: "white" } : {};
         const keysToFilter = ["right", "defaultValue", "inverse", "label", "last"];
         const props = _.pickBy(this.props, (v, key) => keysToFilter.indexOf(key) === -1);
@@ -78,5 +78,5 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 }
 
 const styles = StyleSheet.create({
-    field: { borderBottomWidth: 0 }
+    field: { borderBottomWidth: 1.6 }
 });

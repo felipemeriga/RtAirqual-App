@@ -4,11 +4,16 @@ import {Asset} from "expo";
 
 
 import Gradient from "../../../assets/images/rainbowBlue.jpg";
+import LoginBackground from "../../../assets/images/login&SplashBack.jpg";
 import SignUp from "../../../assets/images/signUp.jpg";
 import Walkthrough from "../../../assets/images/walkthrough.jpg";
 import Profile from "../../../assets/images/profile.jpg";
 import LogoSymbol from "../../../assets/images/logoSymbol.png";
 import LogoLetter from "../../../assets/images/logoLetter.png";
+import SmartCity from "../../../assets/images/smartCityRT.png";
+import Notifications from "../../../assets/images/notifications.png";
+import Boletim from "../../../assets/images/boletim.png";
+import Graphic from "../../../assets/images/graphic.png";
 
 import DefaultAvatar from "../../../assets/images/avatars/default-avatar.jpg";
 import DefaultAvatar1 from "../../../assets/images/avatars/avatar-1.jpg";
@@ -35,6 +40,11 @@ export default class Images {
     static music = Music;
     static architecture = Architecture;
     static travel = Travel;
+    static smartCity = SmartCity;
+    static loginBackground = LoginBackground;
+    static notifications = Notifications;
+    static boletim = Boletim;
+    static graphic = Graphic;
 
     static downloadAsync(): Promise<*>[] {
         return [
@@ -52,7 +62,14 @@ export default class Images {
 
             Asset.fromModule(Images.music).downloadAsync(),
             Asset.fromModule(Images.architecture).downloadAsync(),
-            Asset.fromModule(Images.travel).downloadAsync()
+            Asset.fromModule(Images.travel).downloadAsync(),
+            Asset.fromModule(Images.smartCity).downloadAsync(),
+            Asset.fromModule(Images.loginBackground).downloadAsync(),
+            Asset.fromModule(Images.notifications).downloadAsync(),
+            Asset.fromModule(Images.boletim).downloadAsync(),
+            Asset.fromModule(Images.graphic).downloadAsync()
+
+
         ];
     }
 }

@@ -31,7 +31,8 @@
         "lint": "eslint App.js App.test.js src/"
     },
     "jest": {
-        "preset": "jest-expo"
+        "preset": "jest-expo",
+        "transformIgnorePatterns": ["/node_modules/(?!(@expo)/).*/"]
     },
     "dependencies": {
         "@expo/vector-icons": "6.3.1",

@@ -3,7 +3,10 @@
     "version": "1.2.7",
     "private": true,
     "devDependencies": {
+        "@babel/core": "^7.3.4",
+        "babel-core": "^7.0.0-bridge.0",
         "babel-eslint": "^8.2.1",
+        "babel-jest": "^24.5.0",
         "babel-preset-expo": "^5.0.0",
         "eslint": "^4.9.0",
         "eslint-config-airbnb": "^16.1.0",
@@ -31,8 +34,7 @@
         "lint": "eslint App.js App.test.js src/"
     },
     "jest": {
-        "preset": "jest-expo",
-        "transformIgnorePatterns": ["/node_modules/(?!(@expo)/).*/"]
+        "preset": "jest-expo"
     },
     "dependencies": {
         "@expo/vector-icons": "6.3.1",

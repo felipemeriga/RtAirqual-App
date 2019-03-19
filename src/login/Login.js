@@ -25,19 +25,19 @@ export default class Login extends React.Component<ScreenProps<>> {
     render(): React.Node {
         return (
             <View style={styles.container}>
-                <Image source={Images.loginBackground} style={styles.image}/>
+                <Image source={Images.loginBackground} style={styles.image} />
                 <SafeAreaView style={StyleSheet.absoluteFill}>
                     <Content style={[StyleSheet.absoluteFill, styles.content]}>
                         <AnimatedView style={styles.innerContent}>
                             <View style={styles.verticalAlign}>
                                 <View style={styles.logo}>
                                     <View>
-                                        <Image source={Images.logoSymbol} style={styles.logoSymbol}/>
+                                        <Image source={Images.logoSymbol} style={styles.logoSymbol} />
                                     </View>
                                 </View>
                                 <View style={styles.logoLetterView}>
                                     <View>
-                                        <Image source={Images.logoLetter} style={styles.logoLetter}/>
+                                        <Image source={Images.logoLetter} style={styles.logoLetter} />
                                     </View>
                                 </View>
                             </View>

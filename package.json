@@ -34,7 +34,10 @@
         "lint": "eslint App.js App.test.js src/"
     },
     "jest": {
-        "preset": "jest-expo"
+        "preset": "jest-expo",
+        "transform": {
+    	"\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+  		}
     },
     "dependencies": {
         "@expo/vector-icons": "6.3.1",

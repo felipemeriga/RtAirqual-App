@@ -74,7 +74,7 @@ const style = StyleSheet.create({
         fontSize: 32
     },
     largeIcon: {
-        fontSize: 64,
-        height: 64
+        fontSize: 50,
+        height: 50
     }
 });

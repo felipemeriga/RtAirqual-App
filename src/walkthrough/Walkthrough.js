@@ -35,36 +35,36 @@ export default class Walkthrough extends React.Component<ScreenProps<>> {
         const {renderPagination} = this;
         return (
             <SafeAreaView style={style.container}>
-                <Image source={Images.gradient} style={style.img}/>
+                <Image source={Images.gradient} style={style.img} />
                 {
                     // $FlowFixMe
                     <Swiper
                         ref={this.swiper}
                         height={swiperHeight}
-                        dot={<Icon name="ios-radio-button-off-outline" style={style.dot}/>}
-                        activeDot={<Icon name="ios-radio-button-on" style={style.dot}/>}
+                        dot={<Icon name="ios-radio-button-off-outline" style={style.dot} />}
+                        activeDot={<Icon name="ios-radio-button-on" style={style.dot} />}
                         {...{renderPagination}}
                     >
                         <View style={[Styles.center, Styles.flexGrow]}>
-                            <Image source={Images.smartCity} style={style.smartCityContainer}/>
+                            <Image source={Images.smartCity} style={style.smartCityContainer} />
                             <Text>Tenha acesso a dados de temperatura</Text>
                             <Text>umidade relativa e poluição do ar</Text>
                             <Text>de locais específicos onde </Text>
                             <Text>pratica sua corrida.</Text>
                         </View>
                         <View style={[Styles.center, Styles.flexGrow]}>
-                            <Image source={Images.notifications} style={style.notificationsContainer}/>
+                            <Image source={Images.notifications} style={style.notificationsContainer} />
                             <Text>Receba alertas e dicas de situações</Text>
                             <Text>críticas ou favoráveis ao longo do dia</Text>
                         </View>
                         <View style={[Styles.center, Styles.flexGrow]}>
-                            <Image source={Images.boletim} style={style.boletimContainer}/>
+                            <Image source={Images.boletim} style={style.boletimContainer} />
                             <Text>Saiba qual o perfil de clima</Text>
                             <Text>e qualidade do ar todos os dias</Text>
                             <Text>e como isso pode te afetar.</Text>
                         </View>
                         <View style={[Styles.center, Styles.flexGrow]}>
-                            <Image source={Images.graphic} style={style.graphicContainer}/>
+                            <Image source={Images.graphic} style={style.graphicContainer} />
                             <Text>Com análises personalizadas,</Text>
                             <Text> entenda seus padrões de desempenho </Text>
                             <Text>em relação ao clima e a qualidade do ar.</Text>
@@ -82,10 +82,10 @@ class Phone extends React.PureComponent<{}> {
         return (
             <View style={style.phone}>
                 <View style={style.phoneContainer}>
-                    <Icon name="ios-checkmark-circle-outline" style={style.phoneContainerIcon}/>
+                    <Icon name="ios-checkmark-circle-outline" style={style.phoneContainerIcon} />
                 </View>
                 <View style={style.phoneFooter}>
-                    <Icon name="ios-radio-button-off" style={style.phoneFooterIcon}/>
+                    <Icon name="ios-radio-button-off" style={style.phoneFooterIcon} />
                 </View>
             </View>
         );

@@ -2,12 +2,11 @@
 import moment from "moment";
 import * as React from "react";
 import {StyleSheet, View} from "react-native";
-import {H3} from "native-base";
 
-import {BaseContainer, Task, TaskOverview, Styles} from "../components";
+import {BaseContainer, Styles} from "../components";
 import type {ScreenProps} from "../components/Types";
 
-import { Marker } from "react-native-maps";
+import {Marker} from "react-native-maps";
 import MapView from "react-native-maps";
 
 import variables from "../../native-base-theme/variables/commonColor";
@@ -19,44 +18,29 @@ export default class Home extends React.Component<ScreenProps<>> {
     }
 
     render(): React.Node {
-        const today = moment();
-        const date = today.format("MMMM D");
-        const dayOfWeek = today.format("dddd").toUpperCase();
         const {navigation} = this.props;
         const nomePagina = "Locais";
         return (
-            <BaseContainer title={nomePagina} {...{ navigation }} scrollable>
-                <View>
-                    <View style={style.date}>
-                        <H3 style={Styles.textCentered}>{date}</H3>
+            <BaseContainer title={nomePagina} {...{navigation}} scrollable style={style.container}>
+                <View style={Styles.flexGrow}>
+                    <View style={[style.mapContainer, Styles.center]}>
+                        <MapView style={style.cardContainer} />
                     </View>
-                    <TaskOverview completed={36} overdue={4} />
                 </View>
-                <Task
-                    date="2015-05-08 08:30"
-                    title="New Icons"
-                    subtitle="Mobile App"
-                    completed
-                />
-                <Task
-                    date="2015-05-08 10:00"
-                    title="Coffee Break"
-                    completed
-                />
-                <Task
-                    date="2015-05-08 14:00"
-                    title="Design Stand Up"
-                    subtitle="Hangouts"
-                    collaborators={[1, 2, 3]}
-                    completed
-                />
             </BaseContainer>
         );
     }
 }
 
 const style = StyleSheet.create({
-    date: {
-        padding: variables.contentPadding * 2
+    container: {
+        flex: 1
+    },
+    mapContainer: {
+        flex: 1
+    },
+    cardContainer: {
+        width: 370,
+        height: 500
     }
 });

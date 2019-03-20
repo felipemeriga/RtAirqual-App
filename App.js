@@ -8,20 +8,20 @@ import {
 } from "react-navigation";
 import {Font, AppLoading} from "expo";
 
-import {Images} from "./src/components";
-import {Login} from "./src/login";
-import {SignUp} from "./src/sign-up";
-import {Walkthrough} from "./src/walkthrough";
-import {Drawer} from "./src/drawer";
-import {Home} from "./src/home";
-import {Calendar} from "./src/calendar";
-import {Overview} from "./src/overview";
-import {Groups} from "./src/groups";
-import {Lists} from "./src/lists";
-import {Profile} from "./src/profile";
-import {Timeline} from "./src/timeline";
-import {Settings} from "./src/settings";
-import {Create} from "./src/create";
+import {Images} from "./src/components/pure-components";
+import {Login} from "./src/components/login";
+import {SignUp} from "./src/components/sign-up";
+import {Walkthrough} from "./src/components/walkthrough";
+import {Drawer} from "./src/components/drawer";
+import {Home} from "./src/components/home";
+import {Calendar} from "./src/components/calendar";
+import {Overview} from "./src/components/overview";
+import {Groups} from "./src/components/groups";
+import {Lists} from "./src/components/lists";
+import {Profile} from "./src/components/profile";
+import {Timeline} from "./src/components/timeline";
+import {Settings} from "./src/components/settings";
+import {Create} from "./src/components/create";
 
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";

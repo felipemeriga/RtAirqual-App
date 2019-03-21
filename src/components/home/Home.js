@@ -8,13 +8,16 @@ import type {ScreenProps} from "../pure-components/Types";
 
 import {Marker} from "react-native-maps";
 import MapView from "react-native-maps";
+import { Constants, Location, Permissions } from 'expo';
+import { TabNavigator } from "react-navigation";
+import { Container, Text } from "native-base";
 
 export default class Home extends React.Component<ScreenProps<>> {
 
     go(key: string) {
         this.props.navigation.navigate(key);
     }
-
+	
     render(): React.Node {
         const {navigation} = this.props;
         const nomePagina = "rtAirQual";
@@ -46,6 +49,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.322067,
                                     longitude: -51.173079
                                 }}
+								image={{uri: 'https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker.png'}}
                                 title={"Bosque Universitário"}
                                 description={"description"}
                             >
@@ -56,7 +60,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.299477,
                                     longitude: -51.210220
                                 }}
-                                //image={{uri: 'https://facebook.github.io/react-native/img/favicon.png'}}
+                                image={{uri: 'https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker.png'}}
                                 title={"PUC"}
                                 description={"description"}
                             >
@@ -67,6 +71,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.307478,
                                     longitude: -51.113860
                                 }}
+								image={{uri: 'https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker.png'}}
                                 title={"UTFPR"}
                                 description={"description"}
                             >
@@ -77,6 +82,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.323550,
                                     longitude: -51.163392
                                 }}
+								image={{uri: 'https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker.png'}}
                                 title={"Zerão"}
                                 description={"description"}
                             >
@@ -87,6 +93,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.322218,
                                     longitude: -51.206351
                                 }}
+								image={{uri: 'https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker.png'}}
                                 title={"Pista Atletismo UEL"}
                                 description={"description"}
                             >

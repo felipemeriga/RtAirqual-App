@@ -17,7 +17,7 @@ export default class Home extends React.Component<ScreenProps<>> {
 
     render(): React.Node {
         const {navigation} = this.props;
-        const nomePagina = "Pontos rtAirQual";
+        const nomePagina = "rtAirQual";
         return (
             <BaseContainer title={nomePagina} {...{navigation}} scrollable style={style.container}>
                 <View style={Styles.flexGrow}>
@@ -35,6 +35,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.329533,
                                     longitude: -51.173548
                                 }}
+								image={{uri: 'https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker.png'}}
                                 title={"Lago 2"}
                                 description={"description"}
                             >

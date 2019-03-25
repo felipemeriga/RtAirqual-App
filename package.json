@@ -36,8 +36,8 @@
     "jest": {
         "preset": "jest-expo",
         "transform": {
-    	"\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
-  		}
+            "\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+        }
     },
     "dependencies": {
         "@expo/vector-icons": "6.3.1",
@@ -51,6 +51,7 @@
         "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
         "react-native-extended-stylesheet": "^0.11.1",
         "react-native-maps": "^0.23.0",
+        "react-native-modal": "^9.0.0",
         "react-native-swiper": "^1.5.4",
         "react-navigation": "^3.0.9"
     }

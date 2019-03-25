@@ -1,43 +1,70 @@
 // @flow
+import { AppRegistry, StyleSheet, Dimensions, View } from "react-native";
+import { TabNavigator } from "react-navigation";
+import { Container, Text } from "native-base";
 import * as React from "react";
-import {StyleSheet, View} from "react-native";
-
-
 import {BaseContainer, Styles} from "../pure-components";
 import type {ScreenProps} from "../pure-components/Types";
-
-import {Marker} from "react-native-maps";
 import MapView from "react-native-maps";
+import { Callout } from "react-native-maps";
+
 
 export default class Home extends React.Component<ScreenProps<>> {
+    constructor(props) {
+        super(props);
 
-    go(key: string) {
-        this.props.navigation.navigate(key);
+        this.state = {
+            latitude: null,
+            longitude: null,
+            error: null
+        };
     }
 
-    render(): React.Node {
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log("wokeeey");
+                console.log(position);
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null
+                });
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+        );
+    }
+
+
+    render() {
+        const nomePagina = "rtAirQual";
         const {navigation} = this.props;
-        const nomePagina = "Pontos rtAirQual";
         return (
-            <BaseContainer title={nomePagina} {...{navigation}} scrollable style={style.container}>
+            <BaseContainer title={nomePagina} {...{navigation}} scrollable style={styles.container}>
                 <View style={Styles.flexGrow}>
-                    <View style={[style.mapContainer, Styles.center]}>
-                        <MapView style={style.cardContainer}
-                                 initialRegion={{
-                                     latitude: -23.3436887,
-                                     longitude: -51.1726026,
-                                     latitudeDelta: 0.0922,
-                                     longitudeDelta: 0.0421,
-                                 }}>
+                    <View style={[styles.mapContainer, Styles.center]}>
+                        <MapView
+                            style={styles.cardContainer}
+                            initialRegion={{
+                                latitude: -23.3436887,
+                                longitude: -51.1726026,
+                                latitudeDelta: 1,
+                                longitudeDelta: 1
+                            }}
+                        >
 
                             <MapView.Marker
                                 coordinate={{
                                     latitude: -23.329533,
                                     longitude: -51.173548
                                 }}
-                                title={"Lago 2"}
-                                description={"description"}
+                                image={{uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt.png"}}
+                                title="Lago 2"
+                                description="description"
+                                onpre
                             >
+
                             </MapView.Marker>
 
                             <MapView.Marker
@@ -45,8 +72,9 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.322067,
                                     longitude: -51.173079
                                 }}
-                                title={"Bosque Universitário"}
-                                description={"description"}
+                                image={{uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt.png"}}
+                                title="Bosque Universitário"
+                                description="description"
                             >
                             </MapView.Marker>
 
@@ -55,9 +83,9 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.299477,
                                     longitude: -51.210220
                                 }}
-                                //image={{uri: 'https://facebook.github.io/react-native/img/favicon.png'}}
-                                title={"PUC"}
-                                description={"description"}
+                                image={{uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt.png"}}
+                                title="PUC"
+                                description="description"
                             >
                             </MapView.Marker>
 
@@ -66,8 +94,9 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.307478,
                                     longitude: -51.113860
                                 }}
-                                title={"UTFPR"}
-                                description={"description"}
+                                image={{uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt.png"}}
+                                title="UTFPR"
+                                description="description"
                             >
                             </MapView.Marker>
 
@@ -76,8 +105,9 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.323550,
                                     longitude: -51.163392
                                 }}
-                                title={"Zerão"}
-                                description={"description"}
+                                image={{uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt.png"}}
+                                title="Zerão"
+                                description="description"
                             >
                             </MapView.Marker>
 
@@ -86,13 +116,17 @@ export default class Home extends React.Component<ScreenProps<>> {
                                     latitude: -23.322218,
                                     longitude: -51.206351
                                 }}
-                                title={"Pista Atletismo UEL"}
-                                description={"description"}
+                                image={{uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt.png"}}
+                                title="Pista Atletismo UEL"
+                                description="description"
                             >
                             </MapView.Marker>
 
+                            {!!this.state.latitude && !!this.state.longitude && <MapView.Marker
+                                coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
+                                title="Your Location"
+                            />}
                         </MapView>
-
                     </View>
                 </View>
             </BaseContainer>
@@ -100,7 +134,7 @@ export default class Home extends React.Component<ScreenProps<>> {
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1
     },

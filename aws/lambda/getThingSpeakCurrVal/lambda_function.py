@@ -3,9 +3,12 @@ import urllib.request
 from datetime import datetime
 import pytz
 import math
+import boto3
 
 
 def lambda_handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    tableMessages = dynamodb.Table('Messages')
 
     try:
         url = event['endPoint']
@@ -16,17 +19,21 @@ def lambda_handler(event, context):
         local = pytz.timezone('America/Sao_Paulo')
 
         localDateTmz = date.astimezone(local)
-        localDate = localDateTmz + localDateTmz.utcoffset()
 
-        data['feeds'][0]['created_at'] = localDate.strftime("%Y-%m-%d %H:%M:%S")
+        # Used to correct timestamp out of AWS Lambda
+        #localDate = localDateTmz + localDateTmz.utcoffset()
+        #data['feeds'][0]['created_at'] = localDate.strftime("%Y-%m-%d %H:%M:%S")
+
+        data['feeds'][0]['created_at'] = localDateTmz.strftime("%Y-%m-%d %H:%M:%S")
 
         temperature = float(data['feeds'][0]['field1'])
         moisure = float(data['feeds'][0]['field2'])
+        airQuality = float(data['feeds'][0]['field3'])
 
-    except:
+    except Exception as e:
         return {
             'statusCode': 500,
-            'body': json.dumps('Error getting values from ThingSpeak')
+            'body': json.dumps(e.message)
         }
 
     try:
@@ -58,14 +65,33 @@ def lambda_handler(event, context):
         data['feeds'][0]['thermalConfort'] = thermalConfort
 
 
-    except:
+    except Exception as e:
         return {
             'statusCode': 500,
-            'body': json.dumps('Error durring calculating the Thermal Confort')
+            'body': json.dumps(e.message)
+        }
+
+    try:
+        messageResponse = tableMessages.scan()
+        thermalConfortMessage = [x for x in messageResponse['Items'] if
+                                 x['bot'] <= thermalConfort and x['top'] > thermalConfort and x[
+                                     'topic'] == 'thermalConfort']
+        relativeHumityMessage = [x for x in messageResponse['Items'] if
+                                 x['bot'] <= moisure and x['top'] > moisure and x['topic'] == 'relativeHumity']
+        airQualityMessage = [x for x in messageResponse['Items'] if
+                             x['bot'] <= airQuality and x['top'] > airQuality and x['topic'] == 'airQuality']
+
+        data['feeds'][0]['thermalConfortMessage'] = thermalConfortMessage
+        data['feeds'][0]['relativeHumityMessage'] = relativeHumityMessage
+        data['feeds'][0]['airQualityMessage'] = airQualityMessage
+
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps(e.message)
         }
 
     return {
         'statusCode': 200,
         'body': data['feeds']
     }
-

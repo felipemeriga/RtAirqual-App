@@ -3,6 +3,7 @@
 import * as React from "react";
 import {Dimensions} from "react-native";
 import {StyleProvider} from "native-base";
+import {Provider} from "mobx-react";
 import {
     createAppContainer, createSwitchNavigator, createDrawerNavigator
 } from "react-navigation";
@@ -22,9 +23,15 @@ import {Profile} from "./src/components/profile";
 import {Timeline} from "./src/components/timeline";
 import {Settings} from "./src/components/settings";
 import {Create} from "./src/components/create";
+import channelsStore from "./src/stores/ChannelsStore";
 
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";
+
+const stores = {
+    channelsStore
+};
+
 
 type AppState = {
     ready: boolean
@@ -51,15 +58,17 @@ export default class App extends React.Component<{}, AppState> {
     render(): React.Node {
         const {ready} = this.state;
         return (
-            <StyleProvider style={getTheme(variables)}>
-                {
-                    ready
-                        ?
-                        <AppNavigator onNavigationStateChange={() => undefined} />
-                        :
-                        <AppLoading startAsync={null} onError={null} onFinish={null} />
-                }
-            </StyleProvider>
+            <Provider {...stores}>
+                <StyleProvider style={getTheme(variables)}>
+                    {
+                        ready
+                            ?
+                            <AppNavigator onNavigationStateChange={() => undefined} />
+                            :
+                            <AppLoading startAsync={null} onError={null} onFinish={null} />
+                    }
+                </StyleProvider>
+            </Provider>
         );
     }
 }

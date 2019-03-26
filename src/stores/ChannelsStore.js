@@ -6,18 +6,16 @@ import Channel from "../model/Channel";
 class ChannelsStore {
     @observable loading = false;
     @observable error = false;
-    @observable channels = [];
+    @observable channels: Channel = [];
     @observable error;
 
 
     @action
-    getChannels = () => {
+    async getChannels(): React.node {
         this.loading = true;
         axios.get("https://fep6atgqtd.execute-api.us-west-2.amazonaws.com/dev")
             .then((response) => {
-                response.data.forEach(ch => {
-                    this.channels.push(new Channel(ch));
-                });
+                console.log(response.data);
                 this.loading = false;
             })
             .catch((error) => {

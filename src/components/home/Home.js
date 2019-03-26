@@ -1,14 +1,16 @@
 // @flow
-import { AppRegistry, StyleSheet, Dimensions, View } from "react-native";
-import { TabNavigator } from "react-navigation";
-import { Container, Text } from "native-base";
+import {AppRegistry, StyleSheet, Dimensions, View} from "react-native";
+import { inject, observer } from "mobx-react";
+import {TabNavigator} from "react-navigation";
+import {Container, Text} from "native-base";
 import * as React from "react";
 import {BaseContainer, Styles} from "../pure-components";
 import type {ScreenProps} from "../pure-components/Types";
 import MapView from "react-native-maps";
-import { Callout } from "react-native-maps";
+import {Callout} from "react-native-maps";
 
-
+@inject("channelsStore")
+@observer
 export default class Home extends React.Component<ScreenProps<>> {
     constructor(props) {
         super(props);
@@ -21,6 +23,8 @@ export default class Home extends React.Component<ScreenProps<>> {
     }
 
     componentDidMount() {
+        // Calling get channels
+        this.props.channelsStore.getChannels();
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 console.log("wokeeey");
@@ -31,13 +35,13 @@ export default class Home extends React.Component<ScreenProps<>> {
                     error: null
                 });
             },
-            (error) => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+            (error) => this.setState({error: error.message}),
+            {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000}
         );
     }
 
 
-    render() {
+    render(): React.Node {
         const nomePagina = "rtAirQual";
         const {navigation} = this.props;
         return (

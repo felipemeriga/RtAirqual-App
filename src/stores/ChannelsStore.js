@@ -1,5 +1,5 @@
 // @flow
-import { observable, action } from "mobx";
+import {observable, action} from "mobx";
 import axios from "axios";
 import Channel from "../model/Channel";
 
@@ -15,7 +15,7 @@ class ChannelsStore {
         this.loading = true;
         axios.get("https://fep6atgqtd.execute-api.us-west-2.amazonaws.com/dev")
             .then((response) => {
-                console.log(response.data);
+                this.channels = response.data.body;
                 this.loading = false;
             })
             .catch((error) => {

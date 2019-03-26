@@ -40,7 +40,7 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                         </Button>
                     </Right>
                 </NBHeader>
-                <Content>
+                <Content contentContainerStyle={style.container}>
                     {this.props.children}
                 </Content>
                 <Footer>
@@ -62,6 +62,9 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
 }
 
 const style = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     img: {
         width: WindowDimensions.width,
         height: WindowDimensions.height - Constants.statusBarHeight,

@@ -14,6 +14,7 @@ import SmartCity from "../../../assets/images/smartCityRT.png";
 import Notifications from "../../../assets/images/notifications.png";
 import Boletim from "../../../assets/images/boletim.png";
 import Graphic from "../../../assets/images/graphic.png";
+import RtMarker from "../../../assets/marker_rt.png";
 
 import DefaultAvatar from "../../../assets/images/avatars/default-avatar.jpg";
 import DefaultAvatar1 from "../../../assets/images/avatars/avatar-1.jpg";
@@ -45,6 +46,7 @@ export default class Images {
     static notifications = Notifications;
     static boletim = Boletim;
     static graphic = Graphic;
+    static rtMarker = RtMarker;
 
     static downloadAsync(): Promise<*>[] {
         return [
@@ -67,7 +69,8 @@ export default class Images {
             Asset.fromModule(Images.loginBackground).downloadAsync(),
             Asset.fromModule(Images.notifications).downloadAsync(),
             Asset.fromModule(Images.boletim).downloadAsync(),
-            Asset.fromModule(Images.graphic).downloadAsync()
+            Asset.fromModule(Images.graphic).downloadAsync(),
+            Asset.fromModule(Images.rtMarker).downloadAsync()
 
 
         ];

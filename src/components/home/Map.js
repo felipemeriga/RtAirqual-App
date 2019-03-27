@@ -1,13 +1,14 @@
 // @flow
-import * as React from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import MapView from "react-native-maps";
 import {View, StyleSheet} from "react-native";
 import Images from "../images";
 import {Styles} from "../pure-components";
 
-
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Map extends React.PureComponent<{}> {
+
 
     constructor(props: React.Node) {
         super(props);
@@ -17,6 +18,10 @@ export default class Map extends React.PureComponent<{}> {
             longitude: null,
             error: null
         };
+    }
+
+    setDataIntoMap(): React.Node {
+        console.log(this.props.channels[0]);
     }
 
     componentDidMount() {
@@ -33,7 +38,15 @@ export default class Map extends React.PureComponent<{}> {
             (error) => this.setState({error: error.message}),
             {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000}
         );
+        this.setDataIntoMap();
     }
+
+    static get propTypes(): React.Node {
+        return {
+            channels: PropTypes.arrayOf(Object)
+        };
+    }
+
     render(): React.Node {
         return (
             <View style={Styles.flexGrow}>
@@ -43,8 +56,8 @@ export default class Map extends React.PureComponent<{}> {
                         initialRegion={{
                             latitude: -23.3436887,
                             longitude: -51.1726026,
-                            latitudeDelta: 1,
-                            longitudeDelta: 1
+                            latitudeDelta: 0.1,
+                            longitudeDelta: 0.1
                         }}
                     >
 

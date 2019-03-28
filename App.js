@@ -24,12 +24,14 @@ import {Timeline} from "./src/components/timeline";
 import {Settings} from "./src/components/settings";
 import {Create} from "./src/components/create";
 import channelsStore from "./src/stores/ChannelsStore";
+import mapsStore from "./src/stores/MapsStore";
 
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";
 
 const stores = {
-    channelsStore
+    channelsStore,
+    mapsStore
 };
 
 

@@ -37,6 +37,7 @@
             "error",
             "never"
         ],
+        "prefer-destructuring": 0,
         "import/prefer-default-export": 0,
         "import/no-duplicates": 2,
         "react/sort-comp": 0,
@@ -103,14 +104,17 @@
             2,
             "always"
         ],
+        "arrow-body-style": 0,
         "flowtype/semi": [
             2,
             "always"
         ],
+
         "flowtype/space-after-type-colon": [
             2,
             "always"
         ],
+        "react/forbid-prop-types": 0,
         "flowtype/space-before-generic-bracket": [
             2,
             "never"
@@ -123,6 +127,7 @@
             2,
             "^([A-Z][a-z0-9]+)+$"
         ],
+        "react/jsx-tag-spacing": 0,
         "flowtype/union-intersection-spacing": [
             2,
             "always"

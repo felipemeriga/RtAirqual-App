@@ -1,49 +1,70 @@
 // @flow
+
 import React from "react";
+import {inject, observer} from "mobx-react";
 import PropTypes from "prop-types";
 import MapView from "react-native-maps";
 import {View, StyleSheet} from "react-native";
 import Images from "../images";
 import {Styles} from "../pure-components";
 
-// eslint-disable-next-line react/prefer-stateless-function
-export default class Map extends React.PureComponent<{}> {
+@inject("mapsStore")
+@observer
+export default class Map extends React.Component<{}> {
 
 
-    constructor(props: React.Node) {
-        super(props);
+    getRenderContent(): React.Node {
+        return (
+            <MapView
+                style={styles.cardContainer}
+                initialRegion={{
+                    latitude: this.props.localization.latitude,
+                    longitude: this.props.localization.longitude,
+                    latitudeDelta: 0.03,
+                    longitudeDelta: 0.03
+                }}
+            >
+                {this.setDataIntoMap()}
+                <MapView.Marker
+                    coordinate={{
+                        latitude: this.props.localization.latitude,
+                        longitude: this.props.localization.longitude
+                    }}
+                    title="Your Location"
+                />
 
-        this.state = {
-            latitude: null,
-            longitude: null,
-            error: null
-        };
+            </MapView>
+        );
     }
 
     setDataIntoMap(): React.Node {
-        console.log(this.props.channels[0]);
+        const channels = this.props.channels;
+        return (
+            channels.map((member, index) => {
+                return (<MapView.Marker
+                    key={index}
+                    coordinate={{
+                        latitude: member.latitude,
+                        longitude: member.longitude
+                    }}
+                    image={Images.rtMarker}
+                    title={member.name}
+                    description="description"
+                    onpre
+                />);
+            })
+
+        );
     }
 
     componentDidMount() {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                console.log("wokeeey");
-                console.log(position);
-                this.setState({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    error: null
-                });
-            },
-            (error) => this.setState({error: error.message}),
-            {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000}
-        );
-        this.setDataIntoMap();
     }
 
     static get propTypes(): React.Node {
         return {
-            channels: PropTypes.arrayOf(Object)
+            channels: PropTypes.arrayOf(Object),
+            localization: PropTypes.any,
+            mapsStore: PropTypes.any
         };
     }
 
@@ -51,90 +72,7 @@ export default class Map extends React.PureComponent<{}> {
         return (
             <View style={Styles.flexGrow}>
                 <View style={[styles.mapContainer, Styles.center]}>
-                    <MapView
-                        style={styles.cardContainer}
-                        initialRegion={{
-                            latitude: -23.3436887,
-                            longitude: -51.1726026,
-                            latitudeDelta: 0.1,
-                            longitudeDelta: 0.1
-                        }}
-                    >
-
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: -23.329533,
-                                longitude: -51.173548
-                            }}
-                            image={Images.rtMarker}
-                            title="Lago 2"
-                            description="description"
-                            onpre
-                        >
-
-                        </MapView.Marker>
-
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: -23.322067,
-                                longitude: -51.173079
-                            }}
-                            image={Images.rtMarker}
-                            title="Bosque Universitário"
-                            description="description"
-                        >
-                        </MapView.Marker>
-
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: -23.299477,
-                                longitude: -51.210220
-                            }}
-                            image={Images.rtMarker}
-                            title="PUC"
-                            description="description"
-                        >
-                        </MapView.Marker>
-
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: -23.307478,
-                                longitude: -51.113860
-                            }}
-                            image={Images.rtMarker}
-                            title="UTFPR"
-                            description="description"
-                        >
-                        </MapView.Marker>
-
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: -23.323550,
-                                longitude: -51.163392
-                            }}
-                            image={Images.rtMarker}
-                            title="Zerão"
-                            description="description"
-                        >
-                        </MapView.Marker>
-
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: -23.322218,
-                                longitude: -51.206351
-                            }}
-                            image={Images.rtMarker}
-                            title="Pista Atletismo UEL"
-                            description="description"
-                        >
-                        </MapView.Marker>
-
-                        {!!this.state.latitude && !!this.state.longitude && <MapView.Marker
-                            coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
-                            title="Your Location"
-                        />}
-                    </MapView>
-
+                    {this.getRenderContent()}
                 </View>
             </View>
         );

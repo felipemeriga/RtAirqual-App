@@ -4,10 +4,17 @@ import axios from "axios";
 import Channel from "../model/Channel";
 
 class ChannelsStore {
-    @observable loading = false;
-    @observable error = false;
+    @observable loadingLocalization = false;
+    @observable loadingChannels = false;
+    @observable errorFlag = false;
     @observable channels: Channel = [];
     @observable error;
+
+    @observable localization = {
+        latitude: Number,
+        longitude: Number,
+        error: String
+    };
 
 
     @action
@@ -20,8 +27,22 @@ class ChannelsStore {
             })
             .catch((error) => {
                 this.error = error;
-                this.error = true;
+                this.errorFlag = true;
             });
+    }
+
+    @action
+    async getLocalization(): React.node {
+        this.loadingLocalization = true;
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.localization.latitude = position.coords.latitude;
+                this.localization.longitude = position.coords.longitude;
+                this.loadingLocalization = false;
+            },
+            (error) => this.localization.error = error,
+            {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000},
+        );
     }
 }
 

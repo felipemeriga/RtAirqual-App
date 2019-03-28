@@ -15,18 +15,21 @@ export default class Home extends React.Component<ScreenProps<>> {
     constructor(props: React.Node) {
         super(props);
         this.props.channelsStore.getChannels();
+        this.props.channelsStore.getLocalization();
     }
 
     renderContent(): React.Node {
-        if (this.props.channelsStore.loading === false) {
+        if (this.props.channelsStore.loadingChannels === false
+            && this.props.channelsStore.loadingLocalization === false) {
             return (
-                <Map channels={this.props.channelsStore.channels} />
+
+                <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization}/>
             );
         }
 
         return (
             <View style={[Styles.center, Styles.flexGrow]}>
-                <Progress.Circle size={100} indeterminate />
+                <Progress.Circle size={100} indeterminate/>
             </View>
         );
     }

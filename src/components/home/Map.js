@@ -20,19 +20,12 @@ export default class Map extends React.Component<{}> {
                 initialRegion={{
                     latitude: this.props.localization.latitude,
                     longitude: this.props.localization.longitude,
-                    latitudeDelta: 0.03,
-                    longitudeDelta: 0.03
+                    latitudeDelta: 0.020,
+                    longitudeDelta: 0.020
                 }}
+				showsUserLocation={true}
             >
                 {this.setDataIntoMap()}
-                <MapView.Marker
-                    coordinate={{
-                        latitude: this.props.localization.latitude,
-                        longitude: this.props.localization.longitude
-                    }}
-                    title="Your Location"
-                />
-
             </MapView>
         );
     }
@@ -47,11 +40,11 @@ export default class Map extends React.Component<{}> {
                         latitude: member.latitude,
                         longitude: member.longitude
                     }}
-                    image={Images.rtMarker}
+					image={Images.rtMarker}
                     title={member.name}
                     description="description"
-                    onpre
-                />);
+                >
+				</MapView.Marker>);
             })
 
         );
@@ -84,8 +77,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     cardContainer: {
-        width: 390,
-        height: 500
+        width: 500,
+        height: 1000
     }
 });
 

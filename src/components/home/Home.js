@@ -22,7 +22,6 @@ export default class Home extends React.Component<ScreenProps<>> {
         if (this.props.channelsStore.loadingChannels === false
             && this.props.channelsStore.loadingLocalization === false) {
             return (
-
                 <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization}/>
             );
         }

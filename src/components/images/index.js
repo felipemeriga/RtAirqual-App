@@ -14,7 +14,7 @@ import SmartCity from "../../../assets/images/smartCityRT.png";
 import Notifications from "../../../assets/images/notifications.png";
 import Boletim from "../../../assets/images/boletim.png";
 import Graphic from "../../../assets/images/graphic.png";
-import RtMarker from "../../../assets/marker_rt_small.png";
+import RtMarker from "../../../assets/marker_rt_big.png";
 
 import DefaultAvatar from "../../../assets/images/avatars/default-avatar.jpg";
 import DefaultAvatar1 from "../../../assets/images/avatars/avatar-1.jpg";

@@ -5,17 +5,24 @@ import axios from "axios";
 class MapsStore {
     @observable dialogOn = false;
     @observable loadingDetail = false;
-    @observable markDetail: Object;
+    @observable markDetail: Object = {};
+    @observable thermalConfortMessage: Object = {};
+    @observable marker: Object = {};
     @observable error = false;
 
     @action
     async getMarkDetail(mark: any): React.node {
+        this.marker = mark;
         this.dialogOn = true;
         this.loadingDetail = true;
-        axios.get(mark.endPoint)
+        const url = "https://2y3nnveut3.execute-api.us-west-2.amazonaws.com/dev?endPoint="
+            + mark.endPoint + "?id=" + mark.id;
+        axios.get(url)
             .then((response) => {
-                this.markDetail = response.data.body;
+                this.markDetail = response.data.body[0];
                 this.loadingDetail = false;
+                this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
+                console.log(this.thermalConfortMessage);
             })
             .catch((err) => {
                 console.log(err);

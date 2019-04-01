@@ -42,40 +42,41 @@ export default class Map extends React.Component<{}> {
                         indeterminate
                     />
                     <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
-                        <Text style={styles.textBold}>
-                            Temperatura: {"\b"}{"\b"}
-                            <Text style={styles.textNormal}>
-                                {this.props.mapsStore.markDetail.field1}º
-                            </Text>
+						<Text style={styles.textBold1}>
+                            {this.props.mapsStore.markDetail.field1} ºC
                         </Text>
-                        <Text style={styles.textBold}>
-                            Umidade relativa: {"\b"}{"\b"}
-                            <Text style={styles.textNormal}>
-                                {this.props.mapsStore.markDetail.field2} %
-                            </Text>
+						<Text>
+						Temperatura {"\b"}{"\b"}
+						</Text>
+						
+                        <Text style={styles.textBold2}>
+                            {this.props.mapsStore.markDetail.field2} %
                         </Text>
-                        <Text style={styles.textBold}>
+						<Text>
+                        Umidade relativa {"\b"}{"\b"}
+						</Text>
+						
+						
+                            <Text style={styles.textBold3}>
+                                {parseFloat(this.props.mapsStore.markDetail.field3).toPrecision(3)}
+                            </Text>
+						<Text>
+                        Poluição do ar {"\b"}{"\b"}
+						</Text>
+						
+						
+                        <Text style={styles.textBold4}>
                             Condição: {"\b"}{"\b"}
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.thermalConfortMessage.tittle}
                             </Text>
                         </Text>
-                        <Text style={styles.textBold}>
-                            Resumo: {"\b"}{"\b"}
+                        <Text style={styles.textBold5}>
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.thermalConfortMessage.message}
                             </Text>
                         </Text>
-                        <Text style={styles.textBold}>
-                            Teste: {"\b"}{"\b"}
-                            <Text style={styles.textNormal}>
-                                temp:{this.props.mapsStore.markDetail.field1},
-                                hum:{this.props.mapsStore.markDetail.field2},
-                                polu:{this.props.mapsStore.markDetail.field3},
-                                confT:{this.props.mapsStore.markDetail.therm}
-                            </Text>
-                        </Text>
-                    </View>
+					</View>
                 </DialogContent>
             </Dialog>
         );
@@ -86,14 +87,15 @@ export default class Map extends React.Component<{}> {
         const channels = this.props.channels;
         return (
             <MapView
-                style={styles.cardContainer}
-                initialRegion={{
-                    latitude: this.props.localization.latitude,
-                    longitude: this.props.localization.longitude,
-                    latitudeDelta: 0.020,
-                    longitudeDelta: 0.020
-                }}
-                showsUserLocation
+				showsUserLocation
+				mapType={"standard"} //changes map style, default = standard
+					style={styles.cardContainer}
+					initialRegion={{
+						latitude: this.props.localization.latitude,
+						longitude: this.props.localization.longitude,
+						latitudeDelta: 0.030,
+						longitudeDelta: 0.030
+					}}
             >
                 {
                     channels.map((member, index) => {
@@ -105,7 +107,6 @@ export default class Map extends React.Component<{}> {
                             }}
                             image={Images.rtMarker}
                             onPress={() => {
-
                                 this.onMarkerTouched(member);
                             }}
                         >
@@ -149,8 +150,25 @@ const styles = StyleSheet.create({
     textNormal: {
         fontWeight: "normal"
     },
-    textBold: {
-        fontWeight: "bold"
+    textBold1: {
+        fontWeight: "bold",
+		backgroundColor: "grey"
+    },
+	    textBold2: {
+        fontWeight: "bold",
+		backgroundColor: "red"
+    },
+	    textBold3: {
+        fontWeight: "bold",
+		backgroundColor: "green"
+    },
+	    textBold4: {
+        fontWeight: "bold",
+		backgroundColor: "yellow"
+    },
+	    textBold5: {
+        fontWeight: "bold",
+		backgroundColor: "blue"
     },
     dialogPadding: {
         paddingTop: 20
@@ -163,6 +181,6 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         width: 500,
-        height: 1000
+        height: 1000 
     }
 });

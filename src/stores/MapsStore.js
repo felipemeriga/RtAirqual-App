@@ -22,12 +22,12 @@ class MapsStore {
                 this.markDetail = response.data.body[0];
                 this.loadingDetail = false;
                 this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                console.log("thermalConfortMessage-------------------------------------------------------\n");
-                console.log(this.thermalConfortMessage);
-                console.log("marker----------------------------------------------------------------------\n");
-                console.log(this.marker);
-                console.log("markDetail------------------------------------------------------------------\n");
-                console.log(this.markDetail);
+                //console.log("thermalConfortMessage-------------------------------------------------------\n");
+                //console.log(this.thermalConfortMessage);
+                //console.log("marker----------------------------------------------------------------------\n");
+                //console.log(this.marker);
+                //console.log("markDetail------------------------------------------------------------------\n");
+                //console.log(this.markDetail.thermalConfort);
             })
             .catch((err) => {
                 console.log(err);
@@ -42,8 +42,5 @@ class MapsStore {
         this.dialogOn = false;
         this.error = false;
     }
-
-
 }
-
 export default new MapsStore();

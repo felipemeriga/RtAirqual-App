@@ -58,9 +58,10 @@
         "react-native-extended-stylesheet": "^0.11.1",
         "react-native-maps": "^0.23.0",
         "react-native-modal": "^9.0.0",
-        "react-native-popup-dialog": "^0.18.0",
+        "react-native-popup-dialog": "^0.18.2",
         "react-native-progress": "^3.6.0",
         "react-native-swiper": "^1.5.4",
+        "react-native-table-component": "^1.2.0",
         "react-navigation": "^3.0.9"
     }
 }

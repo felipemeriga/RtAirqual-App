@@ -6,7 +6,7 @@ import Dialog, {SlideAnimation, DialogContent, DialogTitle} from "react-native-p
 import {inject, observer} from "mobx-react";
 import PropTypes from "prop-types";
 import MapView from "react-native-maps";
-import {View, StyleSheet, Text} from "react-native";
+import {View, StyleSheet, Text, FlatList, SafeAreaView} from "react-native";
 import Images from "../images";
 import {Styles} from "../pure-components";
 
@@ -14,6 +14,14 @@ import {Styles} from "../pure-components";
 @observer
 export default class Map extends React.Component<{}> {
 
+    state = {
+        data: [
+            {id: "00", name: "R "},
+            {id: "01", name: "A"},
+            {id: "02", name: "D"},
+            {id: "03", name: "C"}
+        ]
+    };
 
     onMarkerTouched(marker: any): React.Node {
         this.props.mapsStore.getMarkDetail(marker);
@@ -24,6 +32,7 @@ export default class Map extends React.Component<{}> {
     }
 
     getDialog(): React.Node {
+        const columns = 3;
         return (
             <Dialog
                 dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name}/>}
@@ -42,60 +51,46 @@ export default class Map extends React.Component<{}> {
                         indeterminate
                     />
                     <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
-						<Text style={styles.textBold1}>
-                            {this.props.mapsStore.markDetail.field1} ºC
-                        </Text>
-						<Text>
-						Temperatura {"\b"}{"\b"}
-						</Text>
-						
-                        <Text style={styles.textBold2}>
-                            {this.props.mapsStore.markDetail.field2} %
-                        </Text>
-						<Text>
-                        Umidade relativa {"\b"}{"\b"}
-						</Text>
-						
-						
-                            <Text style={styles.textBold3}>
-                                {parseFloat(this.props.mapsStore.markDetail.field3).toPrecision(3)}
-                            </Text>
-						<Text>
-                        Poluição do ar {"\b"}{"\b"}
-						</Text>
-						
-						
-                        <Text style={styles.textBold4}>
-                            Condição: {"\b"}{"\b"}
-                            <Text style={styles.textNormal}>
-                                {this.props.mapsStore.thermalConfortMessage.tittle}
-                            </Text>
-                        </Text>
-                        <Text style={styles.textBold5}>
-                            <Text style={styles.textNormal}>
-                                {this.props.mapsStore.thermalConfortMessage.message}
-                            </Text>
-                        </Text>
-					</View>
+
+
+                        <FlatList
+                            data={createRows(this.state.data, columns)}
+                            keyExtractor={item => item.id}
+                            numColumns={columns}
+                            renderItem={({item}) => {
+                                if (item.empty) {
+                                    return <View style={[styles.item, styles.itemEmpty]}/>;
+                                }
+                                return (
+                                    <View style={styles.item}>
+                                        <Text style={styles.text}>{item.name}</Text>
+                                    </View>
+                                );
+                            }}
+                        />
+
+
+                    </View>
                 </DialogContent>
             </Dialog>
         );
 
     }
 
+
     getMapView(): React.Node {
         const channels = this.props.channels;
         return (
             <MapView
-				showsUserLocation
-				mapType={"standard"} //changes map style, default = standard
-					style={styles.cardContainer}
-					initialRegion={{
-						latitude: this.props.localization.latitude,
-						longitude: this.props.localization.longitude,
-						latitudeDelta: 0.030,
-						longitudeDelta: 0.030
-					}}
+                showsUserLocation
+                mapType="standard" // changes map style, default = standard
+                style={styles.cardContainer}
+                initialRegion={{
+                    latitude: this.props.localization.latitude,
+                    longitude: this.props.localization.longitude,
+                    latitudeDelta: 0.030,
+                    longitudeDelta: 0.030
+                }}
             >
                 {
                     channels.map((member, index) => {
@@ -146,32 +141,47 @@ export const getCurrentLocation = () => {
     });
 };
 
+function createRows(data, columns) {
+    const rows = Math.floor(data.length / columns);
+    let lastRowElements = data.length - rows * columns;
+
+    while (lastRowElements !== columns) {
+        data.push({
+            id: `empty-${lastRowElements}`,
+            name: `empty-${lastRowElements}`,
+            empty: true
+        });
+        lastRowElements += 1;
+    }
+    return data;
+}
+
 const styles = StyleSheet.create({
     textNormal: {
         fontWeight: "normal"
     },
     textBold1: {
         fontWeight: "bold",
-		backgroundColor: "grey"
+        backgroundColor: "grey"
     },
-	    textBold2: {
+    textBold2: {
         fontWeight: "bold",
-		backgroundColor: "red"
+        backgroundColor: "red"
     },
-	    textBold3: {
+    textBold3: {
         fontWeight: "bold",
-		backgroundColor: "green"
+        backgroundColor: "green"
     },
-	    textBold4: {
+    textBold4: {
         fontWeight: "bold",
-		backgroundColor: "yellow"
+        backgroundColor: "yellow"
     },
-	    textBold5: {
+    textBold5: {
         fontWeight: "bold",
-		backgroundColor: "blue"
+        backgroundColor: "blue"
     },
     dialogPadding: {
-        paddingTop: 20
+        paddingTop: 1
     },
     hideLoadingDialog: {
         display: "none"
@@ -181,6 +191,20 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         width: 500,
-        height: 1000 
+        height: 1000
+    },
+    item: {
+        width: 1,
+        height: 1,
+        alignItems: "center",
+        backgroundColor: "#dcda48",
+        margin: 4,
+        padding: 20
+    },
+    text: {
+        color: "#555555"
+    },
+    itemEmpty: {
+        backgroundColor: "transparent"
     }
 });

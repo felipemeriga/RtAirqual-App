@@ -28,7 +28,7 @@ export default class Home extends React.Component<ScreenProps<>> {
 
         return (
             <View style={[Styles.center, Styles.flexGrow]}>
-                <Progress.Circle size={100} indeterminate/>
+                <Progress.Circle size={50} indeterminate/>
             </View>
         );
     }

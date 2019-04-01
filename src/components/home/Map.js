@@ -38,24 +38,42 @@ export default class Map extends React.Component<{}> {
                 <DialogContent style={Styles.center}>
                     <Progress.Circle
                         style={[this.props.mapsStore.loadingDetail ? {} : styles.hideLoadingDialog, styles.dialogPadding]}
-                        size={20}
+                        size={25}
                         indeterminate
                     />
                     <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
                         <Text style={styles.textBold}>
-                            Temperatura:{"\b"}{"\b"}
+                            Temperatura: {"\b"}{"\b"}
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.markDetail.field1}º
                             </Text>
                         </Text>
                         <Text style={styles.textBold}>
-                            Umidade:{"\b"}{"\b"}
+                            Umidade relativa: {"\b"}{"\b"}
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.markDetail.field2} %
                             </Text>
                         </Text>
                         <Text style={styles.textBold}>
-                            {this.props.mapsStore.thermalConfortMessage.tittle}
+                            Condição: {"\b"}{"\b"}
+                            <Text style={styles.textNormal}>
+                                {this.props.mapsStore.thermalConfortMessage.tittle}
+                            </Text>
+                        </Text>
+                        <Text style={styles.textBold}>
+                            Resumo: {"\b"}{"\b"}
+                            <Text style={styles.textNormal}>
+                                {this.props.mapsStore.thermalConfortMessage.message}
+                            </Text>
+                        </Text>
+                        <Text style={styles.textBold}>
+                            Teste: {"\b"}{"\b"}
+                            <Text style={styles.textNormal}>
+                                temp:{this.props.mapsStore.markDetail.field1},
+                                hum:{this.props.mapsStore.markDetail.field2},
+                                polu:{this.props.mapsStore.markDetail.field3},
+                                confT:{this.props.mapsStore.markDetail.therm}
+                            </Text>
                         </Text>
                     </View>
                 </DialogContent>
@@ -87,6 +105,7 @@ export default class Map extends React.Component<{}> {
                             }}
                             image={Images.rtMarker}
                             onPress={() => {
+
                                 this.onMarkerTouched(member);
                             }}
                         >
@@ -119,6 +138,12 @@ export default class Map extends React.Component<{}> {
         );
     }
 }
+
+export const getCurrentLocation = () => {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(position => resolve(position), e => reject(e));
+    });
+};
 
 const styles = StyleSheet.create({
     textNormal: {

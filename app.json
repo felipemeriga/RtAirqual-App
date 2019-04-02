@@ -5,15 +5,15 @@
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/app.png",
-        "primaryColor": "#00BAFF",
+        "primaryColor": "#333333",
         "splash": {
-            "image": "./assets/images/splash.png",
-            "backgroundColor": "#00BAFF",
+            "image": "./assets/images/fundo_rt.png",
+            "backgroundColor": "#333333",
             "resizeMode": "cover"
         },
         "androidStatusBar": {
             "barStyle": "light-content",
-            "backgroundColor": "#00BAFF"
+            "backgroundColor": "#333333"
         },
         "packagerOpts": {
             "assetExts": ["otf", "ttf"]

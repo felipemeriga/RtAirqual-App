@@ -3,10 +3,10 @@
 import {Asset} from "expo";
 
 
-import Gradient from "../../../assets/images/rainbowBlue.jpg";
+import Gradient from "../../../assets/images/fundo_rt.png";
 import LoginBackground from "../../../assets/images/login&SplashBack.jpg";
-import SignUp from "../../../assets/images/signUp.jpg";
-import Walkthrough from "../../../assets/images/walkthrough.jpg";
+import SignUp from "../../../assets/images/fundo_rt.png";
+import Walkthrough from "../../../assets/images/fundo_rt.png";
 import Profile from "../../../assets/images/profile.jpg";
 import LogoSymbol from "../../../assets/images/logoSymbol.png";
 import LogoLetter from "../../../assets/images/logoLetter.png";

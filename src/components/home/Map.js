@@ -54,6 +54,7 @@ export default class Map extends React.Component<{}> {
 
 
                         <FlatList
+							style={{maxHeight:'80%'}}
                             data={createRows(this.state.data, columns)}
                             keyExtractor={item => item.id}
                             numColumns={columns}
@@ -194,8 +195,6 @@ const styles = StyleSheet.create({
         height: 1000
     },
     item: {
-        width: 1,
-        height: 1,
         alignItems: "center",
         backgroundColor: "#dcda48",
         margin: 4,

@@ -16,10 +16,9 @@ export default class Map extends React.Component<{}> {
 
     state = {
         data: [
-            {id: "00", name: "R "},
-            {id: "01", name: "A"},
-            {id: "02", name: "D"},
-            {id: "03", name: "C"}
+            {id: "00", name: "11"},
+            {id: "01", name: "22"},
+            {id: "02", name: "33"}
         ]
     };
 
@@ -35,6 +34,7 @@ export default class Map extends React.Component<{}> {
         const columns = 3;
         return (
             <Dialog
+				style={styles.dialog}
                 dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name}/>}
                 visible={this.props.mapsStore.dialogOn}
                 dialogAnimation={new SlideAnimation({
@@ -50,11 +50,12 @@ export default class Map extends React.Component<{}> {
                         size={25}
                         indeterminate
                     />
-                    <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
-
-
-                        <FlatList
-							style={{maxHeight:'80%'}}
+                    <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {maxHeight:"45%"}}>
+                        
+						
+						
+						<FlatList
+							style={styles.flatList}
                             data={createRows(this.state.data, columns)}
                             keyExtractor={item => item.id}
                             numColumns={columns}
@@ -69,8 +70,9 @@ export default class Map extends React.Component<{}> {
                                 );
                             }}
                         />
-
-
+						
+						
+						
                     </View>
                 </DialogContent>
             </Dialog>
@@ -205,5 +207,11 @@ const styles = StyleSheet.create({
     },
     itemEmpty: {
         backgroundColor: "transparent"
-    }
+    },
+	flatList: {
+		backgroundColor: "grey"
+	},
+	dialog: {
+		backgroundColor: "grey"
+	}
 });

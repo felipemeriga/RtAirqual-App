@@ -17,7 +17,7 @@ export default class Overview extends React.PureComponent<ScreenProps<>> {
 
     render(): React.Node {
         return (
-            <BaseContainer title="Overview" navigation={this.props.navigation}>
+            <BaseContainer title="Boletim" navigation={this.props.navigation}>
                 <Tabs>
                     <Tab heading={<TabHeading><Text style={style.tabHeading}>DAY</Text></TabHeading>}>
                         <OverviewTab period={DAY} />

@@ -6,7 +6,7 @@ import Dialog, {SlideAnimation, DialogContent, DialogTitle} from "react-native-p
 import {inject, observer} from "mobx-react";
 import PropTypes from "prop-types";
 import MapView from "react-native-maps";
-import {View, StyleSheet, Text, FlatList, SafeAreaView} from "react-native";
+import {View, StyleSheet, Text, FlatList, SafeAreaView, AppRegistry} from "react-native";
 import Images from "../images";
 import {Styles} from "../pure-components";
 
@@ -34,7 +34,7 @@ export default class Map extends React.Component<{}> {
         const columns = 3;
         return (
             <Dialog
-				style={styles.dialog}
+                style={styles.dialog}
                 dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name}/>}
                 visible={this.props.mapsStore.dialogOn}
                 dialogAnimation={new SlideAnimation({
@@ -46,33 +46,41 @@ export default class Map extends React.Component<{}> {
             >
                 <DialogContent style={Styles.center}>
                     <Progress.Circle
-                        style={[this.props.mapsStore.loadingDetail ? {} : styles.hideLoadingDialog, styles.dialogPadding]}
+                        style={[this.props.mapsStore.loadingDetail ? {} :
+                            styles.hideLoadingDialog, styles.dialogPadding]}
                         size={25}
                         indeterminate
                     />
-                    <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {maxHeight:"45%"}}>
-                        
-						
-						
-						<FlatList
-							style={styles.flatList}
-                            data={createRows(this.state.data, columns)}
-                            keyExtractor={item => item.id}
-                            numColumns={columns}
-                            renderItem={({item}) => {
-                                if (item.empty) {
-                                    return <View style={[styles.item, styles.itemEmpty]}/>;
-                                }
-                                return (
-                                    <View style={styles.item}>
-                                        <Text style={styles.text}>{item.name}</Text>
-                                    </View>
-                                );
-                            }}
-                        />
-						
-						
-						
+                    <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
+                        <Text style={styles.textBold1}>
+                            <Text>
+                                Temperatura: {"\b"}{"\b"}
+                            </Text>
+                            {this.props.mapsStore.markDetail.field1} ºC
+                        </Text>
+                        <Text style={styles.textBold1}>
+                            <Text>
+                                Umidade relativa: {"\b"}{"\b"}
+                            </Text>
+                            {this.props.mapsStore.markDetail.field2} %
+                        </Text>
+                        <Text style={styles.textBold1}>
+                            <Text>
+                                Poluição do ar: {"\b"}{"\b"}
+                            </Text>
+                            {parseFloat(this.props.mapsStore.markDetail.field3).toPrecision(3)}
+                        </Text>
+                        <Text style={styles.textBold1}>
+                            Condição: {"\b"}{"\b"}
+                            <Text style={styles.textNormal}>
+                                {this.props.mapsStore.thermalConfortMessage.tittle}
+                            </Text>
+                        </Text>
+                        <Text style={styles.textBold1}>
+                            <Text style={styles.textNormal}>
+                                {this.props.mapsStore.thermalConfortMessage.message}
+                            </Text>
+                        </Text>
                     </View>
                 </DialogContent>
             </Dialog>
@@ -164,8 +172,7 @@ const styles = StyleSheet.create({
         fontWeight: "normal"
     },
     textBold1: {
-        fontWeight: "bold",
-        backgroundColor: "grey"
+        fontWeight: "bold"
     },
     textBold2: {
         fontWeight: "bold",
@@ -184,7 +191,7 @@ const styles = StyleSheet.create({
         backgroundColor: "blue"
     },
     dialogPadding: {
-        paddingTop: 1
+        paddingTop: 20
     },
     hideLoadingDialog: {
         display: "none"
@@ -208,10 +215,10 @@ const styles = StyleSheet.create({
     itemEmpty: {
         backgroundColor: "transparent"
     },
-	flatList: {
-		backgroundColor: "grey"
-	},
-	dialog: {
-		backgroundColor: "grey"
-	}
+    flatList: {
+        backgroundColor: "grey"
+    },
+    dialog: {
+        backgroundColor: "grey"
+    }
 });

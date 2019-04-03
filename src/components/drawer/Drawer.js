@@ -32,7 +32,7 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>NAVIGATE</Title>
+                        <Title>Menu</Title>
                     </Body>
                     <Right />
                 </Header>

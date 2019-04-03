@@ -77,7 +77,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                             returnKeyType="go"
                         />
                         <Field label="Sexo">
-                            <SingleChoice labels={["Male", "Female"]} />
+                            <SingleChoice labels={["Masculino", "Feminino"]} />
                         </Field>
                     </View>
                 </Content>

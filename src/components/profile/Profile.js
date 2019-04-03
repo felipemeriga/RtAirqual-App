@@ -14,7 +14,7 @@ export default class Profile extends React.PureComponent<ScreenProps<>> {
     render(): React.Node {
         const today = moment();
         return (
-            <BaseContainer title="Paul TESTE" navigation={this.props.navigation} scrollable>
+            <BaseContainer title="rt AirQual" navigation={this.props.navigation} scrollable>
                 <Image source={Images.profile} style={style.img} />
                 <View style={style.row}>
                     <H1>{today.format("MMMM")}</H1>
@@ -33,7 +33,7 @@ const style = StyleSheet.create({
         height: width * (500 / 750),
         resizeMode: "cover"
     },
-    row: {
+    row: { 
         justifyContent: "center",
         alignItems: "center",
         padding: variables.contentPadding * 2

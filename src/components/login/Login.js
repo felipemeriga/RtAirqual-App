@@ -43,7 +43,7 @@ export default class Login extends React.Component<ScreenProps<>> {
                             </View>
                             <View>
                                 <Field
-                                    label="Usuário"
+                                    label="Usuário ou email"
                                     autoCapitalize="none"
                                     returnKeyType="next"
                                     onSubmitEditing={this.goToPassword}

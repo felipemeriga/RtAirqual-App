@@ -16,6 +16,10 @@ const Styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+	centerDialog: {
+		justifyContent: "center",
+		alignItems: "center"
+    },
     textCentered: {
         textAlign: "center"
     },

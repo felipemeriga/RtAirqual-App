@@ -34,8 +34,9 @@ export default class Map extends React.Component<{}> {
         const columns = 3;
         return (
             <Dialog
-                style={styles.dialog}
-                dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name}/>}
+                dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name} 
+				style={styles.titleDialog}
+				/>}
                 visible={this.props.mapsStore.dialogOn}
                 dialogAnimation={new SlideAnimation({
                     slideFrom: "bottom"
@@ -44,7 +45,7 @@ export default class Map extends React.Component<{}> {
                     this.props.mapsStore.onTouchOutside();
                 }}
             >
-                <DialogContent style={Styles.center}>
+                <DialogContent style={Styles.centerDialog}>
                     <Progress.Circle
                         style={[this.props.mapsStore.loadingDetail ? {} :
                             styles.hideLoadingDialog, styles.dialogPadding]}
@@ -52,35 +53,57 @@ export default class Map extends React.Component<{}> {
                         indeterminate
                     />
                     <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
-                        <Text style={styles.textBold1}>
-                            <Text>
-                                Temperatura: {"\b"}{"\b"}
-                            </Text>
-                            {this.props.mapsStore.markDetail.field1} ºC
-                        </Text>
-                        <Text style={styles.textBold1}>
-                            <Text>
-                                Umidade relativa: {"\b"}{"\b"}
-                            </Text>
-                            {this.props.mapsStore.markDetail.field2} %
-                        </Text>
-                        <Text style={styles.textBold1}>
-                            <Text>
-                                Poluição do ar: {"\b"}{"\b"}
-                            </Text>
-                            {parseFloat(this.props.mapsStore.markDetail.field3).toPrecision(3)}
-                        </Text>
-                        <Text style={styles.textBold1}>
+
+						<View style={{
+							flexDirection: "row",
+							justifyContent: 'space-around',
+							padding: 5
+							}}>
+							<View style={{width: 75, height: 60, backgroundColor: '#ffffff',borderRadius: 4,
+							borderWidth: 0.5,
+							borderColor: '#d6d7da'}}>
+								<Text style={styles.textBoxDialog}> 
+									{this.props.mapsStore.markDetail.field1}º
+								</Text>
+								<Text style={styles.legenda}>
+									Temperatura
+								</Text>
+							</View>
+							
+							<View style={{width: 75, height: 60, backgroundColor: '#ffffff',borderRadius: 4,
+							borderWidth: 0.5,
+							borderColor: '#d6d7da'}}>
+								<Text style={styles.textBoxDialog}>
+									{this.props.mapsStore.markDetail.field2} %
+								</Text>
+								<Text style={styles.legenda}>
+									Umidade
+								</Text>
+							</View>
+							
+							<View style={{width: 75, height: 60, backgroundColor: '#ffffff',borderRadius: 4,
+							borderWidth: 0.5,
+							borderColor: '#d6d7da'}}>
+								<Text style={styles.textBoxDialog}>
+									{parseFloat(this.props.mapsStore.markDetail.field3).toPrecision(3)}								</Text>
+								<Text style={styles.legenda}>
+									IQA
+								</Text>
+							</View>
+						</View>
+					<Text style={styles.textDialog}>
                             Condição: {"\b"}{"\b"}
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.thermalConfortMessage.tittle}
                             </Text>
                         </Text>
-                        <Text style={styles.textBold1}>
+                        <Text style={styles.textDialog}>
+							Dica: {"\b"}{"\b"}
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.thermalConfortMessage.message}
                             </Text>
                         </Text>
+
                     </View>
                 </DialogContent>
             </Dialog>
@@ -94,13 +117,13 @@ export default class Map extends React.Component<{}> {
         return (
             <MapView
                 showsUserLocation
-                mapType="standard" // changes map style, default = standard
+                mapType="satellite" // changes map style, default = standard, satellite, hybrid, terrain
                 style={styles.cardContainer}
                 initialRegion={{
                     latitude: this.props.localization.latitude,
                     longitude: this.props.localization.longitude,
-                    latitudeDelta: 0.030,
-                    longitudeDelta: 0.030
+                    latitudeDelta: 0.04,
+                    longitudeDelta: 0.04
                 }}
             >
                 {
@@ -171,16 +194,22 @@ const styles = StyleSheet.create({
     textNormal: {
         fontWeight: "normal"
     },
-    textBold1: {
-        fontWeight: "bold"
-    },
-    textBold2: {
+	legenda: {
+		textAlign: "center"
+	},
+    textBoxDialog: {
         fontWeight: "bold",
-        backgroundColor: "red"
+		padding: 5,
+		fontSize: 25,
+		textAlign: "center"
     },
-    textBold3: {
+    titleDialog: {
         fontWeight: "bold",
-        backgroundColor: "green"
+		fontSize: 20,
+    },
+    textDialog: {
+        fontWeight: "bold",
+		fontSize: 15
     },
     textBold4: {
         fontWeight: "bold",
@@ -216,9 +245,6 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent"
     },
     flatList: {
-        backgroundColor: "grey"
-    },
-    dialog: {
         backgroundColor: "grey"
     }
 });

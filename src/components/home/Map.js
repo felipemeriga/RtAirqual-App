@@ -55,13 +55,12 @@ export default class Map extends React.Component<{}> {
                     <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
 
 						<View style={{
+							//alignItems: 'stretch',
 							flexDirection: "row",
-							justifyContent: 'space-around',
+							justifyContent: 'space-around', //center , space-between, space-around
 							padding: 5
 							}}>
-							<View style={{width: 75, height: 60, backgroundColor: '#ffffff',borderRadius: 4,
-							borderWidth: 0.5,
-							borderColor: '#d6d7da'}}>
+							<View style={styles.caixaInfoDialog}>
 								<Text style={styles.textBoxDialog}> 
 									{this.props.mapsStore.markDetail.field1}º
 								</Text>
@@ -70,20 +69,16 @@ export default class Map extends React.Component<{}> {
 								</Text>
 							</View>
 							
-							<View style={{width: 75, height: 60, backgroundColor: '#ffffff',borderRadius: 4,
-							borderWidth: 0.5,
-							borderColor: '#d6d7da'}}>
+							<View style={styles.caixaInfoDialog2}>
 								<Text style={styles.textBoxDialog}>
-									{this.props.mapsStore.markDetail.field2} %
+									{this.props.mapsStore.markDetail.field2}%
 								</Text>
 								<Text style={styles.legenda}>
 									Umidade
 								</Text>
 							</View>
 							
-							<View style={{width: 75, height: 60, backgroundColor: '#ffffff',borderRadius: 4,
-							borderWidth: 0.5,
-							borderColor: '#d6d7da'}}>
+							<View style={styles.caixaInfoDialog3}>
 								<Text style={styles.textBoxDialog}>
 									{parseFloat(this.props.mapsStore.markDetail.field3).toPrecision(3)}								</Text>
 								<Text style={styles.legenda}>
@@ -91,13 +86,13 @@ export default class Map extends React.Component<{}> {
 								</Text>
 							</View>
 						</View>
-					<Text style={styles.textDialog}>
+					<Text style={styles.infoDicaDialog}>
                             Condição: {"\b"}{"\b"}
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.thermalConfortMessage.tittle}
                             </Text>
                         </Text>
-                        <Text style={styles.textDialog}>
+                        <Text style={styles.infoDicaDialog}>
 							Dica: {"\b"}{"\b"}
                             <Text style={styles.textNormal}>
                                 {this.props.mapsStore.thermalConfortMessage.message}
@@ -117,7 +112,7 @@ export default class Map extends React.Component<{}> {
         return (
             <MapView
                 showsUserLocation
-                mapType="satellite" // changes map style, default = standard, satellite, hybrid, terrain
+                mapType="standard" // changes map style, default = standard, satellite, hybrid, terrain
                 style={styles.cardContainer}
                 initialRegion={{
                     latitude: this.props.localization.latitude,
@@ -194,7 +189,29 @@ const styles = StyleSheet.create({
     textNormal: {
         fontWeight: "normal"
     },
+	caixaInfoDialog: {
+		flex: 1,
+		borderRadius: 4,
+		borderWidth: 0.5,
+		backgroundColor: "#ffcccc",
+		borderColor: '#000000'
+	},
+	caixaInfoDialog2: {
+		flex: 1,
+		borderRadius: 4,
+		borderWidth: 0.5,
+		backgroundColor: "#ccffcc",
+		borderColor: '#000000'
+	},
+	caixaInfoDialog3: {
+		flex: 1,
+		borderRadius: 4,
+		borderWidth: 0.5,
+		backgroundColor: "#ffffcc",
+		borderColor: '#000000'
+	},
 	legenda: {
+        fontWeight: "bold",
 		textAlign: "center"
 	},
     textBoxDialog: {
@@ -205,19 +222,12 @@ const styles = StyleSheet.create({
     },
     titleDialog: {
         fontWeight: "bold",
-		fontSize: 20,
+		fontSize: 30
     },
-    textDialog: {
+    infoDicaDialog: {
         fontWeight: "bold",
-		fontSize: 15
-    },
-    textBold4: {
-        fontWeight: "bold",
-        backgroundColor: "yellow"
-    },
-    textBold5: {
-        fontWeight: "bold",
-        backgroundColor: "blue"
+		fontSize: 15,
+		padding: 2
     },
     dialogPadding: {
         paddingTop: 20
@@ -231,20 +241,5 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: 500,
         height: 1000
-    },
-    item: {
-        alignItems: "center",
-        backgroundColor: "#dcda48",
-        margin: 4,
-        padding: 20
-    },
-    text: {
-        color: "#555555"
-    },
-    itemEmpty: {
-        backgroundColor: "transparent"
-    },
-    flatList: {
-        backgroundColor: "grey"
     }
 });

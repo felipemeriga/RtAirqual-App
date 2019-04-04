@@ -7,6 +7,8 @@ class MapsStore {
     @observable loadingDetail = false;
     @observable markDetail: Object = {};
     @observable thermalConfortMessage: Object = {};
+    @observable relativeHumityMessage: Object = {};
+    @observable airQualityMessage: Object = {};
     @observable marker: Object = {};
     @observable error = false;
 
@@ -22,12 +24,9 @@ class MapsStore {
                 this.markDetail = response.data.body[0];
                 this.loadingDetail = false;
                 this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                //console.log("thermalConfortMessage-------------------------------------------------------\n");
-                //console.log(this.thermalConfortMessage);
-                //console.log("marker----------------------------------------------------------------------\n");
-                //console.log(this.marker);
-                //console.log("markDetail------------------------------------------------------------------\n");
-                //console.log(this.markDetail.thermalConfort);
+                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
+                this.airQualityMessage = this.markDetail.airQualityMessage[0];
+
             })
             .catch((err) => {
                 console.log(err);

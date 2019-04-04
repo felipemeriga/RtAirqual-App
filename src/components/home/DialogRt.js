@@ -1,15 +1,18 @@
 // @flow
 import React from "react";
+import {inject, observer} from "mobx-react";
 import * as Progress from "react-native-progress";
 import Dialog, {SlideAnimation, DialogContent, DialogTitle} from "react-native-popup-dialog";
 import PropTypes from "prop-types";
 import {StyleSheet, Text, View} from "react-native";
 import {Styles} from "../pure-components";
 
-
-export default class Map extends React.PureComponent<{}> {
+@inject("mapsStore")
+@observer
+export default class DialogRt extends React.Component<{}> {
 
     getRenderContent(): React.Node {
+        this.test();
         return (
             <Dialog
                 dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name} style={styles.titleDialog}/>}
@@ -85,14 +88,14 @@ export default class Map extends React.PureComponent<{}> {
 
     static get propTypes(): React.Node {
         return {
-            mapsStore: PropTypes.arrayOf(Object)
+            mapsStore: PropTypes.any
         };
     }
 
 
     render(): React.Node {
         return (
-            <View>
+            <View style={styles.mapContainer}>
                 {this.getRenderContent()}
             </View>
         );
@@ -101,6 +104,9 @@ export default class Map extends React.PureComponent<{}> {
 
 
 const styles = StyleSheet.create({
+    mapContainer: {
+        flex: 1
+    },
     textNormal: {
         fontWeight: "normal"
     },

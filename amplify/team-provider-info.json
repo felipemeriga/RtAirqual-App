@@ -1,0 +1,14 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "rtairqual-20190404140336-authRole",
+            "UnauthRoleArn": "arn:aws:iam::824065353601:role/rtairqual-20190404140336-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::824065353601:role/rtairqual-20190404140336-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "rtairqual-20190404140336-deployment",
+            "UnauthRoleName": "rtairqual-20190404140336-unauthRole",
+            "StackName": "rtairqual-20190404140336",
+            "StackId": "arn:aws:cloudformation:us-west-2:824065353601:stack/rtairqual-20190404140336/97161e60-56fb-11e9-a6a0-020d7038e876"
+        }
+    }
+}

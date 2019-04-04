@@ -47,7 +47,9 @@ export default class App extends React.Component<{}, AppState> {
     };
 
     componentWillMount() {
+
         const promises = [];
+        Images.setPlataformImages();
         promises.push(Font.loadAsync({
             "Avenir-Book": require("./fonts/Avenir-Book.ttf"),
             "Avenir-Light": require("./fonts/Avenir-Light.ttf")

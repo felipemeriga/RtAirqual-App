@@ -12,7 +12,6 @@ import {Styles} from "../pure-components";
 export default class DialogRt extends React.Component<{}> {
 
     getRenderContent(): React.Node {
-        this.test();
         return (
             <Dialog
                 dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name} style={styles.titleDialog}/>}

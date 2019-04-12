@@ -1,6 +1,7 @@
 // @flow
 import * as React from "react";
 import {StyleSheet, Image, View, TextInput, SafeAreaView} from "react-native";
+import {inject, observer} from "mobx-react";
 import {Button, Text, Content} from "native-base";
 import {Constants} from "expo";
 
@@ -10,6 +11,8 @@ import type {ScreenProps} from "../pure-components/Types";
 
 import variables from "../../../native-base-theme/variables/commonColor";
 
+@inject("authStore")
+@observer
 export default class Login extends React.Component<ScreenProps<>> {
 
     // $FlowFixMe

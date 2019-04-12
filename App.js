@@ -4,7 +4,7 @@ import * as React from "react";
 import {Dimensions} from "react-native";
 import {StyleProvider} from "native-base";
 import {Provider} from "mobx-react";
-import Amplify, { Auth } from "aws-amplify";
+import Amplify, {Auth} from "aws-amplify";
 import {
     createAppContainer, createSwitchNavigator, createDrawerNavigator
 } from "react-navigation";
@@ -26,13 +26,15 @@ import {Settings} from "./src/components/settings";
 import {Create} from "./src/components/create";
 import channelsStore from "./src/stores/ChannelsStore";
 import mapsStore from "./src/stores/MapsStore";
+import authStore from "./src/stores/AuthStore";
 
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";
 
 const stores = {
     channelsStore,
-    mapsStore
+    mapsStore,
+    authStore
 };
 
 
@@ -68,9 +70,9 @@ export default class App extends React.Component<{}, AppState> {
                     {
                         ready
                             ?
-                            <AppNavigator onNavigationStateChange={() => undefined} />
+                            <AppNavigator onNavigationStateChange={() => undefined}/>
                             :
-                            <AppLoading startAsync={null} onError={null} onFinish={null} />
+                            <AppLoading startAsync={null} onError={null} onFinish={null}/>
                     }
                 </StyleProvider>
             </Provider>

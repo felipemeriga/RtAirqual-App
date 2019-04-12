@@ -12,22 +12,31 @@ class AuthStore {
     @action
     async signIn(username: string, password: string): React.node {
         this.autheticating = true;
-        const validationData = {};
+        // const validationData = {};
+        console.log(username);
+        console.log(password);
         try {
             const user = await Auth.signIn(username, password);
             if (user.challengeName === "SMS_MFA" ||
                 user.challengeName === "SOFTWARE_TOKEN_MFA") {
+                console.log("SOFTWARE_TOKEN_MFA");
                 // You need to get the code from the UI inputs
                 // and then trigger the following function with a button click
                 // If MFA is enabled, sign-in should be confirmed with the confirmation code
             } else if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
                 // Used when you have to set a new password
+                await Auth.completeNewPassword(user, password)
+                    .then(() => {
+                        console.log("Password updated");
+                    });
             } else if (user.challengeName === "MFA_SETUP") {
+                console.log("MFA_SETUP");
                 // This happens when the MFA method is TOTP
                 // The user needs to setup the TOTP before using it
                 // More info please check the Enabling MFA part
                 Auth.setupTOTP(user);
             } else {
+                console.log("DONE");
                 // The user directly signs in
                 this.authenticated = true;
                 this.autheticating = false;
@@ -58,12 +67,6 @@ class AuthStore {
                 console.log(err);
             }
         }
-        Auth.signIn({
-            username, // Required, the username
-            password, // Optional, the password
-            validationData
-        }).then(user => console.log(user))
-            .catch(err => console.log(err));
     }
 
     @action

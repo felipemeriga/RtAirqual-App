@@ -17,10 +17,12 @@ export default class Login extends React.Component<ScreenProps<>> {
 
     // $FlowFixMe
     password: TextInput;
+    email: TextInput;
 
 
     // $FlowFixMe
     setPasswordRef = (input: TextInput) => this.password = input._root;
+    setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
     signIn = () => this.props.navigation.navigate("Walkthrough");
     signUp = () => this.props.navigation.navigate("SignUp");
@@ -49,7 +51,7 @@ export default class Login extends React.Component<ScreenProps<>> {
                                     label="Usuário ou email"
                                     autoCapitalize="none"
                                     returnKeyType="next"
-                                    onSubmitEditing={this.goToPassword}
+                                    textInputRef={this.setEmailRef}
                                 />
                                 <Field
                                     label="Senha"

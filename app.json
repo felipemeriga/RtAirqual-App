@@ -5,6 +5,7 @@
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/app.png",
+        "facebookScheme": "fb2286396934947742",
         "primaryColor": "#333333",
         "splash": {
             "image": "./assets/images/fundo_rt.png",

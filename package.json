@@ -42,8 +42,9 @@
         }
     },
     "dependencies": {
+        "@aws-amplify/cli": "^1.6.4",
         "@expo/vector-icons": "6.3.1",
-        "aws-amplify": "^1.1.24",
+        "aws-amplify": "^1.1.26",
         "aws-amplify-react-native": "^2.1.9",
         "axios": "^0.18.0",
         "colors": "1.0.3",
@@ -64,6 +65,7 @@
         "react-native-progress": "^3.6.0",
         "react-native-swiper": "^1.5.4",
         "react-native-table-component": "^1.2.0",
-        "react-navigation": "^3.0.9"
+        "react-navigation": "^3.0.9",
+        "yarn": "^1.15.2"
     }
 }

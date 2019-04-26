@@ -3,12 +3,15 @@ import * as React from "react";
 import {View, Image, StyleSheet, TextInput} from "react-native";
 import {Button, Header, Left, Right, Body, Icon, Title, Text, Content} from "native-base";
 import {Constants} from "expo";
-
+import {inject, observer} from "mobx-react";
 import {Container, Images, Field, Styles, SingleChoice, WindowDimensions} from "../pure-components";
 import type {ScreenProps} from "../pure-components/Types";
 
 import variables from "../../../native-base-theme/variables/commonColor";
 
+
+@inject("authStore")
+@observer
 export default class SignUp extends React.Component<ScreenProps<>> {
 
     // $FlowFixMe
@@ -17,44 +20,48 @@ export default class SignUp extends React.Component<ScreenProps<>> {
     password: TextInput;
 
     // $FlowFixMe
-    setUsernameRef = (input: TextInput) => this.username = input._root
-    goToUsername = () => this.username.focus()
+    setUsernameRef = (input: TextInput) => this.username = input._root;
+    goToUsername = () => this.username.focus();
     // $FlowFixMe
-    setPasswordRef = (input: TextInput) => this.password = input._root
-    goToPassword = () => this.password.focus()
-    back = () => this.props.navigation.navigate("Login")
-    signIn = () => this.props.navigation.navigate("Walkthrough")
+    setPasswordRef = (input: TextInput) => this.password = input._root;
+    goToPassword = () => this.password.focus();
+    back = () => this.props.navigation.navigate("Login");
+    signIn = () => this.props.navigation.navigate("Walkthrough");
+    // signIn = () => this.props.authStore.signUp("felipe.meriga@gmail.com", "Meleka1!", {
+    //     phone_number: "+5543996205231"
+    // });
+    federatedSignIn = () => this.props.authStore.federatedSignIn();
 
     render(): React.Node {
         return (
             <Container safe>
-                <Image source={Images.gradient} style={style.img} />
+                <Image source={Images.gradient} style={style.img}/>
                 <Content style={Styles.flexGrow}>
                     <Header noShadow>
                         <Left>
                             <Button onPress={this.back} transparent>
-                                <Icon name="close" />
+                                <Icon name="close"/>
                             </Button>
                         </Left>
                         <Body>
                             <Title>Criar Conta</Title>
                         </Body>
-                        <Right />
+                        <Right/>
                     </Header>
                     <View style={style.row}>
                         <Button transparent block style={style.btn}>
-                            <Icon name="logo-google" />
+                            <Icon name="logo-google"/>
                             <Text style={Styles.textCentered}>Conectar com</Text>
                             <Text style={Styles.textCentered}>Google</Text>
                         </Button>
-                        <Button transparent block style={[style.btn, style.facebook]}>
-                            <Icon name="logo-facebook" />
+                        <Button transparent block style={[style.btn, style.facebook]} onPress={this.federatedSignIn}>
+                            <Icon name="logo-facebook"/>
                             <Text style={Styles.textCentered}>Conectar com</Text>
                             <Text style={Styles.textCentered}>Facebook</Text>
                         </Button>
                     </View>
                     <Button transparent block style={[style.btn, style.email]}>
-                        <Icon name="ios-mail-outline" style={style.icon} />
+                        <Icon name="ios-mail-outline" style={style.icon}/>
                         <Text>Ou use um endereço de email válido</Text>
                     </Button>
                     <View style={Styles.form}>
@@ -77,11 +84,11 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                             returnKeyType="go"
                         />
                         <Field label="Sexo">
-                            <SingleChoice labels={["Masculino", "Feminino"]} />
+                            <SingleChoice labels={["Masculino", "Feminino"]}/>
                         </Field>
                     </View>
                 </Content>
-                <Button info block onPress={this.signIn} style={{ height: variables.footerHeight }}>
+                <Button info block onPress={this.signIn} style={{height: variables.footerHeight}}>
                     <Text>CONTINUAR</Text>
                 </Button>
             </Container>

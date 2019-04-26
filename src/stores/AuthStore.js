@@ -1,6 +1,7 @@
 // @flow
 import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
+import { Facebook, Constants } from "expo";
 
 class AuthStore {
     @observable authenticated: boolean = false;
@@ -66,6 +67,25 @@ class AuthStore {
             } else {
                 console.log(err);
             }
+        }
+    }
+
+    @action
+    async federatedSignIn(): React.Node {
+        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync("2286396934947742", {
+            permissions: ["public_profile"]
+        });
+        if (type === "success") {
+            console.log(type);
+            console.log("asdasdasd");
+            // sign in with federated identity
+            // Auth.federatedSignIn("facebook", {token, expires_at: expires}, {name: "USER_NAME"})
+            //     .then(credentials => {
+            //         console.log("get aws credentials", credentials);
+            //     })
+            //     .catch(e => {
+            //         console.log(e);
+            //     });
         }
     }
 

@@ -66,20 +66,6 @@ export default class App extends React.Component<{}, AppState> {
                 // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
                 mandatorySignIn: false,
 
-                // OPTIONAL - Configuration for cookie storage
-                // Note: if the secure flag is set to true, then the cookie transmission requires a secure protocol
-                cookieStorage: {
-                    // REQUIRED - Cookie domain (only required if cookieStorage is provided)
-                    domain: ".yourdomain.com",
-                    // OPTIONAL - Cookie path
-                    path: "/",
-                    // OPTIONAL - Cookie expiration in days
-                    expires: 365,
-                    // OPTIONAL - Cookie secure flag
-                    // Either true or false, indicating if the cookie transmission requires a secure protocol (https).
-                    secure: true
-                },
-
                 // OPTIONAL - customized storage object
                 // storage: new MyStorage(),
 
@@ -87,14 +73,20 @@ export default class App extends React.Component<{}, AppState> {
                 authenticationFlowType: "USER_PASSWORD_AUTH"
             }
         });
-
-        // const currentConfig = Auth.configure();
-        // console.log(currentConfig);
     }
 
     state = {
         ready: false
     };
+
+    async componentDidMount(): React.Node {
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            console.log(user);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     componentWillMount() {
         const promises = [];

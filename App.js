@@ -3,13 +3,12 @@
 import * as React from "react";
 import {Dimensions} from "react-native";
 import {StyleProvider} from "native-base";
-import {Provider} from "mobx-react";
+import {observer, Provider} from "mobx-react";
 import Amplify, {Auth} from "aws-amplify";
 import {
     createAppContainer, createSwitchNavigator, createDrawerNavigator
 } from "react-navigation";
 import {Font, AppLoading} from "expo";
-
 import {Images} from "./src/components/pure-components";
 import {Login} from "./src/components/login";
 import {SignUp} from "./src/components/sign-up";
@@ -31,6 +30,7 @@ import authStore from "./src/stores/AuthStore";
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";
 
+
 const stores = {
     channelsStore,
     mapsStore,
@@ -39,9 +39,11 @@ const stores = {
 
 
 type AppState = {
-    ready: boolean
+    ready: boolean,
+    user: any
 };
 
+@observer
 export default class App extends React.Component<{}, AppState> {
 
     startAuthSide(): React.Node {
@@ -80,12 +82,13 @@ export default class App extends React.Component<{}, AppState> {
     };
 
     async componentDidMount(): React.Node {
+        let user = null;
         try {
-            const user = await Auth.currentAuthenticatedUser();
-            console.log(user);
+            user = await Auth.currentAuthenticatedUser();
         } catch (err) {
             console.log(err);
         }
+        this.state.user = user;
     }
 
     componentWillMount() {
@@ -97,20 +100,22 @@ export default class App extends React.Component<{}, AppState> {
             "Avenir-Light": require("./fonts/Avenir-Light.ttf")
         }));
         Promise.all(promises.concat(Images.downloadAsync()))
-            .then(() => this.setState({ready: true}))
+            .then(() => {
+                this.setState({ready: true});
+            })
             // eslint-disable-next-line
             .catch(error => console.error(error));
     }
 
     render(): React.Node {
-        const {ready} = this.state;
+        const {ready} = this.state.ready;
         return (
             <Provider {...stores}>
                 <StyleProvider style={getTheme(variables)}>
                     {
                         ready
                             ?
-                            <AppNavigator onNavigationStateChange={() => undefined}/>
+                            <AppNavigator user={this.state.user} onNavigationStateChange={() => undefined}/>
                             :
                             <AppLoading startAsync={null} onError={null} onFinish={null}/>
                     }

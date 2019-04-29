@@ -1,27 +1,29 @@
 // @flow
 import * as React from "react";
 import {StyleSheet, View, Text} from "react-native";
-import {H1, H3} from "native-base";
+import {H1} from "native-base";
 
 import Styles from "./Styles";
 
 import variables from "../../../native-base-theme/variables/commonColor";
 
 type TaskOverviewProps = {
-    textoEsquerda: text,
-    textoDireita: text
+    completed: number,
+    overdue: number
 };
 
 export default class TaskOverview extends React.PureComponent<TaskOverviewProps> {
     render(): React.Node {
-        const {textoEsquerda, textoDireita} = this.props;
+        const {completed, overdue} = this.props;
         return (
             <View style={style.container}>
                 <View style={[style.count, Styles.center, style.leftCell]}>
-                    <H3 style={style.heading}>{`${textoEsquerda}`}</H3>
+                    <H1 style={style.heading}>{`${completed}`}</H1>
+                    <Text style={Styles.grayText}>COMPLETED</Text>
                 </View>
-                <View style={[style.count, Styles.center, style.rightCell]}>
-                    <H3 style={style.heading}>{`${textoDireita}`}</H3>
+                <View style={[style.count, Styles.center]}>
+                    <H1 style={style.heading}>{`${overdue}`}</H1>
+                    <Text style={Styles.grayText}>OVERDUE</Text>
                 </View>
             </View>
         );
@@ -36,12 +38,8 @@ const style = StyleSheet.create({
         borderColor: variables.listBorderColor
     },
     leftCell: {
-        flex: 1,
         borderRightWidth: variables.borderWidth,
         borderColor: variables.listBorderColor
-    },
-    rightCell: {
-        flex: 1
     },
     count: {
         flex: 0.5,

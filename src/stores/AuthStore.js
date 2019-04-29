@@ -1,7 +1,7 @@
 // @flow
 import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
-import {Facebook, Constants} from "expo";
+import { Facebook, Constants } from "expo";
 
 class AuthStore {
     @observable authenticated: boolean = false;
@@ -9,13 +9,6 @@ class AuthStore {
     @observable user = {};
     @observable error: string;
     @observable hasError: boolean = false;
-    @observable authenticationMethod: string;
-    @observable firstAccess: boolean = false;
-
-    methods: {
-        COGNITO_POOLS: "COGNITO_POOLS",
-        FEDERATED_IDENTITIES: "FEDERATED_IDENTITIES"
-    };
 
     @action
     async signIn(username: string, password: string): React.node {
@@ -27,6 +20,7 @@ class AuthStore {
             const user = await Auth.signIn(username, password);
             if (user.challengeName === "SMS_MFA" ||
                 user.challengeName === "SOFTWARE_TOKEN_MFA") {
+                console.log("SOFTWARE_TOKEN_MFA");
                 // You need to get the code from the UI inputs
                 // and then trigger the following function with a button click
                 // If MFA is enabled, sign-in should be confirmed with the confirmation code
@@ -35,20 +29,15 @@ class AuthStore {
                 await Auth.completeNewPassword(user, password)
                     .then(() => {
                         console.log("Password updated");
-                        // The user directly signs in
-                        this.authenticated = true;
-                        this.autheticating = false;
-                        this.hasError = false;
-                        this.user = user;
-                        this.error = "";
-                        this.authenticationMethod = this.methods.COGNITO_POOLS;
                     });
             } else if (user.challengeName === "MFA_SETUP") {
+                console.log("MFA_SETUP");
                 // This happens when the MFA method is TOTP
                 // The user needs to setup the TOTP before using it
                 // More info please check the Enabling MFA part
                 Auth.setupTOTP(user);
             } else {
+                console.log("DONE");
                 // The user directly signs in
                 this.authenticated = true;
                 this.autheticating = false;
@@ -83,49 +72,35 @@ class AuthStore {
 
     @action
     async federatedSignIn(): React.Node {
-        const {type, token, expires, name} = await Facebook.logInWithReadPermissionsAsync("2286396934947742", {
+        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync("2286396934947742", {
             permissions: ["public_profile"]
         });
         if (type === "success") {
             console.log(type);
             console.log("asdasdasd");
             // sign in with federated identity
-            Auth.federatedSignIn("facebook", {token, expires_at: expires}, {name: name})
-                .then(credentials => {
-                    this.authenticationMethod = this.methods.FEDERATED_IDENTITIES;
-                    this.authenticated = true;
-                    this.autheticating = false;
-                    this.hasError = false;
-                    this.error = "";
-                    console.log("get aws credentials", credentials);
-                })
-                .catch(e => {
-                    this.autheticating = false;
-                    this.hasError = true;
-                    this.error = e;
-                    console.log(e);
-                });
+            // Auth.federatedSignIn("facebook", {token, expires_at: expires}, {name: "USER_NAME"})
+            //     .then(credentials => {
+            //         console.log("get aws credentials", credentials);
+            //     })
+            //     .catch(e => {
+            //         console.log(e);
+            //     });
         }
     }
 
     @action
     async signUp(username: string, password: string, attributes: {}): React.node {
+
         Auth.signUp({
             username,
             password,
             attributes,
             validationData: [] // optional
         })
-            .then(data => {
-                this.authenticationMethod = this.methods.COGNITO_POOLS;
-                this.authenticated = true;
-                this.autheticating = false;
-                this.hasError = false;
-                this.error = "";
-                this.firstAccess = true;
-                console.log(data);
-            })
+            .then(data => console.log(data))
             .catch(err => console.log(err));
+
     }
 
 

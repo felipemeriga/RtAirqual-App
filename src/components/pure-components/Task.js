@@ -8,6 +8,7 @@ import Avatar from "./Avatar";
 import Styles from "./Styles";
 
 import variables from "../../../native-base-theme/variables/commonColor";
+import Icon from "@expo/vector-icons/vendor/react-native-vector-icons/RNIMigration";
 // import Circle from "../components/Circle";
 
 type TaskProps = {
@@ -26,12 +27,15 @@ export default class Task extends React.PureComponent<TaskProps> {
     }
 
     render(): React.Node {
-        const {title, subtitle, collaborators, timeline} = this.props;
+        const {title, subtitle, collaborators, timeline, texto} = this.props;
         const date = moment(this.props.date);
         // $FlowFixMe
         const height = collaborators.length > 1 ? 150 : 100;
         return (
             <View style={[Styles.listItem, { height }, timeline ? style.noBorder : {}]}>
+                <View>
+                    <Text style={style.text}>{texto}</Text>
+                </View>
                 <View style={[style.title, timeline ? style.timelineLeft : {}]}>
                     <H3>{title}</H3>
                     {subtitle && <Text style={Styles.grayText}>{subtitle}</Text>}
@@ -67,6 +71,16 @@ const style = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         padding: variables.contentPadding
+    },
+    text: {
+        fontSize: (variables.fontSizeBase * 0.5) + variables.contentPadding,
+        color: "white",
+        alignItems: "center",
+        flex: 1,
+        flexDirection: "row",
+        padding: variables.contentPadding,
+        borderRightWidth: variables.borderWidth,
+        borderColor: variables.listBorderColor
     },
     title: {
         justifyContent: "center",

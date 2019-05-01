@@ -26,11 +26,12 @@ export default class SignUp extends React.Component<ScreenProps<>> {
     setPasswordRef = (input: TextInput) => this.password = input._root;
     goToPassword = () => this.password.focus();
     back = () => this.props.navigation.navigate("Login");
-    signIn = () => this.props.navigation.navigate("Walkthrough");
-    // signIn = () => this.props.authStore.signUp("felipe.meriga@gmail.com", "Meleka1!", {
-    //     phone_number: "+5543996205231"
-    // });
-    federatedSignIn = () => this.props.authStore.federatedSignIn();
+    // signIn = () => this.props.navigation.navigate("Walkthrough");
+    signIn = () => this.props.authStore.signUp("felipe.meriga@gmail.com", "Meleka1!", {
+        phone_number: "+5543996205231"
+    });
+    facebookFederatedSignIn = () => this.props.authStore.facebookFederatedSignIn();
+    googleFederatedSignIn = () => this.props.authStore.googleFederatedSignIn();
 
     render(): React.Node {
         return (
@@ -49,12 +50,13 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                         <Right/>
                     </Header>
                     <View style={style.row}>
-                        <Button transparent block style={style.btn}>
+                        <Button transparent block style={style.btn} onPress={this.googleFederatedSignIn}>
                             <Icon name="logo-google"/>
                             <Text style={Styles.textCentered}>Conectar com</Text>
                             <Text style={Styles.textCentered}>Google</Text>
                         </Button>
-                        <Button transparent block style={[style.btn, style.facebook]} onPress={this.federatedSignIn}>
+                        <Button transparent block style={[style.btn, style.facebook]}
+                                onPress={this.facebookFederatedSignIn}>
                             <Icon name="logo-facebook"/>
                             <Text style={Styles.textCentered}>Conectar com</Text>
                             <Text style={Styles.textCentered}>Facebook</Text>

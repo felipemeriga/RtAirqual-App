@@ -1,7 +1,7 @@
 // @flow
 import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
-import { Facebook, Constants } from "expo";
+import {Facebook, Google} from "expo";
 
 class AuthStore {
     @observable authenticated: boolean = false;
@@ -9,6 +9,7 @@ class AuthStore {
     @observable user = {};
     @observable error: string;
     @observable hasError: boolean = false;
+    facebookAppClient: string = "2286396934947742";
 
     @action
     async signIn(username: string, password: string): React.node {
@@ -71,21 +72,47 @@ class AuthStore {
     }
 
     @action
-    async federatedSignIn(): React.Node {
-        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync("2286396934947742", {
-            permissions: ["public_profile"]
+    async facebookFederatedSignIn(): React.Node {
+        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync(this.facebookAppClient, {
+            permissions: ["public_profile", "email"]
         });
         if (type === "success") {
-            console.log(type);
-            console.log("asdasdasd");
+            const responseQl = await fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`);
+            const userInformation = await responseQl.json();
+            const expireToken = expires * 10000 + new Date().getTime();
             // sign in with federated identity
-            // Auth.federatedSignIn("facebook", {token, expires_at: expires}, {name: "USER_NAME"})
-            //     .then(credentials => {
-            //         console.log("get aws credentials", credentials);
-            //     })
-            //     .catch(e => {
-            //         console.log(e);
-            //     });
+            Auth.federatedSignIn("facebook", {token, expires_at: expireToken}, userInformation)
+                .then(credentials => {
+                    console.log("get aws credentials", credentials);
+                })
+                .catch(e => {
+                    console.log("error");
+                    console.log(e);
+                });
+        }
+    }
+
+
+    @action
+    async googleFederatedSignIn(): React.Node {
+        const {type, idToken, user, accessTokenExpirationDate} = await Google.logInAsync({
+            androidClientId: "46612203335-t91gcovpqlpf8ecvld53lbl80noqd49a.apps.googleusercontent.com",
+            iosClientId: "46612203335-bnqr0359icq524cohsvrouql30hasias.apps.googleusercontent.com",
+            scopes: ["profile", "email"]
+        });
+        console.log(user);
+        console.log(accessTokenExpirationDate);
+
+        if (type === "success") {
+
+            Auth.federatedSignIn("google", {token: idToken, expires_at: accessTokenExpirationDate}, user)
+                .then(credentials => {
+                    console.log("get aws credentials", credentials);
+                })
+                .catch(e => {
+                    console.log("error");
+                    console.log(e);
+                });
         }
     }
 

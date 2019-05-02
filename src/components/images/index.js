@@ -100,8 +100,6 @@ export default class Images {
                 .downloadAsync(),
             Asset.fromModule(Images.rtMarker)
                 .downloadAsync()
-
-
         ];
     }
 }

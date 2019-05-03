@@ -32,52 +32,42 @@ export default class Login extends React.Component<ScreenProps<>> {
 
     renderContent(): React.Node {
         if (this.props.authStore.autheticating) {
-            return <Progress.Circle size={50} indeterminate/>;
+            return (
+                <View style={[Styles.center, Styles.flexGrow]}>
+                    <Progress.Circle size={50} indeterminate style={styles.loadingCircle}/>
+                </View>
+            );
         }
         return (
-            <AnimatedView style={styles.innerContent}>
-                <View style={styles.verticalAlign}>
-                    <View style={styles.logo}>
-                        <View>
-                            <Image source={Images.logoSymbol} style={styles.logoSymbol}/>
-                        </View>
-                    </View>
-                    <View style={styles.logoLetterView}>
-                        <View>
-                            <Image source={Images.logoLetter} style={styles.logoLetter}/>
-                        </View>
-                    </View>
-                </View>
+            <View>
+                <Field
+                    label="Usuário ou email"
+                    autoCapitalize="none"
+                    returnKeyType="next"
+                    textInputRef={this.setEmailRef}
+                />
+                <Field
+                    label="Senha"
+                    secureTextEntry
+                    autoCapitalize="none"
+                    returnKeyType="go"
+                    textInputRef={this.setPasswordRef}
+                    onSubmitEditing={this.signIn}
+                    last
+                />
                 <View>
-                    <Field
-                        label="Usuário ou email"
-                        autoCapitalize="none"
-                        returnKeyType="next"
-                        textInputRef={this.setEmailRef}
-                    />
-                    <Field
-                        label="Senha"
-                        secureTextEntry
-                        autoCapitalize="none"
-                        returnKeyType="go"
-                        textInputRef={this.setPasswordRef}
-                        onSubmitEditing={this.signIn}
-                        last
-                    />
                     <View>
-                        <View>
-                            <Button info full onPress={this.signIn}>
-                                <Text>Entrar</Text>
-                            </Button>
-                        </View>
-                        <View>
-                            <Button transparent full onPress={this.signUp}>
-                                <Small style={Styles.whiteText}>Ainda não possui conta? Crie agora!</Small>
-                            </Button>
-                        </View>
+                        <Button info full onPress={this.signIn}>
+                            <Text>Entrar</Text>
+                        </Button>
+                    </View>
+                    <View>
+                        <Button transparent full onPress={this.signUp}>
+                            <Small style={Styles.whiteText}>Ainda não possui conta? Crie agora!</Small>
+                        </Button>
                     </View>
                 </View>
-            </AnimatedView>
+            </View>
         );
     }
 
@@ -86,8 +76,8 @@ export default class Login extends React.Component<ScreenProps<>> {
     setPasswordRef = (input: TextInput) => this.password = input._root;
     setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
-    signIn = () => this.props.navigation.navigate("Walkthrough");
-    // signIn = () => this.props.authStore.signIn("felipe.meriga@gmail.com", "Iloverpg1!");
+    // signIn = () => this.props.navigation.navigate("Walkthrough");
+    signIn = () => this.props.authStore.signIn("felipe.meriga@gmail.com", "Iloverpg1!");
     signUp = () => this.props.navigation.navigate("SignUp");
 
     render(): React.Node {
@@ -97,7 +87,21 @@ export default class Login extends React.Component<ScreenProps<>> {
                 <Image source={Images.loginBackground} style={styles.image}/>
                 <SafeAreaView style={StyleSheet.absoluteFill}>
                     <Content style={[StyleSheet.absoluteFill, styles.content]}>
-                        {this.renderContent()}
+                        <AnimatedView style={styles.innerContent}>
+                            <View style={styles.verticalAlign}>
+                                <View style={styles.logo}>
+                                    <View>
+                                        <Image source={Images.logoSymbol} style={styles.logoSymbol}/>
+                                    </View>
+                                </View>
+                                <View style={styles.logoLetterView}>
+                                    <View>
+                                        <Image source={Images.logoLetter} style={styles.logoLetter}/>
+                                    </View>
+                                </View>
+                            </View>
+                            {this.renderContent()}
+                        </AnimatedView>
                     </Content>
                 </SafeAreaView>
             </View>
@@ -108,7 +112,7 @@ export default class Login extends React.Component<ScreenProps<>> {
 const {height, width} = WindowDimensions;
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1
+        flex: 1
     },
     image: {
         ...StyleSheet.absoluteFillObject,
@@ -131,6 +135,10 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     logoLetterView: {
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    loadingCircle: {
         alignItems: "center",
         justifyContent: "center"
     },

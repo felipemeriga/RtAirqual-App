@@ -17,7 +17,8 @@ type TaskProps = {
     subtitle?: string,
     collaborators?: number[],
     completed?: boolean,
-    timeline?: boolean
+    timeline?: boolean,
+    texto: string
 };
 
 export default class Task extends React.PureComponent<TaskProps> {
@@ -33,7 +34,7 @@ export default class Task extends React.PureComponent<TaskProps> {
         const height = collaborators.length > 1 ? 150 : 100;
         return (
             <View style={[Styles.listItem, { height }, timeline ? style.noBorder : {}]}>
-                <View>
+                <View >
                     <Text style={style.text}>{texto}</Text>
                 </View>
                 <View style={[style.title, timeline ? style.timelineLeft : {}]}>
@@ -76,11 +77,10 @@ const style = StyleSheet.create({
         fontSize: (variables.fontSizeBase * 0.5) + variables.contentPadding,
         color: "white",
         alignItems: "center",
-        flex: 1,
-        flexDirection: "row",
         padding: variables.contentPadding,
         borderRightWidth: variables.borderWidth,
-        borderColor: variables.listBorderColor
+        borderColor: variables.listBorderColor,
+        alignSelf: "baseline"
     },
     title: {
         justifyContent: "center",

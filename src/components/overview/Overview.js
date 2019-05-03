@@ -117,16 +117,7 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                         texto="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                     />
 
-                    <Task
-                        date="2015-05-08 11:00"
-                        title="Design Stand Up"
-                        subtitle="Hangouts"
-                        collaborators={[1, 2, 3]}
-                        completed={false}
-                    />
-                    <Task date="2015-05-08 14:00" title="New Icons" subtitle="Home App" completed/>
-                    <Task date="2015-05-08 16:00" title="Revise Wireframes" subtitle="Company Website" completed/>
-                </ScrollView>
+             </ScrollView>
             </View>
         );
 

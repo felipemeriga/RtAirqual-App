@@ -37,7 +37,8 @@ export default class DialogRtDesc extends React.Component<{}> {
                             flexDirection: "row",
                             justifyContent: "space-around", //  center , space-between, space-around
                             padding: 5
-                        }}>
+                        }}
+                        >
                             <View style={styles.caixaInfoDialog}>
                                 <Text style={styles.textBoxDialog}>
                                     {this.props.mapsStore.markDetail.field1}º
@@ -59,7 +60,7 @@ export default class DialogRtDesc extends React.Component<{}> {
                             <View style={styles.caixaInfoDialog3}>
                                 <Text style={styles.textBoxDialog}>
                                     {parseFloat(this.props.mapsStore.markDetail.field3)
-                                        .toPrecision(3)}                                </Text>
+                                        .toPrecision(3)}</Text>
                                 <Text style={styles.legenda}>
                                     IQA
                                 </Text>

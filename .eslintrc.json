@@ -26,7 +26,7 @@
             }
         ],
         "indent": [
-            "error",
+            "off",
             4
         ],
         "object-curly-spacing": 0,
@@ -127,6 +127,7 @@
             2,
             "never"
         ],
+        "no-mixed-operators": 0,
         "flowtype/type-id-match": [
             2,
             "^([A-Z][a-z0-9]+)+$"

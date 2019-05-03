@@ -1,7 +1,9 @@
 // @flow
 import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
-import { Facebook, Constants } from "expo";
+import {Facebook, Google} from "expo";
+import Constants from "../components/constants/Constants";
+
 
 class AuthStore {
     @observable authenticated: boolean = false;
@@ -9,6 +11,13 @@ class AuthStore {
     @observable user = {};
     @observable error: string;
     @observable hasError: boolean = false;
+    authMethod = {
+        USER_POOLS: "USER_POOLS",
+        FEDERATED: {
+            GOOGLE: "GOOGLE",
+            FACEBOOK: "FACEBOOK"
+        }
+    };
 
     @action
     async signIn(username: string, password: string): React.node {
@@ -28,6 +37,7 @@ class AuthStore {
                 // Used when you have to set a new password
                 await Auth.completeNewPassword(user, password)
                     .then(() => {
+                        this.successfulSignIn(user);
                         console.log("Password updated");
                     });
             } else if (user.challengeName === "MFA_SETUP") {
@@ -37,61 +47,82 @@ class AuthStore {
                 // More info please check the Enabling MFA part
                 Auth.setupTOTP(user);
             } else {
-                console.log("DONE");
                 // The user directly signs in
-                this.authenticated = true;
-                this.autheticating = false;
-                this.hasError = false;
-                this.user = user;
-                this.error = "";
+                this.successfulSignIn(user);
             }
         } catch (err) {
-            this.autheticating = false;
-            this.hasError = true;
+            let message: string;
             if (err.code === "UserNotConfirmedException") {
-                this.error = "Seu usuário não esta confirmado!";
+                message = "Seu usuário não esta confirmado!";
                 // The error happens if the user didn"t finish the confirmation step when signing up
                 // In this case you need to resend the code and confirm the user
                 // About how to resend the code and confirm the user, please check the signUp part
             } else if (err.code === "PasswordResetRequiredException") {
-                this.error = "Sua senha foi resetada, acesse esqueci minha senha";
+                message = "Sua senha foi resetada, acesse esqueci minha senha";
                 // The error happens when the password is reset in the Cognito console
                 // In this case you need to call forgotPassword to reset the password
                 // Please check the Forgot Password part.
             } else if (err.code === "NotAuthorizedException") {
-                this.error = "Senha inválida";
+                message = "Senha inválida";
                 // The error happens when the incorrect password is provided
             } else if (err.code === "UserNotFoundException") {
-                this.error = "Usuário inexistente";
+                message = "Usuário inexistente";
                 // The error happens when the supplied username/email does not exist in the Cognito user pool
             } else {
                 console.log(err);
             }
+            this.signInError(message);
         }
     }
 
     @action
-    async federatedSignIn(): React.Node {
-        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync("2286396934947742", {
-            permissions: ["public_profile"]
+    async facebookFederatedSignIn(): React.Node {
+        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync(Constants.facebookAppClient, {
+            permissions: ["public_profile", "email"]
         });
         if (type === "success") {
-            console.log(type);
-            console.log("asdasdasd");
+            const responseQl = await fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`);
+            const userInformation = await responseQl.json();
+            const expireToken = expires * 10000 + new Date().getTime();
             // sign in with federated identity
-            // Auth.federatedSignIn("facebook", {token, expires_at: expires}, {name: "USER_NAME"})
-            //     .then(credentials => {
-            //         console.log("get aws credentials", credentials);
-            //     })
-            //     .catch(e => {
-            //         console.log(e);
-            //     });
+            Auth.federatedSignIn("facebook", {token, expires_at: expireToken}, userInformation)
+                .then(credentials => {
+                    console.log("Got aws credentials", credentials);
+                    this.successfulSignIn(userInformation);
+                })
+                .catch(e => {
+                    this.signInError("Erro ao conectar ao facebook");
+                    console.log(e);
+                });
         }
     }
 
+
+    @action
+    async googleFederatedSignIn(): React.Node {
+        const {type, idToken, user, accessTokenExpirationDate} = await Google.logInAsync({
+            androidClientId: Constants.androidClientId,
+            iosClientId: Constants.iosClientId,
+            scopes: ["profile", "email"]
+        });
+
+        if (type === "success") {
+
+            Auth.federatedSignIn("google", {token: idToken, expires_at: accessTokenExpirationDate}, user)
+                .then(credentials => {
+                    console.log("Got aws credentials", credentials);
+                    this.successfulSignIn(user);
+                })
+                .catch(e => {
+                    this.signInError("Erro ao conectar ao google");
+                    console.log(e);
+                });
+        }
+    }
+
+    // TODO - Verify data to call successful login
     @action
     async signUp(username: string, password: string, attributes: {}): React.node {
-
         Auth.signUp({
             username,
             password,
@@ -100,7 +131,6 @@ class AuthStore {
         })
             .then(data => console.log(data))
             .catch(err => console.log(err));
-
     }
 
 
@@ -116,6 +146,20 @@ class AuthStore {
             .catch(err => console.log(err));
     }
 
+    successfulSignIn(user: any): React.Node {
+        this.authenticated = true;
+        this.autheticating = false;
+        this.hasError = false;
+        this.user = user;
+        this.error = "";
+    }
+
+    signInError(message: string): React.Node {
+        this.authenticated = false;
+        this.autheticating = false;
+        this.hasError = true;
+        this.error = message;
+    }
 }
 
 export default new AuthStore();

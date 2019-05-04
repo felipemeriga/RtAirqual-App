@@ -7,6 +7,7 @@ import Platform from "react-native";
 import Gradient from "../../../assets/images/fundo_rt.png";
 import LoginBackground from "../../../assets/images/login&SplashBack.jpg";
 import SignUp from "../../../assets/images/fundo_rt.png";
+import Check from "../../../assets/images/fundo_rt2.png";
 import Walkthrough from "../../../assets/images/fundo_rt.png";
 import Profile from "../../../assets/images/profile.jpg";
 import LogoSymbol from "../../../assets/images/logoSymbol.png";
@@ -29,6 +30,7 @@ import Travel from "../../../assets/images/travel.jpg";
 
 export default class Images {
     static gradient = Gradient;
+    static check = Check;
     static signUp = SignUp;
     static walkthrough = Walkthrough;
     static profile = Profile;
@@ -61,6 +63,8 @@ export default class Images {
     static downloadAsync(): Promise<*>[] {
         return [
             Asset.fromModule(Images.gradient)
+                .downloadAsync(),
+            Asset.fromModule(Images.check)
                 .downloadAsync(),
             Asset.fromModule(Images.logoSymbol)
                 .downloadAsync(),

@@ -16,20 +16,24 @@ export default class SignUp extends React.Component<ScreenProps<>> {
 
     // $FlowFixMe
     username: TextInput;
-    // $FlowFixMe
     password: TextInput;
+    name: TextInput;
+    phone: TextInput;
+
 
     // $FlowFixMe
     setUsernameRef = (input: TextInput) => this.username = input._root;
+    setNameRef = (input: TextInput) => this.name = input._root;
+    setPhoneRef = (input: TextInput) => this.phone = input._root;
     goToUsername = () => this.username.focus();
-    // $FlowFixMe
     setPasswordRef = (input: TextInput) => this.password = input._root;
     goToPassword = () => this.password.focus();
+    goToPhone = () => this.phone.focus();
     back = () => this.props.navigation.navigate("Login");
-    // signIn = () => this.props.navigation.navigate("Walkthrough");
-    signIn = () => this.props.authStore.signUp("felipe.meriga@gmail.com", "Meleka1!", {
-        phone_number: "+5543996205231"
-    });
+    signIn = () => console.log(this.name._getText());
+    // signIn = () => this.props.authStore.signUp("felipe.meriga@gmail.com", "Meleka1!", {
+    //     phone_number: "+5543996205231"
+    // });
     facebookFederatedSignIn = () => this.props.authStore.facebookFederatedSignIn();
     googleFederatedSignIn = () => this.props.authStore.googleFederatedSignIn();
 
@@ -69,6 +73,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                     <View style={Styles.form}>
                         <Field
                             label="Nome"
+                            textInputRef={this.setNameRef}
                             onSubmitEditing={this.goToUsername}
                             returnKeyType="next"
                         />
@@ -82,16 +87,20 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                             label="Senha"
                             secureTextEntry
                             textInputRef={this.setPasswordRef}
-                            onSubmitEditing={this.signIn}
+                            onSubmitEditing={this.goToPhone}
                             returnKeyType="go"
                         />
-                        <Field label="Sexo">
-                            <SingleChoice labels={["Masculino", "Feminino"]}/>
-                        </Field>
+                        <Field
+                            label="Telefone"
+                            textInputRef={this.setPhoneRef}
+                            returnKeyType="next"
+                            textContentType="telephoneNumber"
+                        />
                     </View>
                 </Content>
                 <Button info block onPress={this.signIn} style={{height: variables.footerHeight}}>
                     <Text>CONTINUAR</Text>
+
                 </Button>
             </Container>
         );

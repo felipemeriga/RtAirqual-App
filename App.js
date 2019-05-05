@@ -16,6 +16,7 @@ import {SignUp} from "./src/components/sign-up";
 import {Walkthrough} from "./src/components/walkthrough";
 import {Drawer} from "./src/components/drawer";
 import {Home} from "./src/components/home";
+import {Check} from "./src/components/check";
 import {Calendar} from "./src/components/calendar";
 import {Overview} from "./src/components/overview";
 import {Groups} from "./src/components/groups";
@@ -79,15 +80,6 @@ export default class App extends React.Component<{}, AppState> {
         ready: false
     };
 
-    async componentDidMount(): React.Node {
-        try {
-            const user = await Auth.currentAuthenticatedUser();
-            console.log(user);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     componentWillMount() {
         const promises = [];
         this.startAuthSide();
@@ -139,6 +131,7 @@ const MainNavigator = createDrawerNavigator({
 
 const AppNavigator = createAppContainer(createSwitchNavigator({
     Login: {screen: Login},
+    Check: {screen: Check},
     SignUp: {screen: SignUp},
     Walkthrough: {screen: Walkthrough},
     Main: {screen: MainNavigator}

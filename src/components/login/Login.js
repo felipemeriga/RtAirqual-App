@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import {StyleSheet, Image, View, TextInput, SafeAreaView} from "react-native";
+import {StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid} from "react-native";
 import {inject, observer} from "mobx-react";
 import {Button, Text, Content, Toast} from "native-base";
 import {Constants} from "expo";
@@ -16,17 +16,34 @@ import variables from "../../../native-base-theme/variables/commonColor";
 @observer
 export default class Login extends React.Component<ScreenProps<>> {
 
+
     // $FlowFixMe
     password: TextInput;
     email: TextInput;
 
+
+    componentDidUpdate(): React.Node {
+        if (this.props.authStore.authenticated) {
+            this.props.navigation.navigate("Home");
+        }
+    }
+
+    onLoad(): React.Node {
+        Animated.timing(this.props.authStore.animation, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true
+        })
+            .start();
+    }
+
+    componentWillMount(): React.Node {
+        this.props.authStore.animation = new Animated.Value(0);
+    }
+
     hasError(): React.Node {
-        if (this.props.authStore.error) {
-            Toast.show({
-                text: this.props.authStore.error,
-                buttonText: "Ok",
-                duration: 3000
-            });
+        if (this.props.authStore.hasError) {
+            ToastAndroid.show(this.props.authStore.error, ToastAndroid.LONG);
         }
     }
 
@@ -34,7 +51,7 @@ export default class Login extends React.Component<ScreenProps<>> {
         if (this.props.authStore.autheticating) {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Progress.Circle size={50} indeterminate style={styles.loadingCircle}/>
+                    <Progress.Circle size={80} indeterminate style={styles.loadingCircle}/>
                 </View>
             );
         }
@@ -77,10 +94,11 @@ export default class Login extends React.Component<ScreenProps<>> {
     setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
     signIn = () => this.props.navigation.navigate("Walkthrough");
-    //signIn = () => this.props.authStore.signIn("felipe.meriga@gmail.com", "Iloverpg1!");
+    // signIn = () => this.props.authStore.signIn(this.email._getText(), this.password._getText());
     signUp = () => this.props.navigation.navigate("SignUp");
 
     render(): React.Node {
+        this.onLoad();
         this.hasError();
         return (
             <View style={styles.container}>
@@ -88,18 +106,20 @@ export default class Login extends React.Component<ScreenProps<>> {
                 <SafeAreaView style={StyleSheet.absoluteFill}>
                     <Content style={[StyleSheet.absoluteFill, styles.content]}>
                         <AnimatedView style={styles.innerContent}>
-                            <View style={styles.verticalAlign}>
-                                <View style={styles.logo}>
-                                    <View>
-                                        <Image source={Images.logoSymbol} style={styles.logoSymbol}/>
+                            <Animated.View style={{opacity: this.props.authStore.animation}}>
+                                <View style={styles.verticalAlign}>
+                                    <View style={styles.logo}>
+                                        <View>
+                                            <Image source={Images.logoSymbol} style={styles.logoSymbol}/>
+                                        </View>
+                                    </View>
+                                    <View style={styles.logoLetterView}>
+                                        <View>
+                                            <Image source={Images.logoLetter} style={styles.logoLetter}/>
+                                        </View>
                                     </View>
                                 </View>
-                                <View style={styles.logoLetterView}>
-                                    <View>
-                                        <Image source={Images.logoLetter} style={styles.logoLetter}/>
-                                    </View>
-                                </View>
-                            </View>
+                            </Animated.View>
                             {this.renderContent()}
                         </AnimatedView>
                     </Content>
@@ -153,4 +173,3 @@ const styles = StyleSheet.create({
         height: height * 0.1
     }
 });
-

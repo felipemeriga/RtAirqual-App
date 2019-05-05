@@ -8,7 +8,7 @@
         "facebookScheme": "fb2286396934947742",
         "primaryColor": "#333333",
         "splash": {
-            "image": "./assets/images/fundo_rt.png",
+            "image": "./assets/images/fundo_rt2.png",
             "backgroundColor": "#333333",
             "resizeMode": "cover"
         },

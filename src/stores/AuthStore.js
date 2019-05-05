@@ -1,4 +1,5 @@
 // @flow
+import {Animated} from "react-native";
 import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
 import {Facebook, Google} from "expo";
@@ -11,6 +12,7 @@ class AuthStore {
     @observable user = {};
     @observable error: string;
     @observable hasError: boolean = false;
+    @observable animation: any;
     authMethod = {
         USER_POOLS: "USER_POOLS",
         FEDERATED: {
@@ -21,10 +23,9 @@ class AuthStore {
 
     @action
     async signIn(username: string, password: string): React.node {
+        this.animation = new Animated.Value(0);
         this.autheticating = true;
         // const validationData = {};
-        console.log(username);
-        console.log(password);
         try {
             const user = await Auth.signIn(username, password);
             if (user.challengeName === "SMS_MFA" ||
@@ -146,7 +147,18 @@ class AuthStore {
             .catch(err => console.log(err));
     }
 
+    @action
+    async userIsAlreadyAuthenticated(user: any): React.Node {
+        this.user = user;
+        this.authenticated = true;
+        this.autheticating = false;
+        this.hasError = false;
+        this.user = user;
+        this.error = "";
+    }
+
     successfulSignIn(user: any): React.Node {
+        this.animation = new Animated.Value(0);
         this.authenticated = true;
         this.autheticating = false;
         this.hasError = false;
@@ -155,10 +167,11 @@ class AuthStore {
     }
 
     signInError(message: string): React.Node {
+        this.animation = new Animated.Value(0);
         this.authenticated = false;
         this.autheticating = false;
-        this.hasError = true;
         this.error = message;
+        this.hasError = true;
     }
 }
 

@@ -33,7 +33,7 @@ export default class Task extends React.PureComponent<TaskProps> {
         // $FlowFixMe
         const height = collaborators.length > 1 ? 150 : 100;
         return (
-            <View style={[Styles.listItem, { height }, timeline ? style.noBorder : {}]}>
+            <View style={[Styles.listItem,  timeline ? style.noBorder : {}]}>
                 <View >
                     <Text style={style.text}>{texto}</Text>
                 </View>

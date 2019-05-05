@@ -76,8 +76,8 @@ export default class Login extends React.Component<ScreenProps<>> {
     setPasswordRef = (input: TextInput) => this.password = input._root;
     setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
-    // signIn = () => this.props.navigation.navigate("Walkthrough");
-    signIn = () => this.props.authStore.signIn("felipe.meriga@gmail.com", "Iloverpg1!");
+    signIn = () => this.props.navigation.navigate("Walkthrough");
+    //signIn = () => this.props.authStore.signIn("felipe.meriga@gmail.com", "Iloverpg1!");
     signUp = () => this.props.navigation.navigate("SignUp");
 
     render(): React.Node {

@@ -1,5 +1,7 @@
 // @flow
 import moment from "moment";
+import {inject, observer} from "mobx-react";
+import PropTypes from "prop-types";
 import * as React from "react";
 import {StyleSheet, View, Text, ScrollView} from "react-native";
 import {Tab, Tabs, TabHeading, H1, H3} from "native-base";
@@ -7,12 +9,19 @@ import {BaseContainer, Task, Styles, TaskOverview} from "../pure-components";
 import type {ScreenProps} from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
 
-
 const DAY = 1;
 const WEEK = 2;
 const MONTH = 3;
 
+@inject("boletimStore")
+@observer
 export default class Overview extends React.PureComponent<ScreenProps<>> {
+
+    static get propTypes(): React.Node {
+        return {
+            boletimStore: PropTypes.any
+        };
+    }
 
     render(): React.Node {
         return (
@@ -90,34 +99,20 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
             );
         }
         // historico
-        label = moment()
-            .format("MMMM");
+        label = moment().format("MMMM");
         return (
+
+
             <View style={style.container}>
                 <ScrollView>
                     <View style={[style.tab, Styles.center]}>
                         <H1>{mesDoAno.toUpperCase()}</H1>
                     </View>
-                    <Task
-                        texto="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    />
-                    <Task
-                        texto="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    />
-                    <Task
-                        texto="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    />
-                    <Task
-                        texto="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    />
-                    <Task
-                        texto="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    />
-                    <Task
-                        texto="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    />
 
-             </ScrollView>
+                    <Task texto={this.props.boletimStore.boletim.descricao}/>
+
+
+                </ScrollView>
             </View>
         );
 

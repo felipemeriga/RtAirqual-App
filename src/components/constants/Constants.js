@@ -13,6 +13,35 @@ class Constants {
             FACEBOOK: "FACEBOOK"
         }
     };
+
+    loginErrors: {
+        fieldsNull: "Preencha todos os campos!",
+        userNotConfirmedException: "Seu usuário não esta confirmado!",
+        passwordResetRequiredException: "Sua senha foi resetada, acesse esqueci minha senha",
+        notAuthorizedException: "Senha inválida",
+        userNotFoundException: "Usuário inexistente"
+    };
+
+    signUpErrors: {
+        usernameExistsException: "Já existe um usuário com esse email",
+        notAuthorizedException: "Senha inválida",
+        invalidParameterException: "Formato de telefone inválido, o correto é DDD+Número sem espaços"
+    }
+
+    formValidationMessages = {
+        email: "Email no formato inválido",
+        password: "A senha deve ter no mínimo 8 dígitos, uma letra maiúscula e um caracter especial",
+        phone: "O telefone deve estar no formato Código de área + número"
+    };
+
+    federatedMessages = {
+        googleError: "Erro ao conectar ao google",
+        facebookError: "Erro ao conectar ao facebook"
+    }
+
+    numberPrefix: "+55";
+
+
 }
 
 

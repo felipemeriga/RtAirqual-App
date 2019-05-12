@@ -15,7 +15,7 @@ const MONTH = 3;
 
 @inject("boletimStore")
 @observer
-export default class Overview extends React.PureComponent<ScreenProps<>> {
+export default class Overview extends React.Component<ScreenProps<>> {
 
     static get propTypes(): React.Node {
         return {

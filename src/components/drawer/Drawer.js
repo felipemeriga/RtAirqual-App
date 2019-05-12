@@ -1,5 +1,6 @@
 // @flow
 import * as React from "react";
+import {inject, observer} from "mobx-react";
 import {View, StyleSheet, Image, TouchableHighlight} from "react-native";
 import {Button, Icon, Header, Text, Left, Title, Body, Right} from "native-base";
 import {Constants} from "expo";
@@ -10,6 +11,9 @@ import type {NavigationProps} from "../pure-components/Types";
 
 import variables from "../../../native-base-theme/variables/commonColor";
 
+
+@inject("authStore")
+@observer
 export default class Drawer extends React.Component<NavigationProps<>> {
 
     go(key: string) {
@@ -17,6 +21,7 @@ export default class Drawer extends React.Component<NavigationProps<>> {
     }
 
     login = () => {
+        this.props.authStore.signOut();
         this.props.navigation.navigate("Login");
     }
 

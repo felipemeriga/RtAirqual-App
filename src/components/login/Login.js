@@ -3,7 +3,7 @@ import * as React from "react";
 import * as Progress from "react-native-progress";
 import {StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid} from "react-native";
 import {inject, observer} from "mobx-react";
-import {Button, Text, Content, Toast} from "native-base";
+import {Button, Text, Content} from "native-base";
 import {Constants} from "expo";
 
 import {Images, WindowDimensions, Field, Small, Styles} from "../pure-components";
@@ -20,7 +20,6 @@ export default class Login extends React.Component<ScreenProps<>> {
     // $FlowFixMe
     password: TextInput;
     email: TextInput;
-
 
     componentDidUpdate(): React.Node {
         if (this.props.authStore.authenticated) {
@@ -39,6 +38,7 @@ export default class Login extends React.Component<ScreenProps<>> {
 
     componentWillMount(): React.Node {
         this.props.authStore.animation = new Animated.Value(0);
+        this.props.authStore.errorAlreadyShown();
     }
 
     hasError(): React.Node {
@@ -94,7 +94,16 @@ export default class Login extends React.Component<ScreenProps<>> {
     setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
     signIn = () => this.props.navigation.navigate("Walkthrough");
-    // signIn = () => this.props.authStore.signIn(this.email._getText(), this.password._getText());
+    // signIn = () => {
+    //
+    //     if (this.email._getText() === "" || this.password._getText() === "") {
+    //         this.props.authStore.logInError("Preencha todos os campos!");
+    //     } else {
+    //         this.props.authStore.signIn(this.email._getText()
+    //             .toLocaleLowerCase(), this.password._getText());
+    //     }
+    //
+    // };
     signUp = () => this.props.navigation.navigate("SignUp");
 
     render(): React.Node {

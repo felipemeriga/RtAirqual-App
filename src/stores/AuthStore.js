@@ -13,6 +13,14 @@ class AuthStore {
     @observable error: string;
     @observable hasError: boolean = false;
     @observable animation: any;
+    @observable name: any;
+    @observable errorForm = {
+        email: "",
+        name: "",
+        password: "",
+        phone: ""
+    };
+
     authMethod = {
         USER_POOLS: "USER_POOLS",
         FEDERATED: {
@@ -124,14 +132,17 @@ class AuthStore {
     // TODO - Verify data to call successful login
     @action
     async signUp(username: string, password: string, attributes: {}): React.node {
+        this.autheticating = true;
         Auth.signUp({
             username,
             password,
             attributes,
             validationData: [] // optional
         })
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
+            .then(data => {
+                this.successfulSignIn(data.user);
+            })
+            .catch(err => this.signUpError(err));
     }
 
 
@@ -144,7 +155,9 @@ class AuthStore {
                 this.error = false;
                 this.autheticating = false;
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     @action
@@ -155,6 +168,15 @@ class AuthStore {
         this.hasError = false;
         this.user = user;
         this.error = "";
+    }
+
+
+    @action
+    async clearSignUpForm(): React.Node {
+        this.errorForm.name = "";
+        this.errorForm.email = "";
+        this.errorForm.password = "";
+        this.errorForm.phone = "";
     }
 
     successfulSignIn(user: any): React.Node {
@@ -172,6 +194,33 @@ class AuthStore {
         this.autheticating = false;
         this.error = message;
         this.hasError = true;
+    }
+
+    logInError(message: string): React.Node {
+        this.authenticated = false;
+        this.autheticating = false;
+        this.error = message;
+        this.hasError = true;
+    }
+
+    signUpError(err: any): React.Node {
+        if (err.code === "UsernameExistsException") {
+            this.error = "Já existe um usuário com esse email";
+        } else if (err.code === "NotAuthorizedException") {
+            this.error = "Senha inválida";
+        } else if (err.code === "InvalidParameterException") {
+            this.error = "Formato de telefone inválido, o correto é DDD+Número sem espaços";
+        }
+        this.animation = new Animated.Value(0);
+        this.authenticated = false;
+        this.autheticating = false;
+        this.hasError = true;
+    }
+
+    @action
+    errorAlreadyShown(): React.Node {
+        this.hasError = false;
+        this.error = "";
     }
 }
 

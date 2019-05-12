@@ -30,6 +30,7 @@
             4
         ],
         "object-curly-spacing": 0,
+        "no-useless-escape": 0,
         "no-use-before-define": 0,
         "new-cap": 0,
         "arrow-parens": 0,
@@ -44,6 +45,8 @@
         "import/no-duplicates": 0,
         "react/sort-comp": 0,
         "react/no-array-index-key": 0,
+        "react/jsx-max-props-per-line": 0,
+        "react/jsx-first-prop-new-line": 0,
         "react/jsx-filename-extension": [
             2,
             {
@@ -64,7 +67,7 @@
             4
         ],
         "react/jsx-indent-props": [
-            2,
+            0,
             4
         ],
         "flowtype/no-primitive-constructor-types": 2,
@@ -140,7 +143,7 @@
         "flowtype/use-flow-type": 1,
         "flowtype/valid-syntax": 1,
         "react-native/no-unused-styles": 2,
-        "react-native/split-platform-components": 2,
+        "react-native/split-platform-components": 0,
         "react-native/no-inline-styles": 2,
         "react-native/no-color-literals": 0,
         "react/no-multi-comp": 0,

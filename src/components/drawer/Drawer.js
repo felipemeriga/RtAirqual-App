@@ -44,23 +44,24 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                 <View style={style.itemContainer}>
                     <View style={style.row}>
                         <DrawerItem {...{navigation}} name="Home" icon="ios-map" left />
-                        <DrawerItem {...{navigation}} name="Calendar" icon="ios-calendar-outline" />
+                        <DrawerItem {...{navigation}} name="Boletim" icon="ios-calendar-outline" /* icon="ios-analytics-outline" */  />
+
                     </View>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Groups" icon="ios-apps-outline" left />
-                        <DrawerItem {...{navigation}} name="Overview" icon="ios-analytics-outline" />
+                        <DrawerItem {...{navigation}} /* name="Groups" icon="ios-apps-outline" */ left />
+                        <DrawerItem {...{navigation}} /* name="Calendar" icon="ios-calendar-outline" */ />
                     </View>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Lists" icon="ios-list-outline" left />
-                        <DrawerItem {...{navigation}} name="Profile" icon="ios-contact-outline" />
+                        <DrawerItem {...{navigation}} /* name="Lists" icon="ios-list-outline" */ left />
+                        <DrawerItem {...{navigation}} /* name="Profile" icon="ios-contact-outline" */ />
                     </View>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Timeline" icon="ios-time-outline" left />
-                        <DrawerItem {...{navigation}} name="Settings" icon="ios-options-outline" />
+                        <DrawerItem {...{navigation}} /* name="Timeline" icon="ios-time-outline" */ left />
+                        <DrawerItem {...{navigation}} /* name="Settings" icon="ios-options-outline" */ />
                     </View>
                 </View>
                 <Button transparent block onPress={this.login}>
-                    <Text>LOGOUT</Text>
+                    <Text>Sair</Text>
                 </Button>
             </Container>
         );

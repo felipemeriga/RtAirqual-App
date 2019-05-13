@@ -14,7 +14,7 @@ import DialogRt from "./DialogRt";
 export default class Map extends React.Component<{}> {
 
     onMarkerTouched(marker: any): React.Node {
-        this.props.mapsStore.getMarkDetwail(marker);
+        this.props.mapsStore.getMarkDetail(marker);
     }
 
     getRenderContent(): React.Node {

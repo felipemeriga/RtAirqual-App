@@ -15,13 +15,8 @@ const MONTH = 3;
 
 @inject("boletimStore")
 @observer
-export default class Overview extends React.Component<ScreenProps<>> {
+export default class Boletim extends React.Component<ScreenProps<>> {
 
-    static get propTypes(): React.Node {
-        return {
-            boletimStore: PropTypes.any
-        };
-    }
 
     render(): React.Node {
         return (
@@ -109,7 +104,17 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                         <H1>{mesDoAno.toUpperCase()}</H1>
                     </View>
 
-                    <Task texto={this.props.boletimStore.boletim.descricao}/>
+                    <Task texto="Londrina, Segunda, 06 de Maio, 2019
+
+⛅ Tendência de tempo estável e quente, com chance de pouca chuva nos próximos dias.
+
+😰 Alerta para o índice de conforto térmico, que tem sido alto no período da tarde e deve permanecer em estado de ALERTA entre às 11h e 17h. Nessa categoria, pode haver dificuldade para treinos leves e fortes e afetar a performance em mais de 20%. Reforce a hidratação a cada 15/20min.
+
+😰 Ponto de atenção também para a umidade relativa do ar, que tem permanecido em categoria de ATENÇÃO com tempo ÚMIDO (entre 60 e 80%) na maior parte do dia. Pode causar forte sensação de abafado ao se exercitar e suor excessivo, mantenha-se hidratado.
+
+📌Dica: Com aumento no nível de conforto térmico, destaca-se como períodos mais CONFORTÁVEIS do dia: até às 9h da manhã e após às 19h.
+
+📌Dica: Com o tempo quente e abafado, procure manter uma hidratação reforçada ao longo de todo o dia, pois a tendência é que seu corpo libere mais suor durante a atividade física."/>
 
 
                 </ScrollView>

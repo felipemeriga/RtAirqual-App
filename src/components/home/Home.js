@@ -34,7 +34,7 @@ export default class Home extends React.Component<ScreenProps<>> {
     }
 
     render(): React.Node {
-        const sectionName = "Pontos";
+        const sectionName = "Home";
         const {navigation} = this.props;
         return (
             <BaseContainer title={sectionName} {...{navigation}} scrollable style={styles.container}>

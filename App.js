@@ -18,7 +18,7 @@ import {Drawer} from "./src/components/drawer";
 import {Home} from "./src/components/home";
 import {Check} from "./src/components/check";
 import {Calendar} from "./src/components/calendar";
-import {Overview} from "./src/components/overview";
+import {Boletim} from "./src/components/boletim";
 import {Groups} from "./src/components/groups";
 import {Lists} from "./src/components/lists";
 import {Profile} from "./src/components/profile";
@@ -117,7 +117,7 @@ export default class App extends React.Component<{}, AppState> {
 const MainNavigator = createDrawerNavigator({
     Home: {screen: Home},
     Calendar: {screen: Calendar},
-    Overview: {screen: Overview},
+    Boletim: {screen: Boletim},
     Groups: {screen: Groups},
     Lists: {screen: Lists},
     Profile: {screen: Profile},

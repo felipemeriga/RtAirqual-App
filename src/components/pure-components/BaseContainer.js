@@ -45,13 +45,13 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                 </Content>
                 <Footer>
                     <FooterTab>
-                        <Button onPress={() => navigation.navigate("Overview")} transparent>
+                        <Button onPress={() => navigation.navigate("Boletim")} transparent>
                             <Icon name="ios-add-circle-outline" style={style.icon} />
                         </Button>
                         <Button transparent onPress={() => navigation.navigate("Home")}>
                             <Icon name="map" style={style.largeIcon} />
                         </Button>
-                        <Button onPress={() => navigation.navigate("Overview")} transparent>
+                        <Button onPress={() => navigation.navigate("Boletim")} transparent>
                             <Icon name="ios-calendar-outline" style={style.icon} />
                         </Button>
                     </FooterTab>

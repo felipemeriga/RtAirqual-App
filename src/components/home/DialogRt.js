@@ -146,47 +146,41 @@ Cor: 160 63 119
                             flexDirection: "row",
                             justifyContent: "space-around", //  center , space-between, space-around
                             padding: 5
-                        }}>
-                            <View style={styles.caixaInfoDialog}>
-                                <Text style={styles.textBoxDialog}>
+                        }}
+                        >
+                            <View style={styles.caixaInfoDialogTemp}>
+                                <Text style={styles.textBoxDialog}
+                                      onPress={() => {
+                                          console.log("CLICOU EM TEMP");
+                                          // this.props.mapsStore.onTouchOutside();
+                                         // criaDialog();
+                                      }}
+                                >
                                     {this.props.mapsStore.markDetail.field1}º
                                 </Text>
-                                <Text style={styles.legenda}>
-                                    Temperatura
-                                </Text>
                             </View>
 
-                            <View style={styles.caixaInfoDialog2}>
-                                <Text style={styles.textBoxDialog}>
+                            <View style={styles.caixaInfoDialogHum}>
+                                <Text style={styles.textBoxDialog}
+                                      onPress={() => {
+                                          console.log("CLICOU EM HUM");
+                                      }}
+                                >
                                     {this.props.mapsStore.markDetail.field2}%
                                 </Text>
-                                <Text style={styles.legenda}>
-                                    Umidade
-                                </Text>
                             </View>
 
-                            <View style={styles.caixaInfoDialog3}>
-                                <Text style={styles.textBoxDialog}>
+                            <View style={styles.caixaInfoDialogConf}>
+                                <Text style={styles.textBoxDialog}
+                                      onPress={() => {
+                                          console.log("CLICOU EM CONF");
+                                      }}
+                                >
                                     {parseFloat(this.props.mapsStore.markDetail.field3)
-                                        .toPrecision(3)}                                </Text>
-                                <Text style={styles.legenda}>
-                                    IQA
+                                        .toPrecision(3)}
                                 </Text>
                             </View>
                         </View>
-                        <Text style={styles.infoDicaDialog}>
-                            Condição: {"\b"}{"\b"}
-                            <Text style={styles.textNormal}>
-                                {this.props.mapsStore.thermalConfortMessage.tittle}
-                            </Text>
-                        </Text>
-                        <Text style={styles.infoDicaDialog}>
-                            Dica: {"\b"}{"\b"}
-                            <Text style={styles.textNormal}>
-                                {this.props.mapsStore.thermalConfortMessage.message}
-                            </Text>
-                        </Text>
-
                     </View>
                 </DialogContent>
             </Dialog>
@@ -215,25 +209,19 @@ const styles = StyleSheet.create({
     mapContainer: {
         flex: 1
     },
-    textNormal: {
-        fontWeight: "normal"
-    },
-    caixaInfoDialog: {
-        flex: 1,
+    caixaInfoDialogTemp: {
         borderRadius: 4,
         borderWidth: 0.5,
         backgroundColor: "#ffcccc",
         borderColor: "#000000"
     },
-    caixaInfoDialog2: {
-        flex: 1,
+    caixaInfoDialogHum: {
         borderRadius: 4,
         borderWidth: 0.5,
         backgroundColor: "#ccffcc",
         borderColor: "#000000"
     },
-    caixaInfoDialog3: {
-        flex: 1,
+    caixaInfoDialogConf: {
         borderRadius: 4,
         borderWidth: 0.5,
         backgroundColor: "#ffffcc",

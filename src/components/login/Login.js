@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     logoSymbol: {
-        width: width * 0.25,
+        width: width * 0.27,
         height: height * 0.15,
         alignItems: "center",
         justifyContent: "center"

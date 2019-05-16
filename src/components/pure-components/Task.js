@@ -28,7 +28,7 @@ export default class Task extends React.PureComponent<TaskProps> {
     }
 
     render(): React.Node {
-        const {title, subtitle, collaborators, timeline, texto} = this.props;
+        const {title, subtitle, collaborators, timeline, texto } = this.props;
         const date = moment(this.props.date);
         // $FlowFixMe
         const height = collaborators.length > 1 ? 150 : 100;
@@ -78,7 +78,7 @@ const style = StyleSheet.create({
         color: "white",
         alignItems: "center",
         padding: variables.contentPadding,
-        borderRightWidth: variables.borderWidth,
+        borderRightWidth: variables.borderWidth*0,
         borderColor: variables.listBorderColor,
         alignSelf: "baseline"
     },

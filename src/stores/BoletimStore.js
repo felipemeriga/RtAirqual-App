@@ -14,7 +14,7 @@ class BoletimStore {
         this.boletim = boletim;
         this.dialogOn = true;
         this.loadingDetail = true;
-        const url = "https://9sh2q766re.execute-api.us-west-2.amazonaws.com/dev?endpoint=" + boletim.dataBoletim + "";
+        const url = "https://9sh2q766re.execute-api.us-west-2.amazonaws.com/dev";
         axios.get(url)
             .then((response) => {
                 this.boletimDetail = response.data.body[0];

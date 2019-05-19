@@ -1,14 +1,17 @@
 // @flow
 import {Animated} from "react-native";
+import axios from "axios";
 import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
 import {Facebook, Google} from "expo";
 import Constants from "../components/constants/Constants";
+import User from "../model/User";
 
 
 class AuthStore {
     @observable authenticated: boolean = false;
     @observable autheticating: boolean = false;
+    @observable authenticationType: string;
     @observable user = {};
     @observable error: string;
     @observable hasError: boolean = false;
@@ -46,7 +49,9 @@ class AuthStore {
                 // Used when you have to set a new password
                 await Auth.completeNewPassword(user, password)
                     .then(() => {
-                        this.successfulSignIn(user);
+                        user.attributes.id = user.attributes.sub;
+                        this.authenticationType = this.authMethod.USER_POOLS;
+                        this.registerUserAccess(user.attributes);
                         console.log("Password updated");
                     });
             } else if (user.challengeName === "MFA_SETUP") {
@@ -57,7 +62,9 @@ class AuthStore {
                 Auth.setupTOTP(user);
             } else {
                 // The user directly signs in
-                this.successfulSignIn(user);
+                user.attributes.id = user.attributes.sub;
+                this.authenticationType = this.authMethod.USER_POOLS;
+                this.registerUserAccess(user.attributes);
             }
         } catch (err) {
             let message: string;
@@ -86,6 +93,8 @@ class AuthStore {
 
     @action
     async facebookFederatedSignIn(): React.Node {
+        this.animation = new Animated.Value(0);
+        this.autheticating = true;
         const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync(Constants.facebookAppClient, {
             permissions: ["public_profile", "email"]
         });
@@ -96,8 +105,9 @@ class AuthStore {
             // sign in with federated identity
             Auth.federatedSignIn("facebook", {token, expires_at: expireToken}, userInformation)
                 .then(credentials => {
-                    console.log("Got aws credentials", credentials);
-                    this.successfulSignIn(userInformation);
+                    console.log("Got aws credentials", Object.getOwnPropertyNames(credentials.cognito.config.params.Logins));
+                    this.authenticationType = this.authMethod.FEDERATED.FACEBOOK;
+                    this.registerUserAccess(userInformation);
                 })
                 .catch(e => {
                     this.signInError("Erro ao conectar ao facebook");
@@ -109,6 +119,8 @@ class AuthStore {
 
     @action
     async googleFederatedSignIn(): React.Node {
+        this.animation = new Animated.Value(0);
+        this.autheticating = true;
         const {type, idToken, user, accessTokenExpirationDate} = await Google.logInAsync({
             androidClientId: Constants.androidClientId,
             iosClientId: Constants.iosClientId,
@@ -119,8 +131,8 @@ class AuthStore {
 
             Auth.federatedSignIn("google", {token: idToken, expires_at: accessTokenExpirationDate}, user)
                 .then(credentials => {
-                    console.log("Got aws credentials", credentials);
-                    this.successfulSignIn(user);
+                    this.authenticationType = this.authMethod.FEDERATED.GOOGLE;
+                    this.registerUserAccess(user);
                 })
                 .catch(e => {
                     this.signInError("Erro ao conectar ao google");
@@ -132,6 +144,7 @@ class AuthStore {
     // TODO - Verify data to call successful login
     @action
     async signUp(username: string, password: string, attributes: {}): React.node {
+        this.animation = new Animated.Value(0);
         this.autheticating = true;
         Auth.signUp({
             username,
@@ -140,7 +153,12 @@ class AuthStore {
             validationData: [] // optional
         })
             .then(data => {
-                this.successfulSignIn(data.user);
+                const user = {
+                    id: data.userSub.toString()
+                };
+                console.log(data);
+                this.authenticationType = this.authMethod.USER_POOLS;
+                this.registerUserAccess(user);
             })
             .catch(err => this.signUpError(err));
     }
@@ -180,6 +198,7 @@ class AuthStore {
     }
 
     successfulSignIn(user: any): React.Node {
+        console.log("authenticated");
         this.animation = new Animated.Value(0);
         this.authenticated = true;
         this.autheticating = false;
@@ -221,6 +240,42 @@ class AuthStore {
     errorAlreadyShown(): React.Node {
         this.hasError = false;
         this.error = "";
+    }
+
+    @action
+    getUserAuthMethod(user: any) {
+        console.log("registering user");
+        const type = "update";
+        axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
+            id: user.id,
+            type: "new"
+        })
+            .then((response) => {
+                console.log(JSON.stringify(response));
+                this.userIsAlreadyAuthenticated(user);
+            })
+            .catch((error) => {
+                console.log(JSON.stringify(error));
+                this.signInError("Erro ao conectar ao servidor");
+            });
+
+    }
+
+    @action
+    async registerUserAccess(user: any): React.Node {
+        axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
+            id: user.id,
+            authenticationType: this.authenticationType,
+            type: "new"
+        })
+            .then((response) => {
+                console.log(JSON.stringify(response));
+                this.successfulSignIn(user);
+            })
+            .catch((error) => {
+                console.log(JSON.stringify(error));
+                this.signInError("Erro ao conectar ao servidor");
+            });
     }
 }
 

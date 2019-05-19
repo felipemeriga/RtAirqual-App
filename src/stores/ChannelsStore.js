@@ -1,7 +1,7 @@
 // @flow
 import {observable, action} from "mobx";
 import axios from "axios";
-import Channel from "../model/Channel";
+import Channel from "../model/User";
 
 class ChannelsStore {
     @observable loadingLocalization = false;

@@ -29,6 +29,8 @@ export default class SignUp extends React.Component<ScreenProps<>> {
     googleFederatedSignIn = () => this.props.authStore.googleFederatedSignIn();
 
     componentDidUpdate(): React.Node {
+        console.log("updated");
+        console.log(this.props.authStore.authenticated);
         if (this.props.authStore.authenticated) {
             this.props.navigation.navigate("Home");
         }

@@ -37,6 +37,7 @@ export default class Login extends React.Component<ScreenProps<>> {
     }
 
     componentWillMount(): React.Node {
+        this.props.authStore.signOut();
         this.props.authStore.animation = new Animated.Value(0);
         this.props.authStore.errorAlreadyShown();
     }

@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import * as Progress from "react-native-progress";
 import Dialog, {SlideAnimation, DialogContent, DialogTitle} from "react-native-popup-dialog";
 import PropTypes from "prop-types";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, Alert} from "react-native";
 import {Styles} from "../pure-components";
 
 @inject("mapsStore")
@@ -151,19 +151,46 @@ Cor: 160 63 119
                             <View style={styles.caixaInfoDialogTemp}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
-                                          console.log("CLICOU EM TEMP");
+                                          //abreDialog()
+                                        //console.log("CLICOU EM TEMP");
                                           // this.props.mapsStore.onTouchOutside();
                                          // criaDialog();
+
+                                         Alert.alert(
+                                             //alert title
+                                            //this.props.mapsStore.thermalConfortMessage.title,
+                                            "Temperatura: ",
+                                            //alert message
+                                            this.props.mapsStore.thermalConfortMessage.message,
+                                            [
+                                                //alert button
+                                              {text: 'Voltar'}
+                                            ],
+                                            {cancelable: true},
+                                          );
                                       }}
                                 >
                                     {this.props.mapsStore.markDetail.field1}º
                                 </Text>
+                                
                             </View>
 
                             <View style={styles.caixaInfoDialogHum}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
-                                          console.log("CLICOU EM HUM");
+                                        Alert.alert(
+                                            //alert title
+                                        //    this.props.mapsStore.relativeHumityMessage.title,
+                                        "Humidade relativa: ",
+                                           //alert message
+                                           this.props.mapsStore.relativeHumityMessage.message,
+                                           [
+                                               //alert button
+                                             {text: 'Voltar'}
+                                           ],
+                                           {cancelable: true},
+                                         );
+                                          //console.log("CLICOU EM HUM");
                                       }}
                                 >
                                     {this.props.mapsStore.markDetail.field2}%
@@ -173,7 +200,19 @@ Cor: 160 63 119
                             <View style={styles.caixaInfoDialogConf}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
-                                          console.log("CLICOU EM CONF");
+                                        Alert.alert(
+                                            //alert title
+                                        //    this.props.mapsStore.airQualityMessage.title,
+                                        "Qualidade do ar: ",
+                                           //alert message
+                                           this.props.mapsStore.airQualityMessage.message,
+                                           [
+                                               //alert button
+                                             {text: 'Voltar'}
+                                           ],
+                                           {cancelable: true},
+                                         );
+                                        // console.log("CLICOU EM CONF");
                                       }}
                                 >
                                     {parseFloat(this.props.mapsStore.markDetail.field3)

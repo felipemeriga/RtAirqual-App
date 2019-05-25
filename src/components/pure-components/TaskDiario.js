@@ -47,13 +47,13 @@ export default class Task extends React.PureComponent<TaskProps> {
                         }
                     </View>
                 </View>
-                 {/* <View style={[style.time, timeline ? style.timelineRight : {}]}>
+                <View style={[style.time, timeline ? style.timelineRight : {}]}>
                     <Text style={style.titleText}>{date.format("HH")}</Text>
                     <View>
                         <Text style={Styles.whiteText}>{`\xa0${date.format("mm")}`}</Text>
                         <Text style={Styles.grayText}>{`\xa0${date.format("A")}`}</Text>
                     </View>
-                </View>  */}
+                </View>
             </View>
         );
     }
@@ -74,7 +74,7 @@ const style = StyleSheet.create({
         padding: variables.contentPadding
     },
     text: {
-        fontSize: (variables.fontSizeBase * 1) + variables.contentPadding,
+        fontSize: (variables.fontSizeBase * 0.5) + variables.contentPadding,
         color: "white",
         alignItems: "center",
         padding: variables.contentPadding,

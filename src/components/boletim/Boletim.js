@@ -3,6 +3,7 @@ import moment from "moment";
 import {inject, observer} from "mobx-react";
 import PropTypes from "prop-types";
 import * as React from "react";
+import { ListItem } from 'react-native-elements'
 import {StyleSheet, View, Text, ScrollView} from "react-native";
 import {Tab, Tabs, TabHeading, H1, H3} from "native-base";
 import {BaseContainer, Task, Styles, TaskOverview} from "../pure-components";
@@ -12,6 +13,47 @@ import variables from "../../../native-base-theme/variables/commonColor";
 const DAY = 1;
 const WEEK = 2;
 const MONTH = 3;
+
+//preencher com dados AWS diario
+const listDiario = [
+    {
+      title: 'Appointments',
+      icon: 'av-timer'
+    },
+    {
+      title: 'Trips',
+      icon: 'flight-takeoff'
+    }
+  ]
+
+//preencher com dados AWS ranking
+const listRanking = [
+    {
+    local: "UTFPR (Zona Leste)",
+    descricao: "A região da UTFPR apresentou hoje o menor nível de conforto térmico, de 13,2 C, às 6h." 
+    },
+    {
+    local: "Lago Igapó 2",
+    descricao: "A região do Lago Igapó 2 apresentou hoje o 2o menor nível de conforto térmico, de 14,6 C, às 6h."
+    },    
+    {
+    local: "PUC (Zona Oeste)",
+    descricao: "A região da PUC apresentou hoje o 3o menor nível de conforto térmico, de 14,7 C, às 6h." 
+    }
+]
+
+//preencher com dados AWS boletim
+const listBoletim = [
+    {
+    data: "06 de Maio de 2019",
+    descricao: "⛅ Tendência de tempo estável e quente, com chance de pouca chuva nos próximos dias.😰 Alerta para o índice de conforto térmico, que tem sido alto no período da tarde e deve permanecer em estado de ALERTA entre às 11h e 17h. Nessa categoria, pode haver dificuldade para treinos leves e fortes e afetar a performance em mais de 20%. Reforce a hidratação a cada 15/20min.😰 Ponto de atenção também para a umidade relativa do ar, que tem permanecido em categoria de ATENÇÃO com tempo ÚMIDO (entre 60 e 80%) na maior parte do dia. Pode causar forte sensação de abafado ao se exercitar e suor excessivo, mantenha-se hidratado.📌Dica: Com aumento no nível de conforto térmico, destaca-se como períodos mais CONFORTÁVEIS do dia: até às 9h da manhã e após às 19h.📌Dica: Com o tempo quente e abafado, procure manter uma hidratação reforçada ao longo de todo o dia, pois a tendência é que seu corpo libere mais suor durante a atividade física."
+    },
+    {
+    data: "13 de Maio de 2019",
+    descricao: "🌦De modo geral, queda brusca na temperatura e possibilidade de chuva ao longo do dia. 🙂Com a recente queda de temperatura,  o índice de conforto térmico deve permanecer em estado de CONFORTÁVEL (entre 19°C e 26°C) ao longo de todo o dia.  Deve causar pouco efeito sobre o desempenho e são condições agradáveis para atividade física. 😰 Ponto de atenção apenas para a umidade relativa do ar, que tem permanecido em categoria de ATENÇÃO com tempo ÚMIDO (entre 60 e 80%) na maior parte do dia. Pode causar forte sensação de abafado ao se exercitar e suor excessivo. Portanto, mantenha-se hidratado.📌Dica: Com a situação permanecendo confortável ao longo de todo o dia, aproveite sua corrida! 📌Dica: Com o tempo úmido, procure manter uma hidratação reforçada ao longo de todo o dia, pois a tendência é que seu corpo libere mais suor durante a atividade física."    
+    }
+]
+
 
 @inject("boletimStore")
 @observer
@@ -52,8 +94,8 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
     render(): React.Node {
 
         const boletins = this.props.boletins;
-        var SampleNameArray = [ "Londrina, Segunda, 06 de Maio, 2019 ⛅ Tendência de tempo estável e quente, com chance de pouca chuva nos próximos dias.😰 Alerta para o índice de conforto térmico, que tem sido alto no período da tarde e deve permanecer em estado de ALERTA entre às 11h e 17h. Nessa categoria, pode haver dificuldade para treinos leves e fortes e afetar a performance em mais de 20%. Reforce a hidratação a cada 15/20min.😰 Ponto de atenção também para a umidade relativa do ar, que tem permanecido em categoria de ATENÇÃO com tempo ÚMIDO (entre 60 e 80%) na maior parte do dia. Pode causar forte sensação de abafado ao se exercitar e suor excessivo, mantenha-se hidratado.📌Dica: Com aumento no nível de conforto térmico, destaca-se como períodos mais CONFORTÁVEIS do dia: até às 9h da manhã e após às 19h.📌Dica: Com o tempo quente e abafado, procure manter uma hidratação reforçada ao longo de todo o dia, pois a tendência é que seu corpo libere mais suor durante a atividade física."
-        ];
+        // var SampleNameArray = [ "Londrina, Segunda, 06 de Maio, 2019 ⛅ Tendência de tempo estável e quente, com chance de pouca chuva nos próximos dias.😰 Alerta para o índice de conforto térmico, que tem sido alto no período da tarde e deve permanecer em estado de ALERTA entre às 11h e 17h. Nessa categoria, pode haver dificuldade para treinos leves e fortes e afetar a performance em mais de 20%. Reforce a hidratação a cada 15/20min.😰 Ponto de atenção também para a umidade relativa do ar, que tem permanecido em categoria de ATENÇÃO com tempo ÚMIDO (entre 60 e 80%) na maior parte do dia. Pode causar forte sensação de abafado ao se exercitar e suor excessivo, mantenha-se hidratado.📌Dica: Com aumento no nível de conforto térmico, destaca-se como períodos mais CONFORTÁVEIS do dia: até às 9h da manhã e após às 19h.📌Dica: Com o tempo quente e abafado, procure manter uma hidratação reforçada ao longo de todo o dia, pois a tendência é que seu corpo libere mais suor durante a atividade física."
+        // ];
 
         const {period} = this.props;
         const diaDaSemana = retornaDia(new Date().getDay());
@@ -67,14 +109,24 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
             return (
                 <View style={style.container}>
                     <ScrollView>
-                        <View style={[style.tab, Styles.center]}>
+                    {
+                    listDiario.map((item, i) => (
+                        <ListItem
+                            key={i}
+                            title={item.title}
+                            leftIcon={{ name: item.icon }}
+                        />
+                    ))
+                    }
+
+                        {/* <View style={[style.tab, Styles.center]}>
                             <H1>{diaDaSemana}</H1>
                             <H3>Texto descritivo para {diaDaSemana}</H3>
                         </View>
                         <TaskOverview
                             textoEsquerda="Texto descritivo para poluicao do ar"
                             textoDireita="Texto descritivo para conforto termico"
-                        />
+                        /> 
                         {/* <Task date="2015-05-08 09:30" title="New Icons" subtitle="Mobile App" completed />
                         <Task
                             date="2015-05-08 11:00"
@@ -98,6 +150,18 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
             return (
                 <View style={style.container}>
                     <ScrollView>
+                    <View style={[style.tab, Styles.center]}>
+                    <H1>Ranking atual</H1>
+                    </View>
+                        {
+                        listRanking.map((item, i) => (
+                            <Task
+                                key={i}
+                                title={item.local}
+                                subtitle={item.descricao}
+                             />
+                        ))
+                        }                        
                    </ScrollView>
                 </View>
             );
@@ -113,28 +177,21 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                     <View style={[style.tab, Styles.center]}>
                         <H1>{mesDoAno.toUpperCase()}</H1>
                     </View>
+                    {/* { SampleNameArray.map((item, key)=>( //SampleNameArray boletins
+                        <Text style={style.textoBoletim} key={key} > { item } </Text>)
+                    )} */}
+                    {
+                    listBoletim.map((item, i) => (
+                        <Text style={style.textoBoletim}
+                            key={i}
+                        >
+                            {item.data}
+                            {"\n"}{"\n"}
+                            {item.descricao}
+                            </Text>
+                    ))
+                    }
 
-{ SampleNameArray.map((item, key)=>( //SampleNameArray boletins
-    <Text style={style.textoBoletim} key={key} > { item } </Text>)
-    )}
-
-{/* 
-                    <Task texto=/>
-
-
-<Task texto="Londrina, Segunda, 06 de Maio, 2019
-
-⛅ Tendência de tempo estável e quente, com chance de pouca chuva nos próximos dias.
-
-😰 Alerta para o índice de conforto térmico, que tem sido alto no período da tarde e deve permanecer em estado de ALERTA entre às 11h e 17h. Nessa categoria, pode haver dificuldade para treinos leves e fortes e afetar a performance em mais de 20%. Reforce a hidratação a cada 15/20min.
-
-😰 Ponto de atenção também para a umidade relativa do ar, que tem permanecido em categoria de ATENÇÃO com tempo ÚMIDO (entre 60 e 80%) na maior parte do dia. Pode causar forte sensação de abafado ao se exercitar e suor excessivo, mantenha-se hidratado.
-
-📌Dica: Com aumento no nível de conforto térmico, destaca-se como períodos mais CONFORTÁVEIS do dia: até às 9h da manhã e após às 19h.
-
-📌Dica: Com o tempo quente e abafado, procure manter uma hidratação reforçada ao longo de todo o dia, pois a tendência é que seu corpo libere mais suor durante a atividade física."
-/>
- */}
 
                 </ScrollView>
             </View>
@@ -229,12 +286,11 @@ const style = StyleSheet.create({
     textoBoletim: {
         fontSize: (variables.fontSizeBase * 0.7) + variables.contentPadding,
         color: "white",
-        alignItems: "center",
         padding: variables.contentPadding,
         alignSelf: "baseline",
         flexDirection: "row",
-        borderBottomWidth: 2,
-        borderColor: "#FFF",
+        borderBottomColor: '#fff',
+        borderBottomWidth: 1,
         marginHorizontal: variables.contentPadding * 2
     },
 });

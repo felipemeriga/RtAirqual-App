@@ -4,7 +4,7 @@ import * as React from "react";
 import {Dimensions} from "react-native";
 import {StyleProvider} from "native-base";
 import {Provider} from "mobx-react";
-import Amplify, {Auth} from "aws-amplify";
+import Amplify from "aws-amplify";
 import {
     createAppContainer, createSwitchNavigator, createDrawerNavigator
 } from "react-navigation";

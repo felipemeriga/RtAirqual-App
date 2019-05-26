@@ -14,13 +14,13 @@ export default class Check extends React.Component<ScreenProps<>> {
     async componentDidMount(): React.Node {
         try {
             const user = await Auth.currentAuthenticatedUser();
-            console.log(user);
             if (user.hasOwnProperty("attributes")) {
                 user.attributes.id = user.attributes.sub;
                 await this.props.authStore.getUserAuthMethod(user.attributes);
             } else {
                 await this.props.authStore.getUserAuthMethod(user);
             }
+            console.log("antess");
             this.props.navigation.navigate("Home");
         } catch (err) {
             console.log(err);

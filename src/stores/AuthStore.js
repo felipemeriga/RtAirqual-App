@@ -5,7 +5,6 @@ import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
 import {Facebook, Google} from "expo";
 import Constants from "../components/constants/Constants";
-import User from "../model/User";
 
 
 class AuthStore {
@@ -24,13 +23,7 @@ class AuthStore {
         phone: ""
     };
 
-    authMethod = {
-        USER_POOLS: "USER_POOLS",
-        FEDERATED: {
-            GOOGLE: "GOOGLE",
-            FACEBOOK: "FACEBOOK"
-        }
-    };
+    @observable authMethod: string;
 
     @action
     async signIn(username: string, password: string): React.node {
@@ -50,7 +43,7 @@ class AuthStore {
                 await Auth.completeNewPassword(user, password)
                     .then(() => {
                         user.attributes.id = user.attributes.sub;
-                        this.authenticationType = this.authMethod.USER_POOLS;
+                        this.authenticationType = "USER_POOLS";
                         this.registerUserAccess(user.attributes);
                         console.log("Password updated");
                     });
@@ -63,7 +56,7 @@ class AuthStore {
             } else {
                 // The user directly signs in
                 user.attributes.id = user.attributes.sub;
-                this.authenticationType = this.authMethod.USER_POOLS;
+                this.authenticationType = "USER_POOLS";
                 this.registerUserAccess(user.attributes);
             }
         } catch (err) {
@@ -99,14 +92,16 @@ class AuthStore {
             permissions: ["public_profile", "email"]
         });
         if (type === "success") {
-            const responseQl = await fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`);
+            const responseQl = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture.width(800).height(800)&access_token=${token}`);
             const userInformation = await responseQl.json();
+            console.log(userInformation);
+
             const expireToken = expires * 10000 + new Date().getTime();
             // sign in with federated identity
             Auth.federatedSignIn("facebook", {token, expires_at: expireToken}, userInformation)
                 .then(credentials => {
                     console.log("Got aws credentials", Object.getOwnPropertyNames(credentials.cognito.config.params.Logins));
-                    this.authenticationType = this.authMethod.FEDERATED.FACEBOOK;
+                    this.authenticationType = "FACEBOOK";
                     this.registerUserAccess(userInformation);
                 })
                 .catch(e => {
@@ -131,7 +126,8 @@ class AuthStore {
 
             Auth.federatedSignIn("google", {token: idToken, expires_at: accessTokenExpirationDate}, user)
                 .then(credentials => {
-                    this.authenticationType = this.authMethod.FEDERATED.GOOGLE;
+                    console.log(credentials);
+                    this.authenticationType = "GOOGLE";
                     this.registerUserAccess(user);
                 })
                 .catch(e => {
@@ -157,7 +153,7 @@ class AuthStore {
                     id: data.userSub.toString()
                 };
                 console.log(data);
-                this.authenticationType = this.authMethod.USER_POOLS;
+                this.authenticationType = "USER_POOLS";
                 this.registerUserAccess(user);
             })
             .catch(err => this.signUpError(err));
@@ -243,16 +239,15 @@ class AuthStore {
     }
 
     @action
-    getUserAuthMethod(user: any) {
+    async getUserAuthMethod(user: any): React.Node {
         console.log("registering user");
-        const type = "update";
-        axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
+        await axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
             id: user.id,
             type: "new"
         })
             .then((response) => {
-                console.log(JSON.stringify(response));
                 this.userIsAlreadyAuthenticated(user);
+                this.authenticationType = response.data.body.authenticationType;
             })
             .catch((error) => {
                 console.log(JSON.stringify(error));
@@ -263,7 +258,7 @@ class AuthStore {
 
     @action
     async registerUserAccess(user: any): React.Node {
-        axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
+        await axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
             id: user.id,
             authenticationType: this.authenticationType,
             type: "new"

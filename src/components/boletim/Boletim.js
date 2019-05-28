@@ -58,6 +58,7 @@ const listBoletim = [
 @inject("boletimStore")
 @observer
 export default class Boletim extends React.Component<ScreenProps<>> {
+
     render(): React.Node {
         
         return (

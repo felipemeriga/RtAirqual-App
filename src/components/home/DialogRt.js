@@ -2,130 +2,65 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import * as Progress from "react-native-progress";
-import Dialog, {SlideAnimation, DialogContent, DialogTitle} from "react-native-popup-dialog";
+import Dialog, {SlideAnimation, DialogContent, DialogTitle, ScaleAnimation} from "react-native-popup-dialog";
 import PropTypes from "prop-types";
-import {StyleSheet, Text, View, Alert} from "react-native";
+import {StyleSheet, Text, View, Alert, Button} from "react-native";
 import {Styles} from "../pure-components";
+
 
 @inject("mapsStore")
 @observer
 export default class DialogRt extends React.Component<{}> {
 
-    /*
-    *Conforto térmico
+    retornaCorTemp(temperatura) {
+        temperatura = parseFloat(temperatura);
+        if(temperatura <= 13) {return "#604a7e"}
+        else
+        if(temperatura > 13 && temperatura <= 19) {return "#19d1b6"}
+        else
+        if(temperatura > 19 && temperatura <= 26) {return "#04f008"}
+        else
+        if(temperatura > 26 && temperatura <= 32) {return "#f79646"}
+        else
+        if(temperatura > 32 && temperatura <= 39) {return "#ff0000"}
+        else
+        return "#8b0000"
+    }
 
-Abaixo de 13°C
-FORTE EXTRESSE AO FRIO
-Cor: R96 G74 B126
+    retornaCorHumi(humidade) {
+        humidade = parseFloat(humidade);
+        if(humidade <= 25) {return "#ff0000"}
+        else
+        if(humidade > 25 && humidade <= 40) {return "#ffbf00"}
+        else
+        if(humidade > 40 && humidade <= 60) {return "#04f008"}
+        else
+        if(humidade > 60 && humidade <= 80) {return "#ffbf00"}
+        else 
+        return "#ff0000"
+    }
 
-Entre 13°C e 19°C
-FRIO MODERADO
-Cor: 25 209 182
-
-Entre 19°C e 26°C
-LIGEIRAMENTE FRIO À CONFORTÁVEL
-Cor: 4 240 8
-
-Entre 27°C e 32°C
-ATENÇÃO, LIGEIRAMENTE QUENTE
-Cor: 247 150 70
-
-Entre 32°C e 39°C
-CUIDADO, MUITO QUENTE
-Cor: 255 0 0
-
-Acima de 39°C
-PERIGO
-Cor: 139 0 0
-
-
-----------------
-
-
-Umidade relativa
-
-Menor que 25%
-ALERTA, TEMPO MUITO SECO!
-Cor: 255 0 0
-
-25% e 40%
-ATENÇÃO, TEMPO SECO!
-Cor: 255 191 0
-
-Entre 40% e 60%
-CONFORTÁVEL
-Cor: 4 240 8
-
-
-Entre 60% e 80%
-ATENÇÃO, TEMPO ÚMIDO!
-Cor: 255 191 0
-
-
-Acima de 80%ALERTA
- TEMPO MUITO ÚMIDO!
-Cor: 255 0 0*Umidade relativa*
-
-Menor que 25%
-ALERTA, TEMPO MUITO SECO!
-Cor: 255 0 0
-
-25% e 40%
-ATENÇÃO, TEMPO SECO!
-Cor: 255 191 0
-
-Entre 40% e 60%
-CONFORTÁVEL
-Cor: 4 240 8
-
-
-Entre 60% e 80%
-ATENÇÃO, TEMPO ÚMIDO!
-Cor: 255 191 0
-
-
-Acima de 80%ALERTA
- TEMPO MUITO ÚMIDO!
-Cor: 255 0 0
-
-
------------------
-
-
-Qualidade do ar
-
-Menor que 40
-CONDIÇÕES BOAS
-Cor: 4 240 8
-
-
-Entre 41 e 80
-CONDIÇÕES MODERADAS
-Cor: 255 191 0
-
-
-Entre 81 e 120
-CONDIÇÕES RUINS
-Cor: 247 150 70
-
-Entre 121 e 200
-CONDIÇÕES MUITO RUINS
-Cor: 255 0 0
-
-
-Maior que 200
-CONDIÇÕES PÉSSIMAS
-Cor: 160 63 119
-
-    *
-    * */
+    retornaCorPolu(poluicao) {
+        poluicao = parseFloat(poluicao);
+        if(poluicao <= 40) {return "#04f008"}
+        else
+        if(poluicao > 40 && poluicao <= 80) {return "#ffbf00"}
+        else
+        if(poluicao > 80 && poluicao <= 120) {return "#f79646"}
+        else
+        if(poluicao > 120 && poluicao <= 200) {return "#ff0000"}
+        else 
+        return "#a03f77"
+    }
 
     getRenderContent(): React.Node {
         return (
             <Dialog
-                dialogTitle={<DialogTitle title={this.props.mapsStore.marker.name} style={styles.titleDialog}/>}
-                visible={this.props.mapsStore.dialogOn}
-                dialogAnimation={new SlideAnimation({
+                dialogTitle={<DialogTitle 
+                    title={this.props.mapsStore.marker.name}
+                    style={styles.titleDialog}/>}
+                    visible={this.props.mapsStore.dialogOn}
+                    dialogAnimation={new ScaleAnimation({
                     slideFrom: "bottom"
                 })}
                 onTouchOutside={() => {
@@ -141,14 +76,76 @@ Cor: 160 63 119
                     />
                     <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
 
-                        <View style={{
+                        <View 
+                        style={{
                             //  alignItems: 'stretch',
-                            flexDirection: "row",
-                            justifyContent: "space-around", //  center , space-between, space-around
-                            padding: 5
-                        }}
-                        >
-                            <View style={styles.caixaInfoDialogTemp}>
+                            flexDirection: "column",
+                            justifyContent: "space-between", //  center , space-between, space-around
+                            padding: 10
+                        }}>
+{/* 
+<Button style={styles.button}
+ onPress={""
+    // Alert.alert(
+    //     //alert title
+    //    //this.props.mapsStore.thermalConfortMessage.title,
+    //    "O que esse número diz sobre a temperatura: ",
+    //    //alert message
+    //    this.props.mapsStore.thermalConfortMessage.message,
+    //    [
+    //        //alert button
+    //      {text: 'Voltar'}
+    //    ],
+    //    {cancelable: true},
+    //  )
+  }
+  title={"A temperatura é: " + this.props.mapsStore.markDetail.field1+ "°"}
+  color={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
+/>
+
+<Button style={styles.button}
+ onPress={""
+    // Alert.alert(
+    //     //alert title
+    //    //this.props.mapsStore.thermalConfortMessage.title,
+    //    "O que esse número diz sobre a humidade: ",
+    //    //alert message
+    //    this.props.mapsStore.relativeHumityMessage.message,
+    //    [
+    //        //alert button
+    //      {text: 'Voltar'}
+    //    ],
+    //    {cancelable: true},
+    //  )
+  }
+  title={"A humidade do ar é: " + this.props.mapsStore.markDetail.field2 + "%"} 
+  color={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
+/>
+
+<Button style={styles.button}
+ onPress={""
+    // Alert.alert(
+    //     //alert title
+    //    //this.props.mapsStore.thermalConfortMessage.title,
+    //    "O que esse número diz sobre a poluição do ar: ",
+    //    //alert message
+    //    this.props.mapsStore.airQualityMessage.message,
+    //    [
+    //        //alert button
+    //      {text: 'Voltar'}
+    //    ],
+    //    {cancelable: true},
+    //  )
+  }
+  title={"A poluição do ar é: " + this.props.mapsStore.markDetail.field3}
+  color={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
+/>
+
+<Text style={{color: 'grey'}}>
+    Clique em uma das caixas acima para obter mais informações!
+</Text> */}
+
+                             {/* <View style={styles.caixaInfoDialogTemp}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
                                           //abreDialog()
@@ -159,7 +156,7 @@ Cor: 160 63 119
                                          Alert.alert(
                                              //alert title
                                             //this.props.mapsStore.thermalConfortMessage.title,
-                                            "Temperatura: ",
+                                            "O que esse número diz sobre a temperatura: ",
                                             //alert message
                                             this.props.mapsStore.thermalConfortMessage.message,
                                             [
@@ -172,16 +169,15 @@ Cor: 160 63 119
                                 >
                                     {this.props.mapsStore.markDetail.field1}º
                                 </Text>
-                                
-                            </View>
-
+                            </View>  */}
+{/* 
                             <View style={styles.caixaInfoDialogHum}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
                                         Alert.alert(
                                             //alert title
                                         //    this.props.mapsStore.relativeHumityMessage.title,
-                                        "Humidade relativa: ",
+                                        "O que esse número diz sobre a humidade relativa: ",
                                            //alert message
                                            this.props.mapsStore.relativeHumityMessage.message,
                                            [
@@ -195,15 +191,15 @@ Cor: 160 63 119
                                 >
                                     {this.props.mapsStore.markDetail.field2}%
                                 </Text>
-                            </View>
-
+                            </View> */}
+{/* 
                             <View style={styles.caixaInfoDialogConf}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
                                         Alert.alert(
                                             //alert title
                                         //    this.props.mapsStore.airQualityMessage.title,
-                                        "Qualidade do ar: ",
+                                        "O que esse número diz sobre a qualidade do ar: ",
                                            //alert message
                                            this.props.mapsStore.airQualityMessage.message,
                                            [
@@ -218,7 +214,7 @@ Cor: 160 63 119
                                     {parseFloat(this.props.mapsStore.markDetail.field3)
                                         .toPrecision(3)}
                                 </Text>
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                 </DialogContent>
@@ -290,5 +286,10 @@ const styles = StyleSheet.create({
     },
     hideLoadingDialog: {
         display: "none"
+    },
+    button: {
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: "black"
     }
 });

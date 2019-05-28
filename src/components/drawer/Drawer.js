@@ -43,8 +43,8 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                 </Header>
                 <View style={style.itemContainer}>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Home" icon="ios-map" left />
-                        <DrawerItem {...{navigation}} name="Boletim" icon="ios-calendar-outline" /* icon="ios-analytics-outline" */  />
+                        <DrawerItem {...{navigation}} name="Pontos RT" icon="ios-map" left descricao="Home"/>
+                        <DrawerItem {...{navigation}} name="Boletim" icon="ios-paper-outline" descricao="Boletim"/* icon="ios-analytics-outline" */  />
 
                     </View>
                     <View style={style.row}>
@@ -76,11 +76,11 @@ type DrawerItemProps = NavigationProps<> & {
 
 class DrawerItem extends React.PureComponent<DrawerItemProps> {
     render(): React.Node {
-        const {name, navigation, icon, left} = this.props;
+        const {name, navigation, icon, left, descricao} = this.props;
         const navState = this.props.navigation.state;
-        const active = navState.routes[navState.index].key === name;
+        const active = navState.routes[navState.index].key === descricao;
         const props = {
-            onPress: () => navigation.navigate(name),
+            onPress: () => navigation.navigate(descricao),
             style: [style.item, left ? { borderRightWidth: variables.borderWidth } : undefined]
         };
         return (

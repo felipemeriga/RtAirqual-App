@@ -74,7 +74,7 @@ const style = StyleSheet.create({
         padding: variables.contentPadding
     },
     text: {
-        fontSize: (variables.fontSizeBase * 1) + variables.contentPadding,
+        fontSize: (variables.fontSizeBase * 0.5) + variables.contentPadding,
         color: "white",
         alignItems: "center",
         padding: variables.contentPadding,

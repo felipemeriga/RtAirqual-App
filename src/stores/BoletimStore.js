@@ -8,10 +8,13 @@ class BoletimStore {
     @observable boletimDetail: Object = {};
     @observable boletim: Object = {};
     @observable error = false;
+    @observable diarioMessage: Object = {};
+    @observable rankingMessage: Object = {};
+    @observable boletimMessage: Object = {};
 
     @action
-    async getBoletim(boletim: any): React.node {
-        this.boletim = boletim;
+    async getBoletim(): React.node {
+        // this.boletim = boletim;
         this.dialogOn = true;
         this.loadingDetail = true;
         const url = "https://9sh2q766re.execute-api.us-west-2.amazonaws.com/dev";
@@ -19,6 +22,9 @@ class BoletimStore {
             .then((response) => {
                 this.boletimDetail = response.data.body[0];
                 this.loadingDetail = false;
+                this.diarioMessage = this.boletimDetail.diario;
+                this.boletimMessage = this.boletimDetail.boletim;
+                this.rankingMessage = this.boletimDetail.ranking;
 
             })
             .catch((err) => {

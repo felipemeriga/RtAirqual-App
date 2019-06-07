@@ -1,11 +1,11 @@
 // @flow
 import React from "react";
-import {inject, observer} from "mobx-react";
+import { inject, observer } from "mobx-react";
 import * as Progress from "react-native-progress";
-import Dialog, {SlideAnimation, DialogContent, DialogTitle, ScaleAnimation} from "react-native-popup-dialog";
+import Dialog, { SlideAnimation, DialogContent, DialogTitle, ScaleAnimation } from "react-native-popup-dialog";
 import PropTypes from "prop-types";
-import {StyleSheet, Text, View, Alert, Button} from "react-native";
-import {Styles} from "../pure-components";
+import { StyleSheet, Text, View, Alert, Button } from "react-native";
+import { Styles } from "../pure-components";
 
 
 @inject("mapsStore")
@@ -14,53 +14,53 @@ export default class DialogRt extends React.Component<{}> {
 
     retornaCorTemp(temperatura) {
         temperatura = parseFloat(temperatura);
-        if(temperatura <= 13) {return "#604a7e"}
+        if (temperatura <= 13) { return "#604a7e" }
         else
-        if(temperatura > 13 && temperatura <= 19) {return "#19d1b6"}
-        else
-        if(temperatura > 19 && temperatura <= 26) {return "#04f008"}
-        else
-        if(temperatura > 26 && temperatura <= 32) {return "#f79646"}
-        else
-        if(temperatura > 32 && temperatura <= 39) {return "#ff0000"}
-        else
-        return "#8b0000"
+            if (temperatura > 13 && temperatura <= 19) { return "#19d1b6" }
+            else
+                if (temperatura > 19 && temperatura <= 26) { return "#04f008" }
+                else
+                    if (temperatura > 26 && temperatura <= 32) { return "#f79646" }
+                    else
+                        if (temperatura > 32 && temperatura <= 39) { return "#ff0000" }
+                        else
+                            return "#8b0000"
     }
 
     retornaCorHumi(humidade) {
         humidade = parseFloat(humidade);
-        if(humidade <= 25) {return "#ff0000"}
+        if (humidade <= 25) { return "#ff0000" }
         else
-        if(humidade > 25 && humidade <= 40) {return "#ffbf00"}
-        else
-        if(humidade > 40 && humidade <= 60) {return "#04f008"}
-        else
-        if(humidade > 60 && humidade <= 80) {return "#ffbf00"}
-        else 
-        return "#ff0000"
+            if (humidade > 25 && humidade <= 40) { return "#ffbf00" }
+            else
+                if (humidade > 40 && humidade <= 60) { return "#04f008" }
+                else
+                    if (humidade > 60 && humidade <= 80) { return "#ffbf00" }
+                    else
+                        return "#ff0000"
     }
 
     retornaCorPolu(poluicao) {
         poluicao = parseFloat(poluicao);
-        if(poluicao <= 40) {return "#04f008"}
+        if (poluicao <= 40) { return "#04f008" }
         else
-        if(poluicao > 40 && poluicao <= 80) {return "#ffbf00"}
-        else
-        if(poluicao > 80 && poluicao <= 120) {return "#f79646"}
-        else
-        if(poluicao > 120 && poluicao <= 200) {return "#ff0000"}
-        else 
-        return "#a03f77"
+            if (poluicao > 40 && poluicao <= 80) { return "#ffbf00" }
+            else
+                if (poluicao > 80 && poluicao <= 120) { return "#f79646" }
+                else
+                    if (poluicao > 120 && poluicao <= 200) { return "#ff0000" }
+                    else
+                        return "#a03f77"
     }
 
     getRenderContent(): React.Node {
         return (
             <Dialog
-                dialogTitle={<DialogTitle 
+                dialogTitle={<DialogTitle
                     title={this.props.mapsStore.marker.name}
-                    style={styles.titleDialog}/>}
-                    visible={this.props.mapsStore.dialogOn}
-                    dialogAnimation={new ScaleAnimation({
+                    style={styles.titleDialog} />}
+                visible={this.props.mapsStore.dialogOn}
+                dialogAnimation={new ScaleAnimation({
                     slideFrom: "bottom"
                 })}
                 onTouchOutside={() => {
@@ -76,76 +76,77 @@ export default class DialogRt extends React.Component<{}> {
                     />
                     <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
 
-                        <View 
-                        style={{
-                            //  alignItems: 'stretch',
-                            flexDirection: "column",
-                            justifyContent: "space-between", //  center , space-between, space-around
-                            padding: 10
-                        }}>
-{/* 
-<Button style={styles.button}
- onPress={""
-    // Alert.alert(
-    //     //alert title
-    //    //this.props.mapsStore.thermalConfortMessage.title,
-    //    "O que esse número diz sobre a temperatura: ",
-    //    //alert message
-    //    this.props.mapsStore.thermalConfortMessage.message,
-    //    [
-    //        //alert button
-    //      {text: 'Voltar'}
-    //    ],
-    //    {cancelable: true},
-    //  )
-  }
-  title={"A temperatura é: " + this.props.mapsStore.markDetail.field1+ "°"}
-  color={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
-/>
+                        <View
+                            style={{
+                                //  alignItems: 'stretch',
+                                flexDirection: "column",
+                                justifyContent: "space-between", //  center , space-between, space-around
+                                padding: 10
+                            }}>
 
-<Button style={styles.button}
- onPress={""
-    // Alert.alert(
-    //     //alert title
-    //    //this.props.mapsStore.thermalConfortMessage.title,
-    //    "O que esse número diz sobre a humidade: ",
-    //    //alert message
-    //    this.props.mapsStore.relativeHumityMessage.message,
-    //    [
-    //        //alert button
-    //      {text: 'Voltar'}
-    //    ],
-    //    {cancelable: true},
-    //  )
-  }
-  title={"A humidade do ar é: " + this.props.mapsStore.markDetail.field2 + "%"} 
-  color={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
-/>
+                            <Button style={styles.button}
+                                onPress={""
+                                    // Alert.alert(
+                                    //     //alert title
+                                    //    //this.props.mapsStore.thermalConfortMessage.title,
+                                    //    "O que esse número diz sobre a temperatura: ",
+                                    //    //alert message
+                                    //    this.props.mapsStore.thermalConfortMessage.message,
+                                    //    [
+                                    //        //alert button
+                                    //      {text: 'Voltar'}
+                                    //    ],
+                                    //    {cancelable: true},
+                                    //  )
+                                }
+                                title={"a temperatura é: " + this.props.mapsStore.markDetail.field1 + "°"}
+                                color={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
+                            />
 
-<Button style={styles.button}
- onPress={""
-    // Alert.alert(
-    //     //alert title
-    //    //this.props.mapsStore.thermalConfortMessage.title,
-    //    "O que esse número diz sobre a poluição do ar: ",
-    //    //alert message
-    //    this.props.mapsStore.airQualityMessage.message,
-    //    [
-    //        //alert button
-    //      {text: 'Voltar'}
-    //    ],
-    //    {cancelable: true},
-    //  )
-  }
-  title={"A poluição do ar é: " + this.props.mapsStore.markDetail.field3}
-  color={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
-/>
+                            <Button style={styles.button}
+                            
+                                onPress={""
+                                    // Alert.alert(
+                                    //     //alert title
+                                    //    //this.props.mapsStore.thermalConfortMessage.title,
+                                    //    "O que esse número diz sobre a humidade: ",
+                                    //    //alert message
+                                    //    this.props.mapsStore.relativeHumityMessage.message,
+                                    //    [
+                                    //        //alert button
+                                    //      {text: 'Voltar'}
+                                    //    ],
+                                    //    {cancelable: true},
+                                    //  )
+                                }
+                                title={"a humidade do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
+                                color={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
+                            />
 
-<Text style={{color: 'grey'}}>
-    Clique em uma das caixas acima para obter mais informações!
-</Text> */}
+                            <Button style={styles.button}
+                                onPress={""
+                                    // Alert.alert(
+                                    //     //alert title
+                                    //    //this.props.mapsStore.thermalConfortMessage.title,
+                                    //    "O que esse número diz sobre a poluição do ar: ",
+                                    //    //alert message
+                                    //    this.props.mapsStore.airQualityMessage.message,
+                                    //    [
+                                    //        //alert button
+                                    //      {text: 'Voltar'}
+                                    //    ],
+                                    //    {cancelable: true},
+                                    //  )
+                                }
+                                title={"a poluição do ar é: " + this.props.mapsStore.markDetail.field3}
+                                color={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
+                            />
 
-                             {/* <View style={styles.caixaInfoDialogTemp}>
+                            <Text style={{ color: 'grey', padding: 10 }}>
+                                Clique em uma das caixas acima para obter mais informações!
+</Text>
+
+                            {/* <View style={styles.caixaInfoDialogTemp}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
                                           //abreDialog()
@@ -170,7 +171,7 @@ export default class DialogRt extends React.Component<{}> {
                                     {this.props.mapsStore.markDetail.field1}º
                                 </Text>
                             </View>  */}
-{/* 
+                            {/* 
                             <View style={styles.caixaInfoDialogHum}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {
@@ -192,7 +193,7 @@ export default class DialogRt extends React.Component<{}> {
                                     {this.props.mapsStore.markDetail.field2}%
                                 </Text>
                             </View> */}
-{/* 
+                            {/* 
                             <View style={styles.caixaInfoDialogConf}>
                                 <Text style={styles.textBoxDialog}
                                       onPress={() => {

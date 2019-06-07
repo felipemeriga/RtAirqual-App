@@ -33,7 +33,8 @@ const Styles = StyleSheet.create({
         backgroundColor: "white"
     },
     whiteText: {
-        color: "white"
+        color: "white",
+        fontSize: 18,
     },
     grayText: {
         color: variables.listBorderColor

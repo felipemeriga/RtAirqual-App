@@ -52,7 +52,7 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                             {/* <Icon name="ios-add-circle-outline" style={style.icon} /> */}
                         </Button>
                         <Button transparent onPress={() => navigation.navigate("Home")}>
-                            <Icon name="map" style={style.largeIcon} />
+                            <Icon name="ios-map-outline" style={style.largeIcon} />
                         </Button>
                         <Button onPress={() => navigation.navigate("Boletim")} transparent>
                             <Icon name="ios-paper-outline" style={style.icon} />

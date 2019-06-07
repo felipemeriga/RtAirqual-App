@@ -51,6 +51,7 @@ export default class Images {
     static boletim = Boletim;
     static graphic = Graphic;
     static rtMarker = RtMarkerAndroid;
+    static rtMarker = RtMarkerIos;
 
     static setPlataformImages(): React.Node {
         if (Platform.OS === "ios") {

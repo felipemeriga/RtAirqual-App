@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
         marginVertical: variables.contentPadding * 2,
         alignItems: "center",
         justifyContent: "center"
+        
     },
     logoLetterView: {
         alignItems: "center",
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
         width: width * 0.25,
         height: height * 0.15,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     },
     logoLetter: {
         width: width * 0.4,

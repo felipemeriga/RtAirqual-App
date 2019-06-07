@@ -4,7 +4,7 @@ import {StyleSheet, View} from "react-native";
 import {inject, observer} from "mobx-react";
 import * as React from "react";
 import {BaseContainer} from "../pure-components";
-import type {ScreenProps} from "../pure-components/Types";
+import {ScreenProps} from "../pure-components/Types";
 import Map from "./Map";
 import Styles from "../pure-components/Styles";
 
@@ -22,7 +22,7 @@ export default class Home extends React.Component<ScreenProps<>> {
         if (this.props.channelsStore.loadingChannels === false
             && this.props.channelsStore.loadingLocalization === false) {
             return (
-                <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization}/>
+                 <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization}/>
             );
         }
 
@@ -31,7 +31,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                 <Progress.Circle size={50} indeterminate/>
             </View>
         );
-    }
+    }   
 
     render(): React.Node {
         const sectionName = "Pontos RT";

@@ -5,7 +5,6 @@ export default class User {
     name: string;
     authenticationType: string;
 
-
     constructor(id: number, type: string, authenticationType: string) {
         this.id = id;
         this.type = type;

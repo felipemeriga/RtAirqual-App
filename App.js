@@ -17,14 +17,10 @@ import {Walkthrough} from "./src/components/walkthrough";
 import {Drawer} from "./src/components/drawer";
 import {Home} from "./src/components/home";
 import {Check} from "./src/components/check";
-import {Calendar} from "./src/components/calendar";
 import {Boletim} from "./src/components/boletim";
-import {Groups} from "./src/components/groups";
-import {Lists} from "./src/components/lists";
 import {Profile} from "./src/components/profile";
-import {Timeline} from "./src/components/timeline";
-import {Settings} from "./src/components/settings";
 import {Create} from "./src/components/create";
+
 import channelsStore from "./src/stores/ChannelsStore";
 import mapsStore from "./src/stores/MapsStore";
 import authStore from "./src/stores/AuthStore";
@@ -116,13 +112,8 @@ export default class App extends React.Component<{}, AppState> {
 
 const MainNavigator = createDrawerNavigator({
     Home: {screen: Home},
-    Calendar: {screen: Calendar},
     Boletim: {screen: Boletim},
-    Groups: {screen: Groups},
-    Lists: {screen: Lists},
     Profile: {screen: Profile},
-    Timeline: {screen: Timeline},
-    Settings: {screen: Settings},
     Create: {screen: Create}
 }, {
     drawerWidth: Dimensions.get("window").width,

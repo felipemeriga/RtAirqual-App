@@ -1,8 +1,8 @@
 // @flow
 import moment from "moment";
 import * as React from "react";
-import {View, Text, StyleSheet} from "react-native";
-import {H3} from "native-base";
+import { View, Text, StyleSheet } from "react-native";
+import { H3 } from "native-base";
 
 import Avatar from "./Avatar";
 import Styles from "./Styles";
@@ -28,12 +28,12 @@ export default class Task extends React.PureComponent<TaskProps> {
     }
 
     render(): React.Node {
-        const {title, subtitle, collaborators, timeline, texto } = this.props;
+        const { title, subtitle, collaborators, timeline, texto } = this.props;
         const date = moment(this.props.date);
         // $FlowFixMe
         const height = collaborators.length > 1 ? 150 : 100;
         return (
-            <View style={[Styles.listItem,  timeline ? style.noBorder : {}]}>
+            <View style={[Styles.listItem, timeline ? style.noBorder : {}]}>
                 <View >
                     <Text style={style.text}>{texto}</Text>
                 </View>
@@ -47,7 +47,7 @@ export default class Task extends React.PureComponent<TaskProps> {
                         }
                     </View>
                 </View>
-                 {/* <View style={[style.time, timeline ? style.timelineRight : {}]}>
+                {/* <View style={[style.time, timeline ? style.timelineRight : {}]}>
                     <Text style={style.titleText}>{date.format("HH")}</Text>
                     <View>
                         <Text style={Styles.whiteText}>{`\xa0${date.format("mm")}`}</Text>
@@ -78,7 +78,7 @@ const style = StyleSheet.create({
         color: "white",
         alignItems: "center",
         padding: variables.contentPadding,
-        borderRightWidth: variables.borderWidth*0,
+        borderRightWidth: variables.borderWidth * 0,
         borderColor: variables.listBorderColor,
         alignSelf: "baseline"
     },

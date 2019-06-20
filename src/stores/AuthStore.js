@@ -1,9 +1,9 @@
 // @flow
-import {Animated} from "react-native";
+import { Animated } from "react-native";
 import axios from "axios";
-import {observable, action} from "mobx";
-import {Auth} from "aws-amplify";
-import {Facebook, Google} from "expo";
+import { observable, action } from "mobx";
+import { Auth } from "aws-amplify";
+import { Facebook, Google } from "expo";
 import Constants from "../components/constants/Constants";
 
 
@@ -88,7 +88,7 @@ class AuthStore {
     async facebookFederatedSignIn(): React.Node {
         this.animation = new Animated.Value(0);
         this.autheticating = true;
-        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync(Constants.facebookAppClient, {
+        const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(Constants.facebookAppClient, {
             permissions: ["public_profile", "email"]
         });
         if (type === "success") {
@@ -98,7 +98,7 @@ class AuthStore {
 
             const expireToken = expires * 10000 + new Date().getTime();
             // sign in with federated identity
-            Auth.federatedSignIn("facebook", {token, expires_at: expireToken}, userInformation)
+            Auth.federatedSignIn("facebook", { token, expires_at: expireToken }, userInformation)
                 .then(credentials => {
                     console.log("Got aws credentials", Object.getOwnPropertyNames(credentials.cognito.config.params.Logins));
                     this.authenticationType = "FACEBOOK";
@@ -111,12 +111,11 @@ class AuthStore {
         }
     }
 
-
     @action
     async googleFederatedSignIn(): React.Node {
         this.animation = new Animated.Value(0);
         this.autheticating = true;
-        const {type, idToken, user, accessTokenExpirationDate} = await Google.logInAsync({
+        const { type, idToken, user, accessTokenExpirationDate } = await Google.logInAsync({
             androidClientId: Constants.androidClientId,
             iosClientId: Constants.iosClientId,
             scopes: ["profile", "email"]
@@ -124,7 +123,7 @@ class AuthStore {
 
         if (type === "success") {
 
-            Auth.federatedSignIn("google", {token: idToken, expires_at: accessTokenExpirationDate}, user)
+            Auth.federatedSignIn("google", { token: idToken, expires_at: accessTokenExpirationDate }, user)
                 .then(credentials => {
                     console.log(credentials);
                     this.authenticationType = "GOOGLE";
@@ -136,7 +135,7 @@ class AuthStore {
                 });
         }
     }
-
+    
     // TODO - Verify data to call successful login
     @action
     async signUp(username: string, password: string, attributes: {}): React.node {
@@ -159,10 +158,9 @@ class AuthStore {
             .catch(err => this.signUpError(err));
     }
 
-
     @action
     async signOut(): React.node {
-        Auth.signOut({global: true})
+        Auth.signOut({ global: true })
             .then((data) => {
                 console.log(data);
                 this.authenticated = false;
@@ -183,7 +181,6 @@ class AuthStore {
         this.user = user;
         this.error = "";
     }
-
 
     @action
     async clearSignUpForm(): React.Node {
@@ -253,7 +250,6 @@ class AuthStore {
                 console.log(JSON.stringify(error));
                 this.signInError("Erro ao conectar ao servidor");
             });
-
     }
 
     @action

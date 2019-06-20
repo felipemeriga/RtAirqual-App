@@ -1,16 +1,16 @@
 // @flow
 import * as React from "react";
-import {StyleSheet, Image, Alert} from "react-native";
-import {Footer, FooterTab, Button, Header as NBHeader, Left, Body, Title, Right, Icon, Content} from "native-base";
-import {EvilIcons} from "@expo/vector-icons";
-import {Constants} from "expo";
+import { StyleSheet, Image, Alert } from "react-native";
+import { Footer, FooterTab, Button, Header as NBHeader, Left, Body, Title, Right, Icon, Content } from "native-base";
+import { EvilIcons } from "@expo/vector-icons";
+import { Constants } from "expo";
 
 import Avatar from "./Avatar";
 import Images from "../images";
 import WindowDimensions from "./WindowDimensions";
 import Container from "./Container";
 
-import type {NavigationProps, ChildrenProps} from "./Types";
+import type { NavigationProps, ChildrenProps } from "./Types";
 
 // import variables from "../../native-base-theme/variables/commonColor";
 type BaseContainerProps = NavigationProps<> & ChildrenProps & {
@@ -19,7 +19,7 @@ type BaseContainerProps = NavigationProps<> & ChildrenProps & {
 
 export default class BaseContainer extends React.PureComponent<BaseContainerProps> {
     render(): React.Node {
-        const {title, navigation} = this.props;
+        const { title, navigation } = this.props;
         return (
             <Container safe>
                 <Image source={Images.gradient} style={[StyleSheet.absoluteFill, style.img]} />
@@ -64,27 +64,21 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
     }
 }
 
-function emBreve(){
-        Alert.alert(
-          
-          // This is Alert Dialog Title
-          "Reportar exercício",
-       
-          // This is Alert Dialog Message. 
-          "Essa funcionalidade estará disponível em breve!",
-          [
+function emBreve() {
+    Alert.alert(
+        // This is Alert Dialog Title
+        "Reportar exercício",
+        // This is Alert Dialog Message. 
+        "Essa funcionalidade estará disponível em breve!",
+        [
             // First Text Button in Alert Dialog.
             // {text: 'Ask me later', onPress: () => console.log('Ask me later Button Clicked')},
-       
             // Second Cancel Button in Alert Dialog.
             // {text: 'Cancel', onPress: () => console.log('Cancel Button Pressed'), style: 'cancel'},
-       
             // Third OK Button in Alert Dialog
-            {text: 'OK', onPress: () => console.log('OK ButtonPressed')},
-            
-          ]
-       
-        )
+            { text: 'OK', onPress: () => console.log('OK ButtonPressed') },
+        ]
+    )
 }
 
 const style = StyleSheet.create({

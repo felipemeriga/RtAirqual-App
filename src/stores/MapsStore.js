@@ -1,5 +1,5 @@
 // @flow
-import {observable, action} from "mobx";
+import { observable, action } from "mobx";
 import axios from "axios";
 
 class MapsStore {
@@ -26,7 +26,6 @@ class MapsStore {
                 this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
                 this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
                 this.airQualityMessage = this.markDetail.airQualityMessage[0];
-
             })
             .catch((err) => {
                 console.log(err);

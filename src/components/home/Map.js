@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import MapView from "react-native-maps";
 import Images from "../images";
 import { Styles } from "../pure-components";
-import Dialog, { SlideAnimation, DialogContent, DialogTitle, ScaleAnimation } from "react-native-popup-dialog";
+import Dialog, { DialogContent, DialogTitle, ScaleAnimation } from "react-native-popup-dialog";
 import DialogRt from "./DialogRt";
 import { inject, observer } from "mobx-react";
 import * as Progress from "react-native-progress";
@@ -29,7 +29,6 @@ export default class Map extends React.Component<{}> {
         return (
             <DialogRt />
         );
-
     }
 
     getMapView(): React.Node {
@@ -37,7 +36,7 @@ export default class Map extends React.Component<{}> {
         return (
             <MapView
                 showsUserLocation
-                mapType="standard" // changes map style, default = standard, satellite, hybrid, terrain
+                mapType="standard"
                 style={styles.cardContainer}
                 initialRegion={{
                     latitude: this.props.localization.latitude,
@@ -57,7 +56,7 @@ export default class Map extends React.Component<{}> {
                             // image={Images.rtMarker}
                             // image={require('../assets/pin.png')}
                             // "icon": "./assets/app.png",
-                            image={{ uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt_big.png" }}
+                            //image={{ uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt_big.png" }}
                             onPress={() => {
                                 this.onMarkerTouched(member);
                             }}
@@ -88,9 +87,8 @@ export default class Map extends React.Component<{}> {
                         <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
                             <View
                                 style={{
-                                    //  alignItems: 'stretch',
                                     flexDirection: "column",
-                                    justifyContent: "space-between", //  center , space-between, space-around
+                                    justifyContent: "space-between",
                                     padding: 10
                                 }}>
 
@@ -101,19 +99,15 @@ export default class Map extends React.Component<{}> {
                                     raised={true}
                                     onPress={() =>
                                         Alert.alert(
-                                            //alert title
-                                           //this.props.mapsStore.thermalConfortMessage.title,
-                                           "O que esse número diz sobre a temperatura: ",
-                                           //alert message
-                                           this.props.mapsStore.thermalConfortMessage.message,
-                                           [
-                                               //alert button
-                                             {text: 'Voltar'}
-                                           ],
-                                           {cancelable: true},
-                                         )
+                                            "O que esse número diz sobre o conforto térmico: ",
+                                            this.props.mapsStore.thermalConfortMessage.message,
+                                            [
+                                                { text: 'Voltar' }
+                                            ],
+                                            { cancelable: true },
+                                        )
                                     }
-                                    title={"A temperatura é: " + this.props.mapsStore.markDetail.field1 + "°"}
+                                    title={"O conforto térmico é: " + this.props.mapsStore.markDetail.field1 + "°"}
                                     backgroundColor={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
                                 />
 
@@ -124,17 +118,13 @@ export default class Map extends React.Component<{}> {
                                     raised={true}
                                     onPress={() =>
                                         Alert.alert(
-                                            //alert title
-                                           //this.props.mapsStore.thermalConfortMessage.title,
-                                           "O que esse número diz sobre a humidade: ",
-                                           //alert message
-                                           this.props.mapsStore.relativeHumityMessage.message,
-                                           [
-                                               //alert button
-                                             {text: 'Voltar'}
-                                           ],
-                                           {cancelable: true},
-                                         )
+                                            "O que esse número diz sobre a humidade: ",
+                                            this.props.mapsStore.relativeHumityMessage.message,
+                                            [
+                                                { text: 'Voltar' }
+                                            ],
+                                            { cancelable: true },
+                                        )
                                     }
                                     title={"A humidade do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
                                     backgroundColor={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
@@ -148,17 +138,13 @@ export default class Map extends React.Component<{}> {
                                     raised={true}
                                     onPress={() =>
                                         Alert.alert(
-                                            //alert title
-                                           //this.props.mapsStore.thermalConfortMessage.title,
-                                           "O que esse número diz sobre a poluição do ar: ",
-                                           //alert message
-                                           this.props.mapsStore.airQualityMessage.message,
-                                           [
-                                               //alert button
-                                             {text: 'Voltar'}
-                                           ],
-                                           {cancelable: true},
-                                         )
+                                            "O que esse número diz sobre a poluição do ar: ",
+                                            this.props.mapsStore.airQualityMessage.message,
+                                            [
+                                                { text: 'Voltar' }
+                                            ],
+                                            { cancelable: true },
+                                        )
                                     }
                                     title={"A poluição do ar é: " + this.props.mapsStore.markDetail.field3}
                                     backgroundColor={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
@@ -170,9 +156,6 @@ export default class Map extends React.Component<{}> {
             </MapView>
         );
     }
-
-
-
 
     retornaCorTemp(temperatura) {
         temperatura = parseFloat(temperatura);

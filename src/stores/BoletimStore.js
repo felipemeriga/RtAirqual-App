@@ -1,31 +1,30 @@
 // @flow
-import {observable, action} from "mobx";
+import { observable, action } from "mobx";
 import axios from "axios";
 
 class BoletimStore {
     @observable dialogOn = false;
     @observable loadingDetail = false;
-    @observable boletimDetail: Object = {};
-    @observable boletim: Object = {};
+    @observable boletimDetail: any = {};
+    @observable boletim: any = {};
     @observable error = false;
-    @observable diarioMessage: Object = {};
-    @observable rankingMessage: Object = {};
-    @observable boletimMessage: Object = {};
+    @observable diario: any = {};
+    @observable historico: any = {};
+    @observable ranking: any = {};
 
     @action
     async getBoletim(): React.node {
-        // this.boletim = boletim;
         this.dialogOn = true;
         this.loadingDetail = true;
         const url = "https://9sh2q766re.execute-api.us-west-2.amazonaws.com/dev";
         axios.get(url)
             .then((response) => {
-                this.boletimDetail = response.data.body[0];
+                this.boletimDetail = response.data.body;
                 this.loadingDetail = false;
-                this.diarioMessage = this.boletimDetail.diario;
-                this.boletimMessage = this.boletimDetail.boletim;
-                this.rankingMessage = this.boletimDetail.ranking;
-
+                this.diario = this.boletimDetail.diario;
+                this.historico = this.boletimDetail.historico;
+                this.ranking = this.boletimDetail.ranking;
+                console.log(response.data.body);
             })
             .catch((err) => {
                 console.log(err);

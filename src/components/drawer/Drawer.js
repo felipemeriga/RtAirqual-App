@@ -103,7 +103,6 @@ class DrawerItem extends React.PureComponent<DrawerItemProps> {
                 }
         }
 
-
         const { name, navigation, icon, left, descricao } = this.props;
         const navState = this.props.navigation.state;
         const active = navState.routes[navState.index].key === descricao;

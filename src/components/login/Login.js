@@ -1,14 +1,14 @@
 // @flow
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import {StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid} from "react-native";
-import {inject, observer} from "mobx-react";
-import {Button, Text, Content} from "native-base";
-import {Constants} from "expo";
+import { StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid } from "react-native";
+import { inject, observer } from "mobx-react";
+import { Button, Text, Content } from "native-base";
+import { Constants } from "expo";
 
-import {Images, WindowDimensions, Field, Small, Styles} from "../pure-components";
-import {AnimatedView} from "../pure-components/Animations";
-import type {ScreenProps} from "../pure-components/Types";
+import { Images, WindowDimensions, Field, Small, Styles } from "../pure-components";
+import { AnimatedView } from "../pure-components/Animations";
+import type { ScreenProps } from "../pure-components/Types";
 
 import variables from "../../../native-base-theme/variables/commonColor";
 
@@ -52,7 +52,7 @@ export default class Login extends React.Component<ScreenProps<>> {
         if (this.props.authStore.autheticating) {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Progress.Circle size={80} indeterminate style={styles.loadingCircle}/>
+                    <Progress.Circle size={80} indeterminate style={styles.loadingCircle} />
                 </View>
             );
         }
@@ -89,7 +89,6 @@ export default class Login extends React.Component<ScreenProps<>> {
         );
     }
 
-
     // $FlowFixMe
     setPasswordRef = (input: TextInput) => this.password = input._root;
     setEmailRef = (input: TextInput) => this.email = input._root;
@@ -111,20 +110,20 @@ export default class Login extends React.Component<ScreenProps<>> {
         this.hasError();
         return (
             <View style={styles.container}>
-                <Image source={Images.loginBackground} style={styles.image}/>
+                <Image source={Images.loginBackground} style={styles.image} />
                 <SafeAreaView style={StyleSheet.absoluteFill}>
                     <Content style={[StyleSheet.absoluteFill, styles.content]}>
                         <AnimatedView style={styles.innerContent}>
-                            <Animated.View style={{opacity: this.props.authStore.animation}}>
+                            <Animated.View style={{ opacity: this.props.authStore.animation }}>
                                 <View style={styles.verticalAlign}>
                                     <View style={styles.logo}>
                                         <View>
-                                            <Image source={Images.logoSymbol} style={styles.logoSymbol}/>
+                                            <Image source={Images.logoSymbol} style={styles.logoSymbol} />
                                         </View>
                                     </View>
                                     <View style={styles.logoLetterView}>
                                         <View>
-                                            <Image source={Images.logoLetter} style={styles.logoLetter}/>
+                                            <Image source={Images.logoLetter} style={styles.logoLetter} />
                                         </View>
                                     </View>
                                 </View>
@@ -138,7 +137,7 @@ export default class Login extends React.Component<ScreenProps<>> {
     }
 }
 
-const {height, width} = WindowDimensions;
+const { height, width } = WindowDimensions;
 const styles = StyleSheet.create({
     container: {
         flex: 1
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
         marginVertical: variables.contentPadding * 2,
         alignItems: "center",
         justifyContent: "center"
-        
+
     },
     logoLetterView: {
         alignItems: "center",

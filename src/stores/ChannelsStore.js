@@ -1,5 +1,5 @@
 // @flow
-import {observable, action} from "mobx";
+import { observable, action } from "mobx";
 import axios from "axios";
 import Channel from "../model/User";
 
@@ -15,7 +15,6 @@ class ChannelsStore {
         longitude: Number,
         error: String
     };
-
 
     @action
     async getChannels(): React.node {
@@ -41,7 +40,7 @@ class ChannelsStore {
                 this.loadingLocalization = false;
             },
             (error) => this.localization.error = error,
-            {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000},
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
         );
     }
 }

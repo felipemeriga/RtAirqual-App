@@ -1,14 +1,14 @@
 // @flow
 import * as React from "react";
-import { View, Image, StyleSheet, ToastAndroid, Animated } from "react-native";
+import {View, Image, StyleSheet, ToastAndroid, Animated} from "react-native";
 import * as Progress from "react-native-progress";
-import { TextField } from "react-native-material-textfield";
-import { Button, Header, Left, Right, Body, Icon, Title, Text, Content } from "native-base";
-import { Constants } from "expo";
-import { inject, observer } from "mobx-react";
-import { Container, Images, Styles, WindowDimensions } from "../pure-components";
-import { AnimatedView } from "../pure-components/Animations";
-import type { ScreenProps } from "../pure-components/Types";
+import {TextField} from "react-native-material-textfield";
+import {Button, Header, Left, Right, Body, Icon, Title, Text, Content} from "native-base";
+import {Constants} from "expo";
+import {inject, observer} from "mobx-react";
+import {Container, Images, Styles, WindowDimensions} from "../pure-components";
+import {AnimatedView} from "../pure-components/Animations";
+import type {ScreenProps} from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
 
 
@@ -31,7 +31,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
         console.log("updated");
         console.log(this.props.authStore.authenticated);
         if (this.props.authStore.authenticated) {
-            this.props.navigation.navigate("Home");
+            this.props.navigation.navigate("Walkthrough");
         }
     }
 
@@ -81,7 +81,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
         if (this.props.authStore.autheticating) {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Progress.Circle size={80} indeterminate />
+                    <Progress.Circle size={80} indeterminate/>
                 </View>
             );
         }
@@ -89,34 +89,34 @@ export default class SignUp extends React.Component<ScreenProps<>> {
 
             <Content contentContainerStyle={style.container}>
                 <AnimatedView>
-                    <Animated.View style={{ opacity: this.props.authStore.animation }}>
+                    <Animated.View style={{opacity: this.props.authStore.animation}}>
                         <Header noShadow>
                             <Left>
                                 <Button onPress={this.back} transparent>
-                                    <Icon name="close" />
+                                    <Icon name="close"/>
                                 </Button>
                             </Left>
                             <Body>
                                 <Title>Criar Conta</Title>
                             </Body>
-                            <Right />
+                            <Right/>
                         </Header>
                         <View style={style.row}>
                             <Button transparent block style={style.btn} onPress={this.googleFederatedSignIn}>
-                                <Icon name="logo-google" />
+                                <Icon name="logo-google"/>
                                 <Text style={Styles.textCentered}>Conectar com</Text>
                                 <Text style={Styles.textCentered}>Google</Text>
                             </Button>
                             <Button transparent
-                                block style={[style.btn, style.facebook]}
-                                onPress={this.facebookFederatedSignIn}>
-                                <Icon name="logo-facebook" />
+                                    block style={[style.btn, style.facebook]}
+                                    onPress={this.facebookFederatedSignIn}>
+                                <Icon name="logo-facebook"/>
                                 <Text style={Styles.textCentered}>Conectar com</Text>
                                 <Text style={Styles.textCentered}>Facebook</Text>
                             </Button>
                         </View>
                         <Button transparent block style={[style.btn, style.email]}>
-                            <Icon name="ios-mail-outline" style={style.icon} />
+                            <Icon name="ios-mail-outline" style={style.icon}/>
                             <Text>Ou use um endereço de email válido</Text>
                         </Button>
                         <View style={[Styles.form, Styles.flexGrow]}>
@@ -164,9 +164,11 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                                 />
                             </View>
                         </View>
-                        <Button info block onPress={this.validateFields} style={{ height: variables.footerHeight }}>
-                            <Text>CONTINUAR</Text>
-                        </Button>
+                        <View style={style.btnSign}>
+                            <Button info block onPress={this.validateFields} style={[style.btn, style.email]}>
+                                <Text>CONTINUAR</Text>
+                            </Button>
+                        </View>
                     </Animated.View>
                 </AnimatedView>
             </Content>
@@ -181,7 +183,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
         this.hasError();
         return (
             <Container safe style={Styles.flexGrow}>
-                <Image source={Images.gradient} style={style.img} />
+                <Image source={Images.gradient} style={style.img}/>
                 {this.renderContent()}
             </Container>
         );
@@ -198,11 +200,6 @@ const style = StyleSheet.create({
     row: {
         flexDirection: "row"
     },
-    loadingCircle: {
-        marginTop: 60,
-        alignItems: "center",
-        justifyContent: "center"
-    },
     btn: {
         flex: 1,
         margin: 0,
@@ -211,6 +208,9 @@ const style = StyleSheet.create({
         alignItems: "center",
         height: 125,
         flexDirection: "column"
+    },
+    btnSign: {
+        marginTop: 40
     },
     facebook: {
         borderLeftWidth: variables.borderWidth,

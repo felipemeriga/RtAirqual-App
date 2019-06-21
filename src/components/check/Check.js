@@ -20,7 +20,6 @@ export default class Check extends React.Component<ScreenProps<>> {
             } else {
                 await this.props.authStore.getUserAuthMethod(user);
             }
-            console.log("antess");
             this.props.navigation.navigate("Home");
         } catch (err) {
             console.log(err);

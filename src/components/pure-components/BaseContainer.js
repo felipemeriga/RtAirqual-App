@@ -1,16 +1,16 @@
 // @flow
 import * as React from "react";
-import { StyleSheet, Image, Alert } from "react-native";
-import { Footer, FooterTab, Button, Header as NBHeader, Left, Body, Title, Right, Icon, Content } from "native-base";
-import { EvilIcons } from "@expo/vector-icons";
-import { Constants } from "expo";
+import {StyleSheet, Image, Alert} from "react-native";
+import {Footer, FooterTab, Button, Header as NBHeader, Left, Body, Title, Right, Icon, Content} from "native-base";
+import {EvilIcons} from "@expo/vector-icons";
+import {Constants} from "expo";
 
 import Avatar from "./Avatar";
 import Images from "../images";
 import WindowDimensions from "./WindowDimensions";
 import Container from "./Container";
 
-import type { NavigationProps, ChildrenProps } from "./Types";
+import type {NavigationProps, ChildrenProps} from "./Types";
 
 // import variables from "../../native-base-theme/variables/commonColor";
 type BaseContainerProps = NavigationProps<> & ChildrenProps & {
@@ -19,14 +19,14 @@ type BaseContainerProps = NavigationProps<> & ChildrenProps & {
 
 export default class BaseContainer extends React.PureComponent<BaseContainerProps> {
     render(): React.Node {
-        const { title, navigation } = this.props;
+        const {title, navigation} = this.props;
         return (
             <Container safe>
-                <Image source={Images.gradient} style={[StyleSheet.absoluteFill, style.img]} />
+                <Image source={Images.gradient} style={[StyleSheet.absoluteFill, style.img]}/>
                 <NBHeader noShadow>
                     <Left>
                         <Button onPress={() => navigation.openDrawer()} transparent>
-                            <EvilIcons name="navicon" size={32} color="white" />
+                            <EvilIcons name="navicon" size={32} color="white"/>
                         </Button>
                     </Left>
                     <Body>
@@ -36,7 +36,7 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                     </Body>
                     <Right style={style.right}>
                         <Button onPress={() => navigation.navigate("Profile")} transparent>
-                            <Avatar size={30} />
+                            <Avatar size={30}/>
                         </Button>
                     </Right>
                 </NBHeader>
@@ -45,17 +45,17 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                 </Content>
                 <Footer>
                     <FooterTab>
-                        <Button
-                        // onPress = {emBreve()} 
-                        // onPress={() => navigation.navigate("Boletim")} transparent
+                        {/* <Button
+                        onPress = {emBreve()}
+                        onPress={() => navigation.navigate("Boletim")} transparent
                         >
-                            {/* <Icon name="ios-add-circle-outline" style={style.icon} /> */}
-                        </Button>
+                            <Icon name="ios-add-circle-outline" style={style.icon} />
+                        </Button>*/}
                         <Button transparent onPress={() => navigation.navigate("Home")}>
-                            <Icon name="ios-map-outline" style={style.largeIcon} />
+                            <Icon name="ios-map-outline" style={style.largeIcon}/>
                         </Button>
                         <Button onPress={() => navigation.navigate("Boletim")} transparent>
-                            <Icon name="ios-paper-outline" style={style.icon} />
+                            <Icon name="ios-paper-outline" style={style.icon}/>
                         </Button>
                     </FooterTab>
                 </Footer>
@@ -68,7 +68,7 @@ function emBreve() {
     Alert.alert(
         // This is Alert Dialog Title
         "Reportar exercício",
-        // This is Alert Dialog Message. 
+        // This is Alert Dialog Message.
         "Essa funcionalidade estará disponível em breve!",
         [
             // First Text Button in Alert Dialog.
@@ -76,9 +76,9 @@ function emBreve() {
             // Second Cancel Button in Alert Dialog.
             // {text: 'Cancel', onPress: () => console.log('Cancel Button Pressed'), style: 'cancel'},
             // Third OK Button in Alert Dialog
-            { text: 'OK', onPress: () => console.log('OK ButtonPressed') },
+            {text: "OK", onPress: () => console.log("OK ButtonPressed")}
         ]
-    )
+    );
 }
 
 const style = StyleSheet.create({

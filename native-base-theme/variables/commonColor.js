@@ -145,7 +145,7 @@ export default {
 
 
     // Footer
-  footerHeight: 55,
+  footerHeight: 70,
   footerDefaultBg: "transparent",
 
     // FooterTab

@@ -123,8 +123,8 @@ const MainNavigator = createDrawerNavigator({
 });
 
 const AppNavigator = createAppContainer(createSwitchNavigator({
-    Login: {screen: Login},
     Check: {screen: Check},
+    Login: {screen: Login},
     SignUp: {screen: SignUp},
     Walkthrough: {screen: Walkthrough},
     Main: {screen: MainNavigator}

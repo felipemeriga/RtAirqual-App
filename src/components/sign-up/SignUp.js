@@ -81,7 +81,9 @@ export default class SignUp extends React.Component<ScreenProps<>> {
         if (this.props.authStore.autheticating) {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Progress.Circle size={80} indeterminate/>
+                    <Progress.Circle size={80}
+                    color="#FFF"
+                    indeterminate/>
                 </View>
             );
         }

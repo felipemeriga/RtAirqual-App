@@ -11,16 +11,13 @@ import { BaseContainer, Task, Styles, TaskOverview } from "../pure-components";
 import { ScreenProps } from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
 
-const DAY = 1;
-const WEEK = 2;
-const MONTH = 3;
+const DIARIO = 1;
+const RANKING = 2;
+const HISTORICO = 3;
 
-const listDiario = [];
-
-const listRanking = [];
-
-const listHistorico = [];
-
+listDiario = [];
+listRanking = [];
+listHistorico = [];
 
 @inject("boletimStore")
 @observer
@@ -28,33 +25,50 @@ export default class Boletim extends React.Component<ScreenProps<>> {
 
     constructor(props: React.Node) {
         super(props);
-        this.props.boletimStore.getBoletim();
+    }
+
+    componentWillUnmount() {
+        listDiario = [];
+        listRanking = [];
+        listHistorico = [];
+    }
+
+    listDiario = this.props.boletimStore.listDiario;
+
+    listRanking = this.props.boletimStore.listRanking;
+
+    listHistorico = this.props.boletimStore.listHistorico;
+
+    renderContent = (type) => {
+        // if (this.props.boletimStore.loadingDetail) {
+        //     return (
+        //         <View style={[Styles.center, Styles.flexGrow]}>
+        //             <Progress.Circle
+        //                 size={65} indeterminate
+        //                 color="#FFF"
+        //                 borderWidth={5}
+        //             />
+        //         </View>
+        //     )
+        // } else {
+            return (
+                <OverviewTab period={type} />
+            )
+        // }
     }
 
     render(): React.Node {
-        for (i in this.props.boletimStore.ranking) {
-            listRanking.push({ local: this.props.boletimStore.ranking[i].name, descricao: this.props.boletimStore.ranking[i].mensagem });
-        }
-
-        for (i in this.props.boletimStore.diario) {
-            listDiario.push({ local: "Londrina", descricao: this.props.boletimStore.diario[i].descricao });
-        }
-
-        for (i in this.props.boletimStore.historico) {
-            listHistorico.push({ local: this.props.boletimStore.historico[i].data, descricao: this.props.boletimStore.historico[i].descricao });
-        }
-
         return (
             <BaseContainer title={"Boletim"} navigation={this.props.navigation}>
                 <Tabs>
                     <Tab heading={<TabHeading><Text style={style.tabHeading}>DIÁRIO</Text></TabHeading>}>
-                        <OverviewTab period={DAY} />
+                        {this.renderContent(DIARIO)}
                     </Tab>
                     <Tab heading={<TabHeading><Text style={style.tabHeading}>RANKING</Text></TabHeading>}>
-                        <OverviewTab period={WEEK} />
+                        {this.renderContent(RANKING)}
                     </Tab>
                     <Tab heading={<TabHeading><Text style={style.tabHeading}>HISTÓRICO</Text></TabHeading>}>
-                        <OverviewTab period={MONTH} />
+                        {this.renderContent(HISTORICO)}
                     </Tab>
                 </Tabs>
             </BaseContainer>
@@ -81,7 +95,6 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
         const diaDaSemana = new Date().getDate();
         const mesDoAno = retornaMes(new Date().getMonth() + 1);
         const ano = new Date().getFullYear();
-        let label;
         if (period === 1) {
             return (
                 <View style={style.container}>
@@ -93,7 +106,6 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                             listDiario.map((item, i) => (
                                 <Task
                                     key={i}
-                                    // title={item.local}
                                     subtitle={item.descricao}
                                 />
                             ))
@@ -131,7 +143,7 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                     listHistorico.map((item, i) => (
                         <Task
                             key={i}
-                            title={item.local}
+                            title={item.data}
                             subtitle={item.descricao}
                         />
                     ))

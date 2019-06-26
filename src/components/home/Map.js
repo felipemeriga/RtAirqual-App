@@ -53,10 +53,7 @@ export default class Map extends React.Component<{}> {
                                 latitude: member.latitude,
                                 longitude: member.longitude
                             }}
-                            // image={Images.rtMarker}
-                            // image={require('../assets/pin.png')}
-                            // "icon": "./assets/app.png",
-                            //image={{ uri: "https://raw.githubusercontent.com/felipemeriga/RtAirqual-App/master/assets/marker_rt_big.png" }}
+                            image={require("../../../assets/marker_rt_big.png")}
                             onPress={() => {
                                 this.onMarkerTouched(member);
                             }}
@@ -64,7 +61,7 @@ export default class Map extends React.Component<{}> {
                         </MapView.Marker>);
                     })
                 }
-                {/* {this.getDialog()} */}
+
                 <Dialog
                     dialogTitle={<DialogTitle
                         title={this.props.mapsStore.marker.name}
@@ -83,6 +80,7 @@ export default class Map extends React.Component<{}> {
                                 styles.hideLoadingDialog, styles.dialogPadding]}
                             size={25}
                             indeterminate
+                            borderWidth={3}
                         />
                         <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
                             <View

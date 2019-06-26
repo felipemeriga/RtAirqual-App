@@ -8,11 +8,13 @@ import { ScreenProps } from "../pure-components/Types";
 import Map from "./Map";
 import Styles from "../pure-components/Styles";
 
+@inject("boletimStore")
 @inject("channelsStore")
 @observer
 export default class Home extends React.Component<ScreenProps<>> {
     constructor(props: React.Node) {
         super(props);
+        this.props.boletimStore.getBoletim();
         this.props.channelsStore.getChannels();
         this.props.channelsStore.getLocalization();
     }

@@ -88,7 +88,7 @@ class DrawerItem extends React.PureComponent<DrawerItemProps> {
                     {cancelable: false}
                 );
             } else if (descricao === "Whats") {
-                Linking.openURL("whatsapp://send?text=\"\"&phone=5543991461916");
+                Linking.openURL("whatsapp://send?phone=5543991461916");
             } else {
                 navigation.navigate(descricao);
             }

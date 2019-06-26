@@ -52,7 +52,8 @@ export default class Login extends React.Component<ScreenProps<>> {
         if (this.props.authStore.autheticating) {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Progress.Circle size={80} indeterminate style={styles.loadingCircle} />
+                    <Progress.Circle size={80} 
+                    indeterminate style={styles.loadingCircle} />
                 </View>
             );
         }

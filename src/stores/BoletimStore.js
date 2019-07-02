@@ -26,7 +26,7 @@ class BoletimStore {
         axios.get(url)
             .then((response) => {
                 this.boletimDetail = response.data.body;
-                this.loadingDetail = false;
+                
                 this.diario = this.boletimDetail.diario;
                 this.historico = this.boletimDetail.historico;
                 this.ranking = this.boletimDetail.ranking;
@@ -62,7 +62,7 @@ class BoletimStore {
                     return  b.id - a.id;
                 });
                 console.log("rodou boletim store");
-
+                this.loadingDetail = false;
             })
             .catch((err) => {
                 console.log(err);

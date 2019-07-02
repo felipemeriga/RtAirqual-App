@@ -2,7 +2,7 @@
     "expo": {
 		"name": "RtAirqual",
         "sdkVersion": "32.0.0",
-        "version": "1.2.7",
+        "version": "3.0",
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/appIcon.png",
@@ -24,7 +24,8 @@
             "bundleIdentifier": "com.wcandillon.dopurplesky"
         },
 		"android": {
-			"package": "com.rt.rtairqual"
+            "package": "com.rt.rtairqual",
+            "versionCode": 3.0
 		},
         "assetBundlePatterns": [
             "**/*.ttf",

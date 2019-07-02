@@ -3,7 +3,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MapView from "react-native-maps";
-import Images from "../images";
 import { Styles } from "../pure-components";
 import Dialog, { DialogContent, DialogTitle, ScaleAnimation } from "react-native-popup-dialog";
 import DialogRt from "./DialogRt";
@@ -11,7 +10,6 @@ import { inject, observer } from "mobx-react";
 import * as Progress from "react-native-progress";
 import { StyleSheet, Text, View, Alert } from "react-native";
 import { Button } from 'react-native-elements';
-
 
 @inject("mapsStore")
 @observer

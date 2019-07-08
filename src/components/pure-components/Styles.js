@@ -37,7 +37,8 @@ const Styles = StyleSheet.create({
         fontSize: 18,
     },
     grayText: {
-        color: variables.listBorderColor
+        color: variables.listBorderColor,
+        fontSize: 20
     },
     listItem: {
         flexDirection: "row",

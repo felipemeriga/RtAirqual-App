@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import * as Progress from "react-native-progress";
 import { ListItem } from 'react-native-elements'
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, RefreshControl  } from "react-native";
 import { Tab, Tabs, TabHeading, H1, H3 } from "native-base";
 import { BaseContainer, Task, Styles, TaskOverview } from "../pure-components";
 import { ScreenProps } from "../pure-components/Types";
@@ -26,6 +26,7 @@ export default class Boletim extends React.Component<ScreenProps<>> {
     constructor(props: React.Node) {
         super(props);
     }
+
 
     componentWillUnmount() {
         listDiario = [];
@@ -118,7 +119,7 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
             return (<View style={style.container}>
                 <ScrollView>
                     <View style={[style.tab, Styles.center]}>
-                        <H1>Ranking atual</H1>
+                        <H1>Ranking do dia</H1>
                     </View>
                     {
                         listRanking.map((item, i) => (

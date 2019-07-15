@@ -119,7 +119,7 @@ export default class DialogRt extends React.Component<{}> {
                                     //    {cancelable: true},
                                     //  )
                                 }
-                                title={"a humidade do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
+                                title={"a xxxx do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
                                 color={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
                             />
 

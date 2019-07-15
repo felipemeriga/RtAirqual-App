@@ -61,7 +61,7 @@ class BoletimStore {
                 listHistorico=listHistorico.sort(function(a, b) {
                     return  b.id - a.id;
                 });
-                console.log("rodou boletim store");
+                //console.log("rodou boletim store");
                 this.loadingDetail = false;
             })
             .catch((err) => {

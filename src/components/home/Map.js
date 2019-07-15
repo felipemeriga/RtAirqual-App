@@ -4,11 +4,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import MapView from "react-native-maps";
 import { Styles } from "../pure-components";
-import Dialog, { DialogContent, DialogTitle, ScaleAnimation } from "react-native-popup-dialog";
+import Dialog, { DialogContent, DialogTitle, ScaleAnimation, DialogFooter, DialogButton } from "react-native-popup-dialog";
 import DialogRt from "./DialogRt";
 import { inject, observer } from "mobx-react";
 import * as Progress from "react-native-progress";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 import { Button } from 'react-native-elements';
 
 @inject("mapsStore")
@@ -78,7 +78,7 @@ export default class Map extends React.Component<{}> {
                                 styles.hideLoadingDialog, styles.dialogPadding]}
                             size={25}
                             indeterminate
-                            borderWidth={3}
+                            borderWidth={2}
                         />
                         <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
                             <View
@@ -89,6 +89,9 @@ export default class Map extends React.Component<{}> {
                                 }}>
 
                                 <Button
+                                    style={{
+                                        padding: 3
+                                    }}
                                     large
                                     leftIcon={{ name: "cloud" }}
                                     borderRadius={15}
@@ -105,16 +108,20 @@ export default class Map extends React.Component<{}> {
                                     }
                                     title={"O conforto térmico é: " + this.props.mapsStore.markDetail.field1 + "°"}
                                     backgroundColor={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
+
                                 />
 
                                 <Button
+                                    style={{
+                                        padding: 3
+                                    }}
                                     large
                                     leftIcon={{ name: "opacity" }}
                                     borderRadius={15}
                                     raised={true}
                                     onPress={() =>
                                         Alert.alert(
-                                            "O que esse número diz sobre a humidade: ",
+                                            "O que esse número diz sobre a umidade relativa: ",
                                             this.props.mapsStore.relativeHumityMessage.message,
                                             [
                                                 { text: 'Voltar' }
@@ -122,19 +129,22 @@ export default class Map extends React.Component<{}> {
                                             { cancelable: true },
                                         )
                                     }
-                                    title={"A humidade do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
+                                    title={"A umidade relativa do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
                                     backgroundColor={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
 
                                 />
 
                                 <Button
+                                    style={{
+                                        padding: 3
+                                    }}
                                     large
                                     leftIcon={{ name: "toys" }}
                                     borderRadius={15}
                                     raised={true}
                                     onPress={() =>
                                         Alert.alert(
-                                            "O que esse número diz sobre a poluição do ar: ",
+                                            "O que esse número diz sobre o índice de qualidade do ar: ",
                                             this.props.mapsStore.airQualityMessage.message,
                                             [
                                                 { text: 'Voltar' }
@@ -142,17 +152,26 @@ export default class Map extends React.Component<{}> {
                                             { cancelable: true },
                                         )
                                     }
-                                    title={"A poluição do ar é: " + this.props.mapsStore.markDetail.field3}
+                                    //TODO 
+                                    // UTF -> IQA fora do ar atm 
+                                    // clicar no historico e abrir o boletim p/ o dia selecionado 
+                                    title={"O índice de qualidade do ar é: " + this.props.mapsStore.markDetail.field3}
                                     backgroundColor={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
                                 />
+
                             </View>
                         </View>
                     </DialogContent>
+                    <DialogFooter>
+                        <DialogButton
+                            text="Voltar"
+                            onPress={() => this.props.mapsStore.onTouchOutside()}
+                        />
+                    </DialogFooter>
                 </Dialog>
             </MapView>
         );
     }
-
     retornaCorTemp(temperatura) {
         temperatura = parseFloat(temperatura);
         if (temperatura <= 13) { return "#604a7e" }
@@ -215,13 +234,13 @@ export default class Map extends React.Component<{}> {
         );
     }
 }
-
+const {width} = Dimensions.get("window");
 const styles = StyleSheet.create({
     mapContainer: {
         flex: 1
     },
     cardContainer: {
-        width: 500,
+        width: width,
         height: 1000
     },
     hideLoadingDialog: {
@@ -229,7 +248,7 @@ const styles = StyleSheet.create({
     },
     titleDialog: {
         fontWeight: "bold",
-        fontSize: 30
+        fontSize: 40
     },
     button: {
         borderRadius: 4,

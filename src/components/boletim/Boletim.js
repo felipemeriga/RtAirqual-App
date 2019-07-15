@@ -27,7 +27,6 @@ export default class Boletim extends React.Component<ScreenProps<>> {
         super(props);
     }
 
-
     componentWillUnmount() {
         listDiario = [];
         listRanking = [];
@@ -144,8 +143,9 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                     listHistorico.map((item, i) => (
                         <Task
                             key={i}
-                            title={item.data}
-                            subtitle={item.descricao}
+                            //title={item.data}
+                            //subtitle={item.descricao}
+                            subtitle="Em desenvolvimento..."
                         />
                     ))
                 }

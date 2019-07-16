@@ -186,7 +186,7 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                 </View> 
             );
         } else if (tela === 2) {
-            this.carregaCards(marker[0]);
+            // this.carregaCards(marker[0]);
             return (
                 <Container>
                     <Content>
@@ -387,8 +387,11 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-    }
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
 });
 
 const style = StyleSheet.create({

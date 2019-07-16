@@ -10,6 +10,7 @@ import { inject, observer } from "mobx-react";
 import * as Progress from "react-native-progress";
 import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 import { Button } from 'react-native-elements';
+import { SCLAlert, SCLAlertButton } from "react-native-scl-alert";
 
 @inject("mapsStore")
 @observer
@@ -27,6 +28,18 @@ export default class Map extends React.Component<{}> {
         return (
             <DialogRt />
         );
+    }
+
+    state = {
+        show: false
+    }
+
+    handleOpen = () => {
+        this.setState({ show: true })
+    }
+
+    handleClose = () => {
+        this.setState({ show: false })
     }
 
     getMapView(): React.Node {
@@ -81,7 +94,7 @@ export default class Map extends React.Component<{}> {
                             borderWidth={2}
                         />
                         <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
-                            <View
+                            {/* <View
                                 style={{
                                     flexDirection: "column",
                                     justifyContent: "space-between",
@@ -108,7 +121,6 @@ export default class Map extends React.Component<{}> {
                                     }
                                     title={"O conforto térmico é: " + this.props.mapsStore.markDetail.field1 + "°"}
                                     backgroundColor={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
-
                                 />
 
                                 <Button
@@ -131,7 +143,6 @@ export default class Map extends React.Component<{}> {
                                     }
                                     title={"A umidade relativa do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
                                     backgroundColor={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
-
                                 />
 
                                 <Button
@@ -152,14 +163,26 @@ export default class Map extends React.Component<{}> {
                                             { cancelable: true },
                                         )
                                     }
-                                    //TODO 
-                                    // UTF -> IQA fora do ar atm 
-                                    // clicar no historico e abrir o boletim p/ o dia selecionado 
                                     title={"O índice de qualidade do ar é: " + this.props.mapsStore.markDetail.field3}
                                     backgroundColor={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
                                 />
+                            </View> */}
 
+                            
+                            <View style={styles.container}>
+                                <Button title="Show" onPress={this.handleOpen} />
+                                <SCLAlert
+                                    show={this.state.show}
+                                    title="Lago Igapó"
+                                    subtitle="Clique nos botões abaixo para mais detalhes:"
+                                >
+                                    <SCLAlertButton theme="info" onPress={this.handleClose}>Done</SCLAlertButton>
+                                    <SCLAlertButton theme="info" onPress={this.handleClose}>Done</SCLAlertButton>
+                                    <SCLAlertButton theme ="info" onPress={this.handleClose}>Done</SCLAlertButton>
+                                </SCLAlert>
                             </View>
+
+
                         </View>
                     </DialogContent>
                     <DialogFooter>
@@ -234,7 +257,7 @@ export default class Map extends React.Component<{}> {
         );
     }
 }
-const {width} = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
     mapContainer: {
         flex: 1

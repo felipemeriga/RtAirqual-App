@@ -30,9 +30,9 @@ export default class Map extends React.Component<{}> {
         );
     }
 
-    temaTemp ="";
-    temaUmid ="";
-    temaAirq ="";
+    temaTemp = "";
+    temaUmid = "";
+    temaAirq = "";
 
     state = {
         show: false
@@ -146,63 +146,67 @@ export default class Map extends React.Component<{}> {
                                     this.props.mapsStore.onTouchOutside();
                                 }}
                             >
-                                <SCLAlertButton 
-                                    theme={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)} 
-                                    onPress={() => { 
+                                <SCLAlertButton
+                                    theme={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
+                                    onPress={() => {
                                         //this.handleClose(); 
                                         //this.props.mapsStore.onTouchOutside();
                                         Alert.alert(
-                                        "O que esse número diz sobre o conforto térmico: ",
-                                        this.props.mapsStore.thermalConfortMessage.message,
-                                        [
-                                            { text: 'Voltar' }
-                                        ],
-                                        { cancelable: true },
-                                    )}}
+                                            "O que esse número diz sobre o conforto térmico: ",
+                                            this.props.mapsStore.thermalConfortMessage.message,
+                                            [
+                                                { text: "Voltar" }
+                                            ],
+                                            { cancelable: true },
+                                        )
+                                    }}
                                 >
                                     {"O conforto térmico é: " + this.props.mapsStore.markDetail.field1 + "°"}
                                 </SCLAlertButton>
 
-                                <SCLAlertButton 
-                                    theme={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)} 
-                                    onPress={() => { 
+                                <SCLAlertButton
+                                    theme={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
+                                    onPress={() => {
                                         //this.handleClose(); 
                                         //this.props.mapsStore.onTouchOutside();
                                         Alert.alert(
                                             "O que esse número diz sobre a umidade relativa: ",
                                             this.props.mapsStore.relativeHumityMessage.message,
                                             [
-                                                { text: 'Voltar' }
+                                                { text: "Voltar" }
                                             ],
                                             { cancelable: true },
-                                        )}}
+                                        )
+                                    }}
                                 >
                                     {"A umidade relativa do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
                                 </SCLAlertButton>
-                               
-                                <SCLAlertButton 
-                                    theme={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)} 
-                                    onPress={() => { 
+
+                                <SCLAlertButton
+                                    theme="success"
+                                    //{this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
+                                    onPress={() => {
                                         //this.handleClose(); 
                                         //this.props.mapsStore.onTouchOutside();                                         
                                         Alert.alert(
-                                        "O que esse número diz sobre o índice de qualidade do ar: ",
-                                        this.props.mapsStore.airQualityMessage.message,
-                                        [
-                                            { text: 'Voltar' }
-                                        ],
-                                        { cancelable: true },
-                                    )}}
+                                            "O que esse número diz sobre o índice de qualidade do ar: ",
+                                            this.props.mapsStore.airQualityMessage.message,
+                                            [
+                                                { text: "Voltar" }
+                                            ],
+                                            { cancelable: true },
+                                        )
+                                    }}
                                 >
                                     {"O índice de qualidade do ar é: " + this.props.mapsStore.markDetail.field3}
                                 </SCLAlertButton>
-                               
-                                <SCLAlertButton 
-                                    theme="default" 
-                                    onPress={() => { this.handleClose(); this.props.mapsStore.onTouchOutside();}}
+
+                                <SCLAlertButton
+                                    theme="default"
+                                    onPress={() => { this.handleClose(); this.props.mapsStore.onTouchOutside(); }}
                                 >
                                     Voltar
-                                </SCLAlertButton> 
+                                </SCLAlertButton>
                             </SCLAlert>
                             {/* </View> */}
 
@@ -283,9 +287,9 @@ export default class Map extends React.Component<{}> {
             else
                 if (temperatura > 19 && temperatura <= 26) { return "c04f008"; }
                 else
-                    if (temperatura > 26 && temperatura <= 32) { return"cf79646"; }
+                    if (temperatura > 26 && temperatura <= 32) { return "cf79646"; }
                     else
-                        if (temperatura > 32 && temperatura <= 39) { return"cff0000"; }
+                        if (temperatura > 32 && temperatura <= 39) { return "cff0000"; }
                         else
                             return "c8b0000"
     }

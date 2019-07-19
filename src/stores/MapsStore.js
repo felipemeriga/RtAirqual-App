@@ -59,6 +59,7 @@ class MapsStore {
 
     @action
     onTouchOutside(): React.node {
+        console.log("ontouchoutside");
         this.loadingDetail = false;
         this.dialogOn = false;
         this.error = false;

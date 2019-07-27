@@ -77,27 +77,11 @@ export default class App extends React.Component<{}, AppState> {
         });
     }
 
-    async registerForPushNotifications(): React.Node {
-        let {status} = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-
-        if (status !== "granted") {
-            status = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-            if (status !== "granted") {
-                return;
-            }
-        }
-
-        const token = await Notifications.getExpoPushTokenAsync();
-        this.subscription = Notifications.addListener(this.handleNotification);
-
-    }
-
     state = {
         ready: false
     };
 
     componentWillMount() {
-        this.registerForPushNotifications();
         const promises = [];
         this.startAuthSide();
         // Images.setPlataformImages();

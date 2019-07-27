@@ -1,9 +1,9 @@
 // @flow
-import { Animated } from "react-native";
+import {Animated} from "react-native";
 import axios from "axios";
-import { observable, action } from "mobx";
-import { Auth } from "aws-amplify";
-import { Facebook, Google } from "expo";
+import {observable, action} from "mobx";
+import {Auth} from "aws-amplify";
+import {Facebook, Google, Notifications} from "expo";
 import Constants from "../components/constants/Constants";
 
 
@@ -24,6 +24,7 @@ class AuthStore {
     };
 
     @observable authMethod: string;
+    @observable expoToken: string;
 
     @action
     async signIn(username: string, password: string): React.node {
@@ -88,7 +89,7 @@ class AuthStore {
     async facebookFederatedSignIn(): React.Node {
         this.animation = new Animated.Value(0);
         this.autheticating = true;
-        const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(Constants.facebookAppClient, {
+        const {type, token, expires} = await Facebook.logInWithReadPermissionsAsync(Constants.facebookAppClient, {
             permissions: ["public_profile", "email"]
         });
         if (type === "success") {
@@ -98,7 +99,7 @@ class AuthStore {
 
             const expireToken = expires * 10000 + new Date().getTime();
             // sign in with federated identity
-            Auth.federatedSignIn("facebook", { token, expires_at: expireToken }, userInformation)
+            Auth.federatedSignIn("facebook", {token, expires_at: expireToken}, userInformation)
                 .then(credentials => {
                     console.log("Got aws credentials", Object.getOwnPropertyNames(credentials.cognito.config.params.Logins));
                     this.authenticationType = "FACEBOOK";
@@ -115,7 +116,7 @@ class AuthStore {
     async googleFederatedSignIn(): React.Node {
         this.animation = new Animated.Value(0);
         this.autheticating = true;
-        const { type, idToken, user, accessTokenExpirationDate } = await Google.logInAsync({
+        const {type, idToken, user, accessTokenExpirationDate} = await Google.logInAsync({
             androidClientId: Constants.androidClientId,
             iosClientId: Constants.iosClientId,
             scopes: ["profile", "email"]
@@ -123,7 +124,7 @@ class AuthStore {
 
         if (type === "success") {
 
-            Auth.federatedSignIn("google", { token: idToken, expires_at: accessTokenExpirationDate }, user)
+            Auth.federatedSignIn("google", {token: idToken, expires_at: accessTokenExpirationDate}, user)
                 .then(credentials => {
                     console.log(credentials);
                     this.authenticationType = "GOOGLE";
@@ -135,7 +136,7 @@ class AuthStore {
                 });
         }
     }
-    
+
     // TODO - Verify data to call successful login
     @action
     async signUp(username: string, password: string, attributes: {}): React.node {
@@ -160,7 +161,7 @@ class AuthStore {
 
     @action
     async signOut(): React.node {
-        Auth.signOut({ global: true })
+        Auth.signOut({global: true})
             .then((data) => {
                 console.log(data);
                 this.authenticated = false;
@@ -237,10 +238,15 @@ class AuthStore {
 
     @action
     async getUserAuthMethod(user: any): React.Node {
-        console.log("registering user");
+        console.log(this.expoToken);
+        if (this.expoToken == null) {
+            this.getExpoToken();
+        }
+
         await axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
             id: user.id,
-            type: "new"
+            type: "new",
+            expoToken: this.expoToken
         })
             .then((response) => {
                 this.userIsAlreadyAuthenticated(user);
@@ -252,12 +258,21 @@ class AuthStore {
             });
     }
 
+    async getExpoToken(): React.Node {
+        this.expoToken = await Notifications.getExpoPushTokenAsync();
+    }
+
     @action
     async registerUserAccess(user: any): React.Node {
+        if (this.expoToken == null) {
+            this.getExpoToken();
+        }
+
         await axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
             id: user.id,
             authenticationType: this.authenticationType,
-            type: "new"
+            type: "new",
+            expoToken: this.expoToken
         })
             .then((response) => {
                 console.log(JSON.stringify(response));

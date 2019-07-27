@@ -28,7 +28,7 @@ class MapsStore {
                 this.markDetail = response.data.body[0];
                 this.loadingDetail = false;
                 this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];              
+                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
                 this.airQualityMessage = this.markDetail.airQualityMessage[0];
             })
             .catch((err) => {

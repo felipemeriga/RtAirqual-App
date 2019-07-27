@@ -72,7 +72,7 @@ export default class Home extends React.Component<ScreenProps<>> {
         // )
         // } else {
         return (
-            <OverviewTab tela={type} />
+            <OverviewTab channelsStore={this.props.channelsStore} tela={type} />
         )
         // }
     }
@@ -111,13 +111,14 @@ teste = null;
 @inject("channelsStore")
 @inject("mapsStore")
 @observer
-class OverviewTab extends React.PureComponent<OverviewTabProps> {
+class OverviewTab extends React.Component<OverviewTabProps> {
 
 
     static get propTypes(): React.Node {
         return {
-            boletins: PropTypes.arrayOf(Object),
+            boletins: PropTypes.any,
             localization: PropTypes.any,
+
             boletimStore: PropTypes.any
         };
     }
@@ -171,6 +172,10 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
         //   });
     }
 
+    componentDidUpdate(): React.Node {
+
+    }
+
     render(): React.Node {
         const { tela } = this.props;
         if (tela === 1) {
@@ -183,7 +188,7 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
                     <Progress.Circle size={50} indeterminate />
-                </View> 
+                </View>
             );
         } else if (tela === 2) {
             this.carregaCards(marker[0]);

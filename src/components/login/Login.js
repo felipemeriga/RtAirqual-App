@@ -116,18 +116,18 @@ export default class Login extends React.Component<ScreenProps<>> {
                     <Content style={[StyleSheet.absoluteFill, styles.content]}>
                         <AnimatedView style={styles.innerContent}>
                             <Animated.View style={{ opacity: this.props.authStore.animation }}>
-                                <View style={styles.verticalAlign}>
-                                    <View style={styles.logo}>
+                                {/* <View style={styles.verticalAlign}> */}
+                                    {/* <View style={styles.logo}>
                                         <View>
                                             <Image source={Images.logoSymbol} style={styles.logoSymbol} />
                                         </View>
-                                    </View>
+                                    </View> */}
                                     <View style={styles.logoLetterView}>
                                         <View>
                                             <Image source={Images.logoLetter} style={styles.logoLetter} />
                                         </View>
                                     </View>
-                                </View>
+                                {/* </View> */}
                             </Animated.View>
                             {this.renderContent()}
                         </AnimatedView>
@@ -146,7 +146,8 @@ const styles = StyleSheet.create({
     image: {
         ...StyleSheet.absoluteFillObject,
         height,
-        width
+        width,
+        flex: 1
     },
     content: {
         flexGrow: 1
@@ -179,7 +180,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     logoLetter: {
-        width: width * 0.4,
-        height: height * 0.1
+        width: width ,
+        height: height * 0.11,
+        marginBottom: height * 0.15
     }
 });

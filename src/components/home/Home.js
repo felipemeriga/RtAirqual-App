@@ -14,7 +14,7 @@ import variables from "../../../native-base-theme/variables/commonColor";
 const Mapa = 1;
 const Pontos = 2;
 
-marker = [
+card = [
     {id: 281488, endPoint: "https://api.thingspeak.com/channels/281488/feeds.json?results=2"},
     {id: 281491, endPoint: "https://api.thingspeak.com/channels/580874/feeds.json?results=2"},
     {id: 281489, endPoint: "https://api.thingspeak.com/channels/740676/feeds.json?results=2"},
@@ -32,6 +32,7 @@ pontos = [
 
 @inject("boletimStore")
 @inject("channelsStore")
+// @inject("cardStore")
 @observer
 export default class Home extends React.Component<ScreenProps<>> {
 
@@ -110,6 +111,7 @@ teste = null;
 //@inject("boletimStore")
 @inject("channelsStore")
 @inject("mapsStore")
+@inject("cardStore")
 @observer
 class OverviewTab extends React.PureComponent<OverviewTabProps> {
 
@@ -123,35 +125,35 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
     }
 
 
-    carregaCards(marker: any): React.Node {
-        this.props.mapsStore.getMarkDetailCards(marker);
-        pontos[0].temp=this.props.mapsStore.markDetailCards.field1;
-        pontos[0].umid=this.props.mapsStore.markDetailCards.field2;
-        pontos[0].airq=this.props.mapsStore.markDetailCards.field3;
+    carregaCards(card: any): React.Node {
+        this.props.cardStore.getCardDetail(card);
+        pontos[0].temp=this.props.cardStore.cardDetail.field1;
+        pontos[0].umid=this.props.cardStore.cardDetail.field2;
+        pontos[0].airq=this.props.cardStore.cardDetail.field3;
         console.log("rodou pontos[0]" + pontos[0].temp + " - " + pontos[0].umid + " - " +pontos[0].airq);
 
-        // this.props.mapsStore.getMarkDetailCards(marker[1]);
-        // pontos[1].temp=this.props.mapsStore.markDetailCards.field1;
-        // pontos[1].umid=this.props.mapsStore.markDetailCards.field2;
-        // pontos[1].airq=this.props.mapsStore.markDetailCards.field3;
+        // this.props.cardStore.getCardDetail(card[1]);
+        // pontos[1].temp=this.props.cardStore.cardDetail.field1;
+        // pontos[1].umid=this.props.cardStore.cardDetail.field2;
+        // pontos[1].airq=this.props.cardStore.cardDetail.field3;
         // console.log("rodou pontos[1]" + pontos[1].temp + " - " + pontos[1].umid+ " - " +pontos[1].airq);
 
-        // this.props.mapsStore.getMarkDetailCards(marker[2]);
-        // pontos[2].temp=this.props.mapsStore.markDetailCards.field1;
-        // pontos[2].umid=this.props.mapsStore.markDetailCards.field2;
-        // pontos[2].airq=this.props.mapsStore.markDetailCards.field3;
+        // this.props.cardStore.getCardDetail(card[2]);
+        // pontos[2].temp=this.props.cardStore.cardDetail.field1;
+        // pontos[2].umid=this.props.cardStore.cardDetail.field2;
+        // pontos[2].airq=this.props.cardStore.cardDetail.field3;
         // console.log("rodou pontos[2]" + pontos[2].temp + " - " + pontos[2].umid+ " - " +pontos[2].airq);
 
-        // this.props.mapsStore.getMarkDetailCards(marker[3]);
-        // pontos[3].temp=this.props.mapsStore.markDetailCards.field1;
-        // pontos[3].umid=this.props.mapsStore.markDetailCards.field2;
-        // pontos[3].airq=this.props.mapsStore.markDetailCards.field3;
+        // this.props.cardStore.getCardDetail(card[3]);
+        // pontos[3].temp=this.props.cardStore.cardDetail.field1;
+        // pontos[3].umid=this.props.cardStore.cardDetail.field2;
+        // pontos[3].airq=this.props.cardStore.cardDetail.field3;
         // console.log("rodou pontos[3]" + pontos[3].temp + " - " + pontos[3].umid+ " - " +pontos[3].airq);
 
-        // this.props.mapsStore.getMarkDetailCards(marker[4]);
-        // pontos[4].temp=this.props.mapsStore.markDetailCards.field1;
-        // pontos[4].umid=this.props.mapsStore.markDetailCards.field2;
-        // pontos[4].airq=this.props.mapsStore.markDetailCards.field3;
+        // this.props.cardStore.getCardDetail(card[4]);
+        // pontos[4].temp=this.props.cardStore.cardDetail.field1;
+        // pontos[4].umid=this.props.cardStore.cardDetail.field2;
+        // pontos[4].airq=this.props.cardStore.cardDetail.field3;
         // console.log("rodou pontos[4]" + pontos[4].temp + " - " + pontos[4].umid+ " - " +pontos[4].airq);
     }
 
@@ -160,7 +162,9 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
         super(props);
         this.props.channelsStore.getChannels();
         this.props.channelsStore.getLocalization();
-        // this.props.mapsStore.getMarkDetailCards(marker[0]);
+        // this.props.cardStore.getCardDetail(card[0]);
+        this.carregaCards(card[0]);
+        console.log("chamou"); 
         // this.props.mapsStore.getMarkDetailCards(marker[1]);
         // teste = this.props.mapsStore.getMarkDetailCards(marker[0]);
         // console.log("teste"+ teste);
@@ -186,7 +190,6 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                 </View> 
             );
         } else if (tela === 2) {
-            // this.carregaCards(marker[0]);
             return (
                 <Container>
                     <Content>

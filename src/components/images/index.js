@@ -4,26 +4,25 @@ import {Asset} from "expo";
 import Platform from "react-native";
 
 
-import Gradient from "../../../assets/images/fundo_rt.png";
+import Gradient from "../../../assets/images/fundo_airt2.png";
 import LoginBackground from "../../../assets/images/login&SplashBack.jpg";
 import SignUp from "../../../assets/images/fundo_rt.png";
 import Check from "../../../assets/images/fundo_rt2.png";
-import Walkthrough from "../../../assets/images/fundo_rt.png";
+import Walkthrough from "../../../assets/images/fundo_airt.png";
 import Profile from "../../../assets/images/profile.jpg";
 import LogoSymbol from "../../../assets/images/logoSymbol.png";
-import LogoLetter from "../../../assets/images/logoLetter.png";
+// import LogoLetter from "../../../assets/images/logoLetter.png";
+import LogoLetter from "../../../assets/images/airtracking_positivo.png";
 import SmartCity from "../../../assets/images/smartCityRT.png";
 import Notifications from "../../../assets/images/notifications.png";
-import Boletim from "../../../assets/images/boletim.png";
+import Boletim from "../../../assets/images/boletim.png"; 
 import Graphic from "../../../assets/images/graphic.png";
 import RtMarkerIos from "../../../assets/marker_rt_small.png";
 import RtMarkerAndroid from "../../../assets/marker_rt_big.png";
-
 import DefaultAvatar from "../../../assets/images/avatars/default-avatar.jpg";
 import DefaultAvatar1 from "../../../assets/images/avatars/avatar-1.jpg";
 import DefaultAvatar2 from "../../../assets/images/avatars/avatar-2.jpg";
 import DefaultAvatar3 from "../../../assets/images/avatars/avatar-3.jpg";
-
 import Music from "../../../assets/images/music.jpg";
 import Architecture from "../../../assets/images/architecture.jpg";
 import Travel from "../../../assets/images/travel.jpg";
@@ -36,12 +35,10 @@ export default class Images {
     static profile = Profile;
     static logoSymbol = LogoSymbol;
     static logoLetter = LogoLetter;
-
     static defaultAvatar = DefaultAvatar;
     static avatar1 = DefaultAvatar1;
     static avatar2 = DefaultAvatar2;
     static avatar3 = DefaultAvatar3;
-
     static music = Music;
     static architecture = Architecture;
     static travel = Travel;
@@ -77,7 +74,6 @@ export default class Images {
                 .downloadAsync(),
             Asset.fromModule(Images.profile)
                 .downloadAsync(),
-
             Asset.fromModule(Images.defaultAvatar)
                 .downloadAsync(),
             Asset.fromModule(Images.avatar1)
@@ -86,7 +82,6 @@ export default class Images {
                 .downloadAsync(),
             Asset.fromModule(Images.avatar3)
                 .downloadAsync(),
-
             Asset.fromModule(Images.music)
                 .downloadAsync(),
             Asset.fromModule(Images.architecture)

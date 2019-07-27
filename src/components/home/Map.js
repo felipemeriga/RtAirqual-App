@@ -10,6 +10,7 @@ import { inject, observer } from "mobx-react";
 import * as Progress from "react-native-progress";
 import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 import { Button } from 'react-native-elements';
+import { SCLAlert, SCLAlertButton } from "react-native-scl-alert";
 
 @inject("mapsStore")
 @observer
@@ -27,6 +28,22 @@ export default class Map extends React.Component<{}> {
         return (
             <DialogRt />
         );
+    }
+
+    temaTemp = "";
+    temaUmid = "";
+    temaAirq = "";
+
+    state = {
+        show: false
+    }
+
+    handleOpen = () => {
+        this.setState({ show: true })
+    }
+
+    handleClose = () => {
+        this.setState({ show: false })
     }
 
     getMapView(): React.Node {
@@ -54,6 +71,7 @@ export default class Map extends React.Component<{}> {
                             image={require("../../../assets/marker_rt_big.png")}
                             onPress={() => {
                                 this.onMarkerTouched(member);
+                                this.handleOpen();
                             }}
                         >
                         </MapView.Marker>);
@@ -61,9 +79,15 @@ export default class Map extends React.Component<{}> {
                 }
 
                 <Dialog
-                    dialogTitle={<DialogTitle
-                        title={this.props.mapsStore.marker.name}
-                        style={styles.titleDialog} />}
+                    dialogTitle={
+                        <DialogTitle
+                            title={
+                                // this.props.mapsStore.marker.name
+                                "Carregando dados..."
+                            }
+                            style={styles.titleDialog}
+                        />
+                    }
                     visible={this.props.mapsStore.dialogOn}
                     dialogAnimation={new ScaleAnimation({
                         slideFrom: "bottom"
@@ -81,14 +105,14 @@ export default class Map extends React.Component<{}> {
                             borderWidth={2}
                         />
                         <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
-                            <View
+                            {/* <View
                                 style={{
                                     flexDirection: "column",
                                     justifyContent: "space-between",
                                     padding: 10
-                                }}>
+                                }}> */}
 
-                                <Button
+                            {/* <Button
                                     style={{
                                         padding: 3
                                     }}
@@ -108,10 +132,85 @@ export default class Map extends React.Component<{}> {
                                     }
                                     title={"O conforto térmico é: " + this.props.mapsStore.markDetail.field1 + "°"}
                                     backgroundColor={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
+                                /> */}
 
-                                />
+                            {/* <View style={styles.container}> */}
+                            {/* <Button title={this.props.mapsStore.markDetail.field1} onPress={this.handleOpen}/> */}
+                            <SCLAlert
+                                theme="inverse"
+                                show={this.state.show}
+                                cancellable={true}
+                                title={this.props.mapsStore.marker.name}
+                                subtitle="Clique nos botões abaixo para mais detalhes:"
+                                onRequestClose={() => {
+                                    this.props.mapsStore.onTouchOutside();
+                                }}
+                            >
+                                <SCLAlertButton
+                                    theme={this.retornaCorTemp(this.props.mapsStore.markDetail.field1)}
+                                    onPress={() => {
+                                        //this.handleClose(); 
+                                        //this.props.mapsStore.onTouchOutside();
+                                        Alert.alert(
+                                            "O que esse número diz sobre o conforto térmico: ",
+                                            this.props.mapsStore.thermalConfortMessage.message,
+                                            [
+                                                { text: "Voltar" }
+                                            ],
+                                            { cancelable: true },
+                                        )
+                                    }}
+                                >
+                                    {"O conforto térmico é: " + this.props.mapsStore.markDetail.field1 + "°"}
+                                </SCLAlertButton>
 
-                                <Button
+                                <SCLAlertButton
+                                    theme={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
+                                    onPress={() => {
+                                        //this.handleClose(); 
+                                        //this.props.mapsStore.onTouchOutside();
+                                        Alert.alert(
+                                            "O que esse número diz sobre a umidade relativa: ",
+                                            this.props.mapsStore.relativeHumityMessage.message,
+                                            [
+                                                { text: "Voltar" }
+                                            ],
+                                            { cancelable: true },
+                                        )
+                                    }}
+                                >
+                                    {"A umidade relativa do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
+                                </SCLAlertButton>
+
+                                <SCLAlertButton
+                                    theme="success"
+                                    //{this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
+                                    onPress={() => {
+                                        //this.handleClose(); 
+                                        //this.props.mapsStore.onTouchOutside();                                         
+                                        Alert.alert(
+                                            "O que esse número diz sobre o índice de qualidade do ar: ",
+                                            this.props.mapsStore.airQualityMessage.message,
+                                            [
+                                                { text: "Voltar" }
+                                            ],
+                                            { cancelable: true },
+                                        )
+                                    }}
+                                >
+                                    {"O índice de qualidade do ar é: " + this.props.mapsStore.markDetail.field3}
+                                </SCLAlertButton>
+
+                                <SCLAlertButton
+                                    theme="default"
+                                    onPress={() => { this.handleClose(); this.props.mapsStore.onTouchOutside(); }}
+                                >
+                                    Voltar
+                                </SCLAlertButton>
+                            </SCLAlert>
+                            {/* </View> */}
+
+                            {/* <Button
                                     style={{
                                         padding: 3
                                     }}
@@ -131,7 +230,6 @@ export default class Map extends React.Component<{}> {
                                     }
                                     title={"A umidade relativa do ar é: " + this.props.mapsStore.markDetail.field2 + "%"}
                                     backgroundColor={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
-
                                 />
 
                                 <Button
@@ -152,66 +250,119 @@ export default class Map extends React.Component<{}> {
                                             { cancelable: true },
                                         )
                                     }
-                                    //TODO 
-                                    // UTF -> IQA fora do ar atm 
-                                    // clicar no historico e abrir o boletim p/ o dia selecionado 
                                     title={"O índice de qualidade do ar é: " + this.props.mapsStore.markDetail.field3}
                                     backgroundColor={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
-                                />
-
-                            </View>
+                                /> */}
+                            {/* </View> */}
                         </View>
                     </DialogContent>
-                    <DialogFooter>
+                    {/* <DialogFooter>
                         <DialogButton
                             text="Voltar"
                             onPress={() => this.props.mapsStore.onTouchOutside()}
                         />
-                    </DialogFooter>
+                    </DialogFooter> */}
                 </Dialog>
             </MapView>
         );
     }
+
+    exibeSegundoDialog() {
+        <SCLAlert
+            theme="info"
+            show={true}
+            title="Lorem"
+            subtitle="Lorem ipsum dolor"
+        >
+            <SCLAlertButton theme="info" onPress={this.handleClose}>Done</SCLAlertButton>
+        </SCLAlert>
+    }
+
+    //novos metodos retornando os temas padrao do dialog
     retornaCorTemp(temperatura) {
         temperatura = parseFloat(temperatura);
-        if (temperatura <= 13) { return "#604a7e" }
+        if (temperatura <= 13) { return "c604a7e"; }
         else
-            if (temperatura > 13 && temperatura <= 19) { return "#19d1b6" }
+            if (temperatura > 13 && temperatura <= 19) { return "c19d1b6"; }
             else
-                if (temperatura > 19 && temperatura <= 26) { return "#04f008" }
+                if (temperatura > 19 && temperatura <= 26) { return "c04f008"; }
                 else
-                    if (temperatura > 26 && temperatura <= 32) { return "#f79646" }
+                    if (temperatura > 26 && temperatura <= 32) { return "cf79646"; }
                     else
-                        if (temperatura > 32 && temperatura <= 39) { return "#ff0000" }
+                        if (temperatura > 32 && temperatura <= 39) { return "cff0000"; }
                         else
-                            return "#8b0000"
+                            return "c8b0000"
     }
 
     retornaCorHumi(humidade) {
         humidade = parseFloat(humidade);
-        if (humidade <= 25) { return "#ff0000" }
+        if (humidade <= 25) { return "cff0000" }
         else
-            if (humidade > 25 && humidade <= 40) { return "#ffbf00" }
+            if (humidade > 25 && humidade <= 40) { return "cffbf00" }
             else
-                if (humidade > 40 && humidade <= 60) { return "#04f008" }
+                if (humidade > 40 && humidade <= 60) { return "c04f008" }
                 else
-                    if (humidade > 60 && humidade <= 80) { return "#ffbf00" }
+                    if (humidade > 60 && humidade <= 80) { return "cffbf00" }
                     else
-                        return "#ff0000"
+                        return "c8b0000"
     }
 
     retornaCorPolu(poluicao) {
         poluicao = parseFloat(poluicao);
-        if (poluicao <= 40) { return "#04f008" }
+        if (poluicao <= 40) { return "c04f008" }
         else
-            if (poluicao > 40 && poluicao <= 80) { return "#ffbf00" }
+            if (poluicao > 40 && poluicao <= 80) { return "cffbf00" }
             else
-                if (poluicao > 80 && poluicao <= 120) { return "#f79646" }
+                if (poluicao > 80 && poluicao <= 120) { return "cf79646" }
                 else
-                    if (poluicao > 120 && poluicao <= 200) { return "#ff0000" }
+                    if (poluicao > 120 && poluicao <= 200) { return "cff0000" }
                     else
-                        return "#a03f77"
+                        return "ca03f77"
     }
+
+
+    //antigos metodos retornando as cores do dialog
+
+    // retornaCorTemp(temperatura) {
+    //     temperatura = parseFloat(temperatura);
+    //     if (temperatura <= 13) { return "#604a7e" }
+    //     else
+    //         if (temperatura > 13 && temperatura <= 19) { return "#19d1b6" }
+    //         else
+    //             if (temperatura > 19 && temperatura <= 26) { return "#04f008" }
+    //             else
+    //                 if (temperatura > 26 && temperatura <= 32) { return "#f79646" }
+    //                 else
+    //                     if (temperatura > 32 && temperatura <= 39) { return "#ff0000" }
+    //                     else
+    //                         return "#8b0000"
+    // }
+
+    // retornaCorHumi(humidade) {
+    //     humidade = parseFloat(humidade);
+    //     if (humidade <= 25) { return "#ff0000" }
+    //     else
+    //         if (humidade > 25 && humidade <= 40) { return "#ffbf00" }
+    //         else
+    //             if (humidade > 40 && humidade <= 60) { return "#04f008" }
+    //             else
+    //                 if (humidade > 60 && humidade <= 80) { return "#ffbf00" }
+    //                 else
+    //                     return "#ff0000"
+    // }
+
+    // retornaCorPolu(poluicao) {
+    //     poluicao = parseFloat(poluicao);
+    //     if (poluicao <= 40) { return "#04f008" }
+    //     else
+    //         if (poluicao > 40 && poluicao <= 80) { return "#ffbf00" }
+    //         else
+    //             if (poluicao > 80 && poluicao <= 120) { return "#f79646" }
+    //             else
+    //                 if (poluicao > 120 && poluicao <= 200) { return "#ff0000" }
+    //                 else
+    //                     return "#a03f77"
+    // }
 
     componentDidMount() {
     }
@@ -234,7 +385,7 @@ export default class Map extends React.Component<{}> {
         );
     }
 }
-const {width} = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
     mapContainer: {
         flex: 1

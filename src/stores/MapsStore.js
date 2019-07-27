@@ -22,6 +22,7 @@ class MapsStore {
         this.loadingDetail = true;
         const url = "https://2y3nnveut3.execute-api.us-west-2.amazonaws.com/dev?endPoint="
             + mark.endPoint + "?id=" + mark.id;
+            console.log(url);
             axios.get(url)
             .then((response) => {
                 this.markDetail = response.data.body[0];
@@ -58,6 +59,7 @@ class MapsStore {
 
     @action
     onTouchOutside(): React.node {
+        console.log("ontouchoutside");
         this.loadingDetail = false;
         this.dialogOn = false;
         this.error = false;

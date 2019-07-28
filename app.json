@@ -8,6 +8,10 @@
         "icon": "./assets/appIcon.png",
         "facebookScheme": "fb2286396934947742",
         "primaryColor": "#333333",
+        "notification": {
+            "icon": "./assets/appIcon.png",
+            "color": "#000000"
+        },
         "splash": {
             "image": "./assets/images/fundo_rt2.png",
             "backgroundColor": "#333333",

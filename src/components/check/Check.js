@@ -22,25 +22,11 @@ export default class Check extends React.Component<ScreenProps<>> {
             }
         }
         const token = await Notifications.getExpoPushTokenAsync();
-        console.log(token);
-        this.props.authStore.expoToken = token;
+        this.props.authStore.storeUserToken(token);
 
         this.subscription = Notifications.addListener(this.handleNotification);
 
-
-/*        fetch("https://exp.host/--/api/v2/push/send", {
-            body: JSON.stringify({
-                to: token,
-                title: title,
-                body: body,
-                data: {message: `${title} - ${body}`}
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            },
-            method: "POST"
-        }); */
-
+        this.allValidationsCompleted();
     }
 
     handleNotification = notification => {
@@ -51,7 +37,7 @@ export default class Check extends React.Component<ScreenProps<>> {
         this.registerForPushNotifications();
     }
 
-    async componentDidMount(): React.Node {
+    async allValidationsCompleted(): React.Node {
         try {
             const user = await Auth.currentAuthenticatedUser();
             if (user.hasOwnProperty("attributes")) {

@@ -237,12 +237,15 @@ class AuthStore {
     }
 
     @action
+    storeUserToken(token: any): React.Node {
+        this.expoToken = token;
+    }
+
+    @action
     async getUserAuthMethod(user: any): React.Node {
-        console.log(this.expoToken);
-        if (this.expoToken == null) {
+        if (this.expoToken === "") {
             this.getExpoToken();
         }
-
         await axios.post("https://gfr41svvbi.execute-api.us-west-2.amazonaws.com/dev", {
             id: user.id,
             type: "new",
@@ -264,7 +267,7 @@ class AuthStore {
 
     @action
     async registerUserAccess(user: any): React.Node {
-        if (this.expoToken == null) {
+        if (this.expoToken === "") {
             this.getExpoToken();
         }
 

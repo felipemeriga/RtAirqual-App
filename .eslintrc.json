@@ -70,6 +70,7 @@
             0,
             4
         ],
+        "no-prototype-builtins": 0,
         "flowtype/no-primitive-constructor-types": 2,
         "flowtype/boolean-style": [
             2,
@@ -84,7 +85,9 @@
             2,
             "never"
         ],
+        "react/jsx-indent": 0,
         "react/jsx-closing-tag-location": 0,
+        "react/no-unused-prop-types": 0,
         "flowtype/no-primitive-constructor-types": 2,
         "flowtype/no-types-missing-file-annotation": 2,
         "flowtype/no-weak-types": 0,

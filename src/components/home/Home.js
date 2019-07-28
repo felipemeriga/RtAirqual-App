@@ -22,14 +22,12 @@ pontos = [
     { id: "utfpr", temp: 0, umid: 0, airq: 0 }
 ]
 
-@inject("boletimStore")
 @inject("channelsStore")
 @observer
 export default class Home extends React.Component<ScreenProps<>> {
 
     constructor(props: React.Node) {
         super(props);
-        this.props.boletimStore.getBoletim();
         this.props.channelsStore.getChannels();
         this.props.channelsStore.getLocalization();
     }

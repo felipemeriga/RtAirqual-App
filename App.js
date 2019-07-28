@@ -20,8 +20,6 @@ import {Check} from "./src/components/check";
 import {Boletim} from "./src/components/boletim";
 import {Profile} from "./src/components/profile";
 import {Create} from "./src/components/create";
-import { Permissions, Notifications } from "expo";
-
 import channelsStore from "./src/stores/ChannelsStore";
 import mapsStore from "./src/stores/MapsStore";
 import authStore from "./src/stores/AuthStore";

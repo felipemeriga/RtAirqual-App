@@ -1,76 +1,60 @@
 // @flow
-import moment from "moment";
-import { inject, observer } from "mobx-react";
+import {inject, observer} from "mobx-react";
 import PropTypes from "prop-types";
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import { ListItem } from 'react-native-elements'
-import { StyleSheet, View, Text, ScrollView, RefreshControl  } from "react-native";
-import { Tab, Tabs, TabHeading, H1, H3 } from "native-base";
-import { BaseContainer, Task, Styles, TaskOverview } from "../pure-components";
-import { ScreenProps } from "../pure-components/Types";
+import {StyleSheet, View, Text, ScrollView} from "react-native";
+import {Tab, Tabs, TabHeading, H1} from "native-base";
+import {BaseContainer, Task, Styles} from "../pure-components";
+import {ScreenProps} from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
 
 const DIARIO = 1;
 const RANKING = 2;
 const HISTORICO = 3;
 
-listDiario = [];
-listRanking = [];
-listHistorico = [];
-
 @inject("boletimStore")
 @observer
 export default class Boletim extends React.Component<ScreenProps<>> {
 
-    constructor(props: React.Node) {
-        super(props);
-    }
-
     componentWillUnmount() {
-        listDiario = [];
-        listRanking = [];
-        listHistorico = [];
     }
 
-    listDiario = this.props.boletimStore.listDiario;
+    componentWillMount() {
+        this.props.boletimStore.getBoletim();
+    }
 
-    listRanking = this.props.boletimStore.listRanking;
-
-    listHistorico = this.props.boletimStore.listHistorico;
-
-    renderContent = (type) => {
-        // if (this.props.boletimStore.loadingDetail) {
-        //     return (
-        //         <View style={[Styles.center, Styles.flexGrow]}>
-        //             <Progress.Circle
-        //                 size={65} indeterminate
-        //                 color="#FFF"
-        //                 borderWidth={5}
-        //             />
-        //         </View>
-        //     )
-        // } else {
+    renderContent = () => {
+        if (this.props.boletimStore.loadingDetail) {
             return (
-                <OverviewTab period={type} />
-            )
-        // }
-    }
+                <View style={[Styles.center, Styles.flexGrow]}>
+                    <Progress.Circle
+                        size={65} indeterminate
+                        color="#FFF"
+                        borderWidth={5}
+                    />
+                </View>
+            );
+        }
+        return (
+            <Tabs>
+                <Tab heading={<TabHeading><Text style={style.tabHeading}>DIÁRIO</Text></TabHeading>}>
+                    <OverviewTab period={DIARIO}/>
+                </Tab>
+                <Tab heading={<TabHeading><Text style={style.tabHeading}>RANKING</Text></TabHeading>}>
+                    <OverviewTab period={RANKING}/>
+                </Tab>
+                <Tab heading={<TabHeading><Text style={style.tabHeading}>HISTÓRICO</Text></TabHeading>}>
+                    <OverviewTab period={HISTORICO}/>
+                </Tab>
+            </Tabs>
+        );
+    };
 
     render(): React.Node {
         return (
-            <BaseContainer title={"Boletim"} navigation={this.props.navigation}>
-                <Tabs>
-                    <Tab heading={<TabHeading><Text style={style.tabHeading}>DIÁRIO</Text></TabHeading>}>
-                        {this.renderContent(DIARIO)}
-                    </Tab>
-                    <Tab heading={<TabHeading><Text style={style.tabHeading}>RANKING</Text></TabHeading>}>
-                        {this.renderContent(RANKING)}
-                    </Tab>
-                    <Tab heading={<TabHeading><Text style={style.tabHeading}>HISTÓRICO</Text></TabHeading>}>
-                        {this.renderContent(HISTORICO)}
-                    </Tab>
-                </Tabs>
+            <BaseContainer title="Boletim" navigation={this.props.navigation}>
+                {this.renderContent()}
             </BaseContainer>
         );
     }
@@ -80,7 +64,9 @@ type OverviewTabProps = {
     period: 1 | 2 | 3
 };
 
-class OverviewTab extends React.PureComponent<OverviewTabProps> {
+@inject("boletimStore")
+@observer
+class OverviewTab extends React.Component<OverviewTabProps> {
 
     static get propTypes(): React.Node {
         return {
@@ -91,19 +77,23 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
     }
 
     render(): React.Node {
-        const { period } = this.props;
+        const period = this.props.period;
         const diaDaSemana = new Date().getDate();
         const mesDoAno = retornaMes(new Date().getMonth() + 1);
         const ano = new Date().getFullYear();
+        const listDiary = this.props.boletimStore.listDiario;
+        const listRanking = this.props.boletimStore.listRanking;
+        const listHistorico = this.props.boletimStore.listHistorico;
+
         if (period === 1) {
             return (
                 <View style={style.container}>
                     <ScrollView>
                         <View style={[style.tab, Styles.center]}>
-                            <H1>Londrina, {diaDaSemana} de  {mesDoAno} de {ano} </H1>
+                            <H1>Londrina, {diaDaSemana} de {mesDoAno} de {ano} </H1>
                         </View>
                         {
-                            listDiario.map((item, i) => (
+                            listDiary.map((item, i) => (
                                 <Task
                                     key={i}
                                     subtitle={item.descricao}
@@ -114,43 +104,41 @@ class OverviewTab extends React.PureComponent<OverviewTabProps> {
                 </View>
             );
         } else if (period === 2) {
-            label = `Week ${moment().format("W")}`;
             return (<View style={style.container}>
+                    <ScrollView>
+                        <View style={[style.tab, Styles.center]}>
+                            <H1>Ranking do dia</H1>
+                        </View>
+                        {
+                            listRanking.map((item, i) => (
+                                <Task
+                                    key={i}
+                                    title={item.local}
+                                    subtitle={item.descricao}
+                                />
+                            ))
+                        }
+                    </ScrollView>
+                </View>
+            );
+        }
+        return (<View style={style.container}>
                 <ScrollView>
                     <View style={[style.tab, Styles.center]}>
-                        <H1>Ranking do dia</H1>
+                        <H1>{mesDoAno.toUpperCase()}</H1>
                     </View>
                     {
-                        listRanking.map((item, i) => (
+                        listHistorico.map((item, i) => (
                             <Task
                                 key={i}
-                                title={item.local}
-                                subtitle={item.descricao}
+                                // title={item.data}
+                                // subtitle={item.descricao}
+                                subtitle="Em desenvolvimento..."
                             />
                         ))
                     }
                 </ScrollView>
             </View>
-            );
-        }
-        label = moment().format("MMMM");
-        return (<View style={style.container}>
-            <ScrollView>
-                <View style={[style.tab, Styles.center]}>
-                    <H1>{mesDoAno.toUpperCase()}</H1>
-                </View>
-                {
-                    listHistorico.map((item, i) => (
-                        <Task
-                            key={i}
-                            //title={item.data}
-                            //subtitle={item.descricao}
-                            subtitle="Em desenvolvimento..."
-                        />
-                    ))
-                }
-            </ScrollView>
-        </View>
         );
     }
 }
@@ -219,8 +207,8 @@ const style = StyleSheet.create({
         padding: variables.contentPadding,
         alignSelf: "baseline",
         flexDirection: "row",
-        borderBottomColor: '#fff',
+        borderBottomColor: "#fff",
         borderBottomWidth: 1,
         marginHorizontal: variables.contentPadding * 2
-    },
+    }
 });

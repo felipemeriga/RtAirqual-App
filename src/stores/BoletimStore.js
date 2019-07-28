@@ -1,10 +1,10 @@
 // @flow
-import { observable, action } from "mobx";
+import {observable, action} from "mobx";
 import axios from "axios";
 
 class BoletimStore {
     @observable dialogOn = false;
-    @observable loadingDetail = false;
+    @observable loadingDetail = true;
     @observable boletimDetail: any = {};
     @observable boletim: any = {};
     @observable error = false;
@@ -12,11 +12,11 @@ class BoletimStore {
     @observable historico: any = {};
     @observable ranking: any = {};
 
-    listDiario = [];
+    @observable listDiario = [];
 
-    listRanking = [];
+    @observable listRanking = [];
 
-    listHistorico = [];
+    @observable listHistorico = [];
 
     @action
     async getBoletim(): React.node {
@@ -26,43 +26,56 @@ class BoletimStore {
         axios.get(url)
             .then((response) => {
                 this.boletimDetail = response.data.body;
-                
+                this.listRanking = [];
                 this.diario = this.boletimDetail.diario;
                 this.historico = this.boletimDetail.historico;
                 this.ranking = this.boletimDetail.ranking;
+                // Populating the Ranking List
+                const iterableListRanking = [];
+                this.ranking.forEach((item) => {
+                    const ite = {
+                        local: item.name,
+                        descricao: item.mensagem,
+                        id: item.ID
+                    };
 
-                for (i in this.ranking) {
-                    listRanking.push({
-                        local: this.ranking[i].name,
-                        descricao: this.ranking[i].mensagem,
-                        id: this.ranking[i].ID
+                    iterableListRanking.push(ite);
+                });
+                this.listRanking = iterableListRanking;
+                // Populating the Diary list
+                const iterableListDiario = [];
+                this.diario.forEach((item) => {
+
+                    iterableListDiario.push({
+                        local: "Londrina",
+                        descricao: item.descricao
                     });
-                }
+                });
+                this.listDiario = iterableListDiario;
 
-                for (i in this.diario) {
-                    listDiario.push({
-                        local: "Londrina", descricao: this.diario[i].descricao
+                // Populating the History list
+                const iterableListHistory = [];
+                this.diario.forEach((item) => {
+
+                    iterableListHistory.push({
+                        data: item.data,
+                        descricao: item.descricao,
+                        id: item.id
                     });
-                }
+                });
+                this.listHistorico = iterableListHistory;
 
-                for (i in this.historico) {
-                    listHistorico.push({
-                        data: this.historico[i].data, descricao: this.historico[i].descricao,
-                        id: this.historico[i].id
-                    });                   
-                }
-
-                //ordenando rankings
-                listRanking=listRanking.sort(function(a, b) {
+                // ordenando rankings
+                this.listRanking = this.listRanking.slice().sort(function (a, b) {
                     return a.id - b.id;
                 });
 
-                //ordenando historico
-                listHistorico=listHistorico.sort(function(a, b) {
-                    return  b.id - a.id;
+                // ordenando historico
+                this.listHistorico = this.listHistorico.slice().sort(function (a, b) {
+                    return b.id - a.id;
                 });
-                //console.log("rodou boletim store");
                 this.loadingDetail = false;
+
             })
             .catch((err) => {
                 console.log(err);
@@ -78,4 +91,5 @@ class BoletimStore {
         this.error = false;
     }
 }
+
 export default new BoletimStore();

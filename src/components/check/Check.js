@@ -34,6 +34,8 @@ export default class Check extends React.Component<ScreenProps<>> {
     };
 
     async componentWillMount(): React.Node {
+        // TODO - This part of the code will prevent the yellow boxes warning, If you need them, just comment the next line
+        console.disableYellowBox = true;
         this.registerForPushNotifications();
     }
 

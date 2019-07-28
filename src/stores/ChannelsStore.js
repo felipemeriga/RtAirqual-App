@@ -9,6 +9,7 @@ class ChannelsStore {
     @observable errorFlag = false;
     @observable channels: Channel = [];
     @observable error;
+    @observable cardsDetail: Object = {};
 
     @observable localization = {
         latitude: Number,
@@ -23,6 +24,7 @@ class ChannelsStore {
             .then((response) => {
                 this.channels = response.data.body;
                 this.loading = false;
+                this.cardsDetail = response.data.body;
             })
             .catch((error) => {
                 this.error = error;

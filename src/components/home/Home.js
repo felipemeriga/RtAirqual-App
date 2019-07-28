@@ -14,25 +14,16 @@ import variables from "../../../native-base-theme/variables/commonColor";
 const Mapa = 1;
 const Pontos = 2;
 
-card = [
-    {id: 281488, endPoint: "https://api.thingspeak.com/channels/281488/feeds.json?results=2"},
-    {id: 281491, endPoint: "https://api.thingspeak.com/channels/580874/feeds.json?results=2"},
-    {id: 281489, endPoint: "https://api.thingspeak.com/channels/740676/feeds.json?results=2"},
-    {id: 281490, endPoint: "https://api.thingspeak.com/channels/323194/feeds.json?results=2"},
-    {id: 281492, endPoint: "https://api.thingspeak.com/channels/281501/feeds.json?results=2"},
-]
-
 pontos = [
-    {id: "lago", temp: 0, umid: 0, airq: 0},
-    {id: "jardim", temp: 0, umid: 0, airq: 0},
-    {id: "puc", temp: 0, umid: 0, airq: 0},
-    {id: "uel", temp: 0, umid: 0, airq: 0},
-    {id: "utfpr", temp: 0, umid: 0, airq: 0}
+    { id: "lago", temp: 0, umid: 0, airq: 0 },
+    { id: "jardim", temp: 0, umid: 0, airq: 0 },
+    { id: "puc", temp: 0, umid: 0, airq: 0 },
+    { id: "uel", temp: 0, umid: 0, airq: 0 },
+    { id: "utfpr", temp: 0, umid: 0, airq: 0 }
 ]
 
 @inject("boletimStore")
 @inject("channelsStore")
-// @inject("cardStore")
 @observer
 export default class Home extends React.Component<ScreenProps<>> {
 
@@ -43,52 +34,19 @@ export default class Home extends React.Component<ScreenProps<>> {
         this.props.channelsStore.getLocalization();
     }
 
-    // renderContent(): React.Node {
-    // if (this.props.channelsStore.loadingChannels === false
-    //     && this.props.channelsStore.loadingLocalization === false) {
-    //     return (
-    //         <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization} />
-    //     );
-    // }
-    // return (
-    //     <View style={[Styles.center, Styles.flexGrow]}>
-    //         <Progress.Circle size={50} indeterminate />
-    //     </View>
-    // );
-    // }
-
-
     renderContent = (type) => {
-        //console.log("temp home: " + this.props.mapsStore.markDetailCards.field1);
-        // if (this.props.channelsStore.loadingChannels === false
-        //     && this.props.channelsStore.loadingLocalization === false) {
-        //     return (
-        //         <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization} />
-        //     );
-        // }
-        // return (
-        //     <View style={[Styles.center, Styles.flexGrow]}>
-        //         <Progress.Circle size={50} indeterminate />
-        //     </View>
-        // )
-        // } else {
         return (
             <OverviewTab channelsStore={this.props.channelsStore} tela={type} />
         )
-        // }
     }
 
 
     render(): React.Node {
-        // const sectionName = "Pontos RT";
         const sectionName = "RT Airqual";
         //const { navigation } = this.props;
         return (
-
             //<BaseContainer title={sectionName} {...{ navigation }} scrollable style={styles.container}>
             <BaseContainer title={sectionName} navigation={this.props.navigation}>
-
-
                 <Tabs>
                     <Tab heading={<TabHeading><Text style={style.tabHeading}>Mapa</Text></TabHeading>}>
                         {this.renderContent(Mapa)}
@@ -108,10 +66,8 @@ type OverviewTabProps = {
 
 teste = null;
 
-//@inject("boletimStore")
 @inject("channelsStore")
 @inject("mapsStore")
-@inject("cardStore")
 @observer
 class OverviewTab extends React.Component<OverviewTabProps> {
 
@@ -125,37 +81,31 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         };
     }
 
+    carregaCards() {
+        //PUC PONTOS[2] cardsDetail[0]
+        pontos[2].temp = parseFloat(this.props.channelsStore.cardsDetail[0].lastValues.thermalConfort).toFixed(1);
+        pontos[2].umid = this.props.channelsStore.cardsDetail[0].lastValues.moisture;
+        pontos[2].airq = this.props.channelsStore.cardsDetail[0].lastValues.airQuality;
 
-    carregaCards(card: any): React.Node {
-        this.props.cardStore.getCardDetail(card);
-        pontos[0].temp=this.props.cardStore.cardDetail.field1;
-        pontos[0].umid=this.props.cardStore.cardDetail.field2;
-        pontos[0].airq=this.props.cardStore.cardDetail.field3;
-        console.log("rodou pontos[0]" + pontos[0].temp + " - " + pontos[0].umid + " - " +pontos[0].airq);
+        //LAGO IGAPO PONTOS[0] cardsDetail[1]
+        pontos[0].temp = parseFloat(this.props.channelsStore.cardsDetail[1].lastValues.thermalConfort).toFixed(1);
+        pontos[0].umid = this.props.channelsStore.cardsDetail[1].lastValues.moisture;
+        pontos[0].airq = this.props.channelsStore.cardsDetail[1].lastValues.airQuality;
 
-        // this.props.cardStore.getCardDetail(card[1]);
-        // pontos[1].temp=this.props.cardStore.cardDetail.field1;
-        // pontos[1].umid=this.props.cardStore.cardDetail.field2;
-        // pontos[1].airq=this.props.cardStore.cardDetail.field3;
-        // console.log("rodou pontos[1]" + pontos[1].temp + " - " + pontos[1].umid+ " - " +pontos[1].airq);
+        //JARDIM BOTANICO PONTOS[1] cardsDetail[2]
+        pontos[1].temp = parseFloat(this.props.channelsStore.cardsDetail[2].lastValues.thermalConfort).toFixed(1);
+        pontos[1].umid = this.props.channelsStore.cardsDetail[2].lastValues.moisture;
+        pontos[1].airq = this.props.channelsStore.cardsDetail[2].lastValues.airQuality;
 
-        // this.props.cardStore.getCardDetail(card[2]);
-        // pontos[2].temp=this.props.cardStore.cardDetail.field1;
-        // pontos[2].umid=this.props.cardStore.cardDetail.field2;
-        // pontos[2].airq=this.props.cardStore.cardDetail.field3;
-        // console.log("rodou pontos[2]" + pontos[2].temp + " - " + pontos[2].umid+ " - " +pontos[2].airq);
+        //PISTA ATLETISMO UEL PONTOS[3] cardsDetail[3]
+        pontos[3].temp = parseFloat(this.props.channelsStore.cardsDetail[3].lastValues.thermalConfort).toFixed(1);
+        pontos[3].umid = this.props.channelsStore.cardsDetail[3].lastValues.moisture;
+        pontos[3].airq = this.props.channelsStore.cardsDetail[3].lastValues.airQuality;
 
-        // this.props.cardStore.getCardDetail(card[3]);
-        // pontos[3].temp=this.props.cardStore.cardDetail.field1;
-        // pontos[3].umid=this.props.cardStore.cardDetail.field2;
-        // pontos[3].airq=this.props.cardStore.cardDetail.field3;
-        // console.log("rodou pontos[3]" + pontos[3].temp + " - " + pontos[3].umid+ " - " +pontos[3].airq);
-
-        // this.props.cardStore.getCardDetail(card[4]);
-        // pontos[4].temp=this.props.cardStore.cardDetail.field1;
-        // pontos[4].umid=this.props.cardStore.cardDetail.field2;
-        // pontos[4].airq=this.props.cardStore.cardDetail.field3;
-        // console.log("rodou pontos[4]" + pontos[4].temp + " - " + pontos[4].umid+ " - " +pontos[4].airq);
+        //UTF PONTOS[4] cardsDetail[4]
+        pontos[4].temp = parseFloat(this.props.channelsStore.cardsDetail[4].lastValues.thermalConfort).toFixed(1);
+        pontos[4].umid = this.props.channelsStore.cardsDetail[4].lastValues.moisture;
+        pontos[4].airq = this.props.channelsStore.cardsDetail[4].lastValues.airQuality;
     }
 
 
@@ -163,17 +113,6 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         super(props);
         this.props.channelsStore.getChannels();
         this.props.channelsStore.getLocalization();
-        // this.props.cardStore.getCardDetail(card[0]);
-        this.carregaCards(card[0]);
-        console.log("chamou"); 
-        // this.props.mapsStore.getMarkDetailCards(marker[1]);
-        // teste = this.props.mapsStore.getMarkDetailCards(marker[0]);
-        // console.log("teste"+ teste);
-        // console.log(marker[0]);
-        // marker.forEach(function(item){
-            // this.props.mapsStore.getMarkDetailCards(item)
-            // console.log(item);
-        //   });
     }
 
     componentDidUpdate(): React.Node {
@@ -182,6 +121,15 @@ class OverviewTab extends React.Component<OverviewTabProps> {
 
     render(): React.Node {
         const { tela } = this.props;
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+        var year = new Date().getFullYear(); //Current Year
+        var hours = new Date().getHours(); //Current Hours
+        var min = new Date().getMinutes(); //Current Minutes
+        // var sec = new Date().getSeconds(); //Current Seconds
+
+        const data = date + '/' + month + '/' + year + ' ' + hours + ':' + min;
+        // + ':' + sec;
         if (tela === 1) {
             if (this.props.channelsStore.loadingChannels === false
                 && this.props.channelsStore.loadingLocalization === false) {
@@ -195,6 +143,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                 </View>
             );
         } else if (tela === 2) {
+            this.carregaCards();
             return (
                 <Container>
                     <Content>
@@ -204,7 +153,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                     <Thumbnail source={require('../../../assets/appIcon.png')} />
                                     <Body>
                                         <Text>Lago Igapó</Text>
-                                        {/* <Text note>Atualizado em: 12/07/2019 - 17:36</Text> */}
+                                        <Text note>Atualizado em: {data}</Text>
                                     </Body>
                                 </Left>
                             </CardItem>
@@ -212,7 +161,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                 <Image source={require('../../../assets/images/lago_card.png')} style={{ height: 200, width: null, flex: 1 }} />
                             </CardItem>
                             <CardItem>
-                            <Left>
+                                <Left>
                                     <Button transparent>
                                         <Icon active name="thermometer" />
                                         <Text> </Text>
@@ -242,7 +191,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                     <Thumbnail source={require('../../../assets/appIcon.png')} />
                                     <Body>
                                         <Text>Jardim Botânico</Text>
-                                        {/* <Text note>Atualizado em: 12/07/2019 - 17:36</Text> */}
+                                        <Text note>Atualizado em: {data}</Text>
                                     </Body>
                                 </Left>
                             </CardItem>
@@ -250,7 +199,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                 <Image source={require('../../../assets/images/jardim_card.png')} style={{ height: 200, width: null, flex: 1 }} />
                             </CardItem>
                             <CardItem>
-                            <Left>
+                                <Left>
                                     <Button transparent>
                                         <Icon active name="thermometer" />
                                         <Text> </Text>
@@ -280,7 +229,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                     <Thumbnail source={require('../../../assets/appIcon.png')} />
                                     <Body>
                                         <Text>PUC</Text>
-                                        {/* <Text note>Atualizado em: 12/07/2019 - 17:36</Text> */}
+                                        <Text note>Atualizado em: {data}</Text>
                                     </Body>
                                 </Left>
                             </CardItem>
@@ -288,7 +237,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                 <Image source={require('../../../assets/images/puc_card.png')} style={{ height: 200, width: null, flex: 1 }} />
                             </CardItem>
                             <CardItem>
-                            <Left>
+                                <Left>
                                     <Button transparent>
                                         <Icon active name="thermometer" />
                                         <Text> </Text>
@@ -318,7 +267,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                     <Thumbnail source={require('../../../assets/appIcon.png')} />
                                     <Body>
                                         <Text>Pista atletismo UEL</Text>
-                                        {/* <Text note>Atualizado em: dd/mm/yyyy  hh:mm</Text> */}
+                                        <Text note>Atualizado em: {data}</Text>
                                     </Body>
                                 </Left>
                             </CardItem>
@@ -326,7 +275,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                 <Image source={require('../../../assets/images/uel_card.png')} style={{ height: 200, width: null, flex: 1 }} />
                             </CardItem>
                             <CardItem>
-                            <Left>
+                                <Left>
                                     <Button transparent>
                                         <Icon active name="thermometer" />
                                         <Text> </Text>
@@ -356,7 +305,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                     <Thumbnail source={require('../../../assets/appIcon.png')} />
                                     <Body>
                                         <Text>UTFPR</Text>
-                                        {/* <Text note>Atualizado em: dd/mm/yyyy  hh:mm</Text> */}
+                                        <Text note>Atualizado em: {data}</Text>
                                     </Body>
                                 </Left>
                             </CardItem>
@@ -364,7 +313,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                 <Image source={require('../../../assets/images/utfpr_card.png')} style={{ height: 200, width: null, flex: 1 }} />
                             </CardItem>
                             <CardItem>
-                            <Left>
+                                <Left>
                                     <Button transparent>
                                         <Icon active name="thermometer" />
                                         <Text> </Text>
@@ -399,7 +348,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center'
-      }
+    }
 });
 
 const style = StyleSheet.create({

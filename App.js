@@ -26,6 +26,7 @@ import channelsStore from "./src/stores/ChannelsStore";
 import mapsStore from "./src/stores/MapsStore";
 import authStore from "./src/stores/AuthStore";
 import boletimStore from "./src/stores/BoletimStore";
+import cardStore from "./src/stores/CardStore";
 
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";
@@ -34,7 +35,8 @@ const stores = {
     channelsStore,
     mapsStore,
     authStore,
-    boletimStore
+    boletimStore,
+    cardStore
 };
 
 

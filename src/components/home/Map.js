@@ -267,16 +267,16 @@ export default class Map extends React.Component<{}> {
         );
     }
 
-    exibeSegundoDialog() {
-        <SCLAlert
-            theme="info"
-            show={true}
-            title="Lorem"
-            subtitle="Lorem ipsum dolor"
-        >
-            <SCLAlertButton theme="info" onPress={this.handleClose}>Done</SCLAlertButton>
-        </SCLAlert>
-    }
+    // exibeSegundoDialog() {
+    //     <SCLAlert
+    //         theme="info"
+    //         show={true}
+    //         title="Lorem"
+    //         subtitle="Lorem ipsum dolor"
+    //     >
+    //         <SCLAlertButton theme="info" onPress={this.handleClose}>Done</SCLAlertButton>
+    //     </SCLAlert>
+    // }
 
     //novos metodos retornando os temas padrao do dialog
     retornaCorTemp(temperatura) {

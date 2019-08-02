@@ -40,8 +40,8 @@ export default {
   checkboxTickColor: '#fff',
 
   // Segment
-  segmentBackgroundColor: (platform === 'ios') ? '#F8F8F8' : '#3F51B5',
-  segmentActiveBackgroundColor: (platform === 'ios') ? '#007aff' : '#fff',
+  segmentBackgroundColor: (platform === 'ios') ? '#565656' : '#565656',
+  segmentActiveBackgroundColor: (platform === 'ios') ? '#565656' : '#565656',
   segmentTextColor: (platform === 'ios') ? '#007aff' : '#fff',
   segmentActiveTextColor: (platform === 'ios') ? '#fff' : '#3F51B5',
   segmentBorderColor: (platform === 'ios') ? '#007aff' : '#fff',
@@ -137,19 +137,19 @@ export default {
 
     // Footer
   footerHeight: 55,
-  footerDefaultBg: (platform === 'ios') ? '#F8F8F8' : '#4179F7',
+  footerDefaultBg: (platform === 'ios') ? '#565656' : '#565656',
 
 
     // FooterTab
   tabBarTextColor: (platform === 'ios') ? '#6b6b6b' : '#b3c7f9',
   tabBarTextSize: (platform === 'ios') ? 14 : 11,
-  activeTab: (platform === 'ios') ? '#007aff' : '#fff',
+  activeTab: (platform === 'ios') ? '#565656' : '#fff',
   sTabBarActiveTextColor: '#007aff',
   tabBarActiveTextColor: (platform === 'ios') ? '#007aff' : '#fff',
   tabActiveBgColor: (platform === 'ios') ? '#cde1f9' : '#3F51B5',
 
     // Tab
-  tabDefaultBg: (platform === 'ios') ? '#F8F8F8' : '#3F51B5',
+  tabDefaultBg: (platform === 'ios') ? '#565656' : '#565656',
   topTabBarTextColor: (platform === 'ios') ? '#6b6b6b' : '#b3c7f9',
   topTabBarActiveTextColor: (platform === 'ios') ? '#007aff' : '#fff',
   topTabActiveBgColor: (platform === 'ios') ? '#cde1f9' : undefined,
@@ -159,7 +159,7 @@ export default {
 
     // Header
   toolbarBtnColor: (platform === 'ios') ? '#007aff' : '#fff',
-  toolbarDefaultBg: (platform === 'ios') ? '#F8F8F8' : '#3F51B5',
+  toolbarDefaultBg: (platform === 'ios') ? '#565656' : '#565656',
   toolbarHeight: (platform === 'ios') ? 64 : 56,
   toolbarIconSize: (platform === 'ios') ? 20 : 22,
   toolbarSearchIconSize: (platform === 'ios') ? 20 : 23,
@@ -253,7 +253,7 @@ export default {
 
 
     // Tabs
-  tabBgColor: '#F8F8F8',
+  tabBgColor: '#565656',
   tabFontSize: 15,
   tabTextColor: '#222222',
 

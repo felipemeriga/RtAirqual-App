@@ -5,15 +5,15 @@
         "version": "3.0",
         "orientation": "portrait",
         "privacy": "public",
-        "icon": "./assets/appIcon.png",
+        "icon": "./assets/new_icon.png",
         "facebookScheme": "fb2286396934947742",
         "primaryColor": "#333333",
         "notification": {
-            "icon": "./assets/appIcon.png",
+            "icon": "./assets/new_icon.png",
             "color": "#000000"
         },
         "splash": {
-            "image": "./assets/images/fundo_rt2.png",
+            "image": "./assets/images/fundo_airtracking.png",
             "backgroundColor": "#333333",
             "resizeMode": "cover"
         },

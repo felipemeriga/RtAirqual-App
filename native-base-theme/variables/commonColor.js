@@ -151,7 +151,7 @@ export default {
     // FooterTab
   tabBarTextColor: 'white',
   tabBarTextSize: 14,
-  activeTab: '#007aff',
+  activeTab: '#565656',
   sTabBarActiveTextColor: '#007aff',
   tabBarActiveTextColor: '#fff',
   tabActiveBgColor: "transparent",
@@ -160,14 +160,14 @@ export default {
   tabDefaultBg: 'transparent',
   topTabBarTextColor: '#b3c7f9',
   topTabBarActiveTextColor: '#fff',
-  topTabActiveBgColor: '#1569f4',
+  topTabActiveBgColor: '#565656',
   topTabBarBorderColor: '#fff',
   get topTabBarActiveBorderColor() { return "white"; },
 
 
     // Header
   toolbarBtnColor: "white",
-  toolbarDefaultBg: '#333333',
+  toolbarDefaultBg: '#565656',
   toolbarHeight: 64,
   toolbarIconSize: 20,
   toolbarSearchIconSize: 20,
@@ -259,7 +259,7 @@ export default {
 
 
     // Tabs
-  tabBgColor: '#F8F8F8',
+  tabBgColor: '#565656',
   tabFontSize: 15,
   tabTextColor: '#222222',
 

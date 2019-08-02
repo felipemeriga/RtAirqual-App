@@ -40,7 +40,7 @@ export default class Home extends React.Component<ScreenProps<>> {
 
 
     render(): React.Node {
-        const sectionName = "RT Airqual";
+        const sectionName = "AIRTRACKING";
         //const { navigation } = this.props;
         return (
             //<BaseContainer title={sectionName} {...{ navigation }} scrollable style={styles.container}>
@@ -82,27 +82,27 @@ class OverviewTab extends React.Component<OverviewTabProps> {
     carregaCards() {
         //PUC PONTOS[2] cardsDetail[0]
         pontos[2].temp = parseFloat(this.props.channelsStore.cardsDetail[0].lastValues.thermalConfort).toFixed(1);
-        pontos[2].umid = this.props.channelsStore.cardsDetail[0].lastValues.moisture;
+        pontos[2].umid = parseFloat(this.props.channelsStore.cardsDetail[0].lastValues.moisture).toFixed(0);
         pontos[2].airq = this.props.channelsStore.cardsDetail[0].lastValues.airQuality;
 
         //LAGO IGAPO PONTOS[0] cardsDetail[1]
         pontos[0].temp = parseFloat(this.props.channelsStore.cardsDetail[1].lastValues.thermalConfort).toFixed(1);
-        pontos[0].umid = this.props.channelsStore.cardsDetail[1].lastValues.moisture;
+        pontos[0].umid = parseFloat(this.props.channelsStore.cardsDetail[1].lastValues.moisture).toFixed(0);
         pontos[0].airq = this.props.channelsStore.cardsDetail[1].lastValues.airQuality;
 
         //JARDIM BOTANICO PONTOS[1] cardsDetail[2]
         pontos[1].temp = parseFloat(this.props.channelsStore.cardsDetail[2].lastValues.thermalConfort).toFixed(1);
-        pontos[1].umid = this.props.channelsStore.cardsDetail[2].lastValues.moisture;
+        pontos[1].umid = parseFloat(this.props.channelsStore.cardsDetail[2].lastValues.moisture).toFixed(0);
         pontos[1].airq = this.props.channelsStore.cardsDetail[2].lastValues.airQuality;
 
         //PISTA ATLETISMO UEL PONTOS[3] cardsDetail[3]
         pontos[3].temp = parseFloat(this.props.channelsStore.cardsDetail[3].lastValues.thermalConfort).toFixed(1);
-        pontos[3].umid = this.props.channelsStore.cardsDetail[3].lastValues.moisture;
+        pontos[3].umid = parseFloat(this.props.channelsStore.cardsDetail[3].lastValues.moisture).toFixed(0);
         pontos[3].airq = this.props.channelsStore.cardsDetail[3].lastValues.airQuality;
 
         //UTF PONTOS[4] cardsDetail[4]
         pontos[4].temp = parseFloat(this.props.channelsStore.cardsDetail[4].lastValues.thermalConfort).toFixed(1);
-        pontos[4].umid = this.props.channelsStore.cardsDetail[4].lastValues.moisture;
+        pontos[4].umid = parseFloat(this.props.channelsStore.cardsDetail[4].lastValues.moisture).toFixed(0);
         pontos[4].airq = this.props.channelsStore.cardsDetail[4].lastValues.airQuality;
     }
 
@@ -123,7 +123,13 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         var month = new Date().getMonth() + 1; //Current Month
         var year = new Date().getFullYear(); //Current Year
         var hours = new Date().getHours(); //Current Hours
+        if (hours<10){
+            hours = "0"+hours;
+        }
         var min = new Date().getMinutes(); //Current Minutes
+        if (min<10){
+            min = "0"+min;
+        }
         // var sec = new Date().getSeconds(); //Current Seconds
 
         const data = date + '/' + month + '/' + year + ' ' + hours + ':' + min;
@@ -148,7 +154,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                         <Card>
                             <CardItem>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/appIcon.png')} />
+                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
                                     <Body>
                                         <Text>Lago Igapó</Text>
                                         <Text note>Atualizado em: {data}</Text>
@@ -161,22 +167,26 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="thermometer" />
-                                        <Text> </Text>
-                                        <Text> {pontos[0].temp} </Text>
+                                        {/* <Icon active name="thermometer" /> */}
+                                        <Text>O conforto térmico nesse local é de: </Text>
+                                        <Text> {pontos[0].temp}° C </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="water" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="water" /> */}
+                                        <Text>Aqui a umidade relativa é:  </Text>
                                         <Text> {pontos[0].umid}% </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="leaf" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="leaf" /> */}
+                                        <Text>Já o índice de qualidade do ar é:  </Text>
                                         <Text> {pontos[0].airq} </Text>
                                     </Button>
                                 </Left>
@@ -186,7 +196,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                         <Card>
                             <CardItem>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/appIcon.png')} />
+                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
                                     <Body>
                                         <Text>Jardim Botânico</Text>
                                         <Text note>Atualizado em: {data}</Text>
@@ -199,22 +209,26 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="thermometer" />
-                                        <Text> </Text>
-                                        <Text> {pontos[1].temp} </Text>
+                                        {/* <Icon active name="thermometer" /> */}
+                                        <Text>O conforto térmico nesse local é de: </Text>
+                                        <Text> {pontos[1].temp}° C </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="water" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="water" /> */}
+                                        <Text>Aqui a umidade relativa é:  </Text>
                                         <Text> {pontos[1].umid}% </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="leaf" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="leaf" /> */}
+                                        <Text>Já o índice de qualidade do ar é:  </Text>
                                         <Text> {pontos[1].airq} </Text>
                                     </Button>
                                 </Left>
@@ -224,7 +238,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                         <Card>
                             <CardItem>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/appIcon.png')} />
+                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
                                     <Body>
                                         <Text>PUC</Text>
                                         <Text note>Atualizado em: {data}</Text>
@@ -237,22 +251,26 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="thermometer" />
-                                        <Text> </Text>
-                                        <Text> {pontos[2].temp} </Text>
+                                        {/* <Icon active name="thermometer" /> */}
+                                        <Text>O conforto térmico nesse local é de: </Text>
+                                        <Text> {pontos[2].temp}° C </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="water" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="water" /> */}
+                                        <Text>Aqui a umidade relativa é:  </Text>
                                         <Text> {pontos[2].umid}% </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="leaf" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="leaf" /> */}
+                                        <Text>Já o índice de qualidade do ar é:  </Text>
                                         <Text> {pontos[2].airq} </Text>
                                     </Button>
                                 </Left>
@@ -262,7 +280,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                         <Card>
                             <CardItem>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/appIcon.png')} />
+                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
                                     <Body>
                                         <Text>Pista atletismo UEL</Text>
                                         <Text note>Atualizado em: {data}</Text>
@@ -275,22 +293,26 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="thermometer" />
-                                        <Text> </Text>
-                                        <Text> {pontos[3].temp} </Text>
+                                        {/* <Icon active name="thermometer" /> */}
+                                        <Text>O conforto térmico nesse local é de: </Text>
+                                        <Text> {pontos[3].temp}° C </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="water" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="water" /> */}
+                                        <Text>Aqui a umidade relativa é:  </Text>
                                         <Text> {pontos[3].umid}% </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="leaf" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="leaf" /> */}
+                                        <Text>Já o índice de qualidade do ar é:  </Text>
                                         <Text> {pontos[3].airq} </Text>
                                     </Button>
                                 </Left>
@@ -300,7 +322,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                         <Card>
                             <CardItem>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/appIcon.png')} />
+                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
                                     <Body>
                                         <Text>UTFPR</Text>
                                         <Text note>Atualizado em: {data}</Text>
@@ -313,22 +335,26 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="thermometer" />
-                                        <Text> </Text>
-                                        <Text> {pontos[4].temp} </Text>
+                                        {/* <Icon active name="thermometer" /> */}
+                                        <Text>O conforto térmico nesse local é de: </Text>
+                                        <Text> {pontos[4].temp}° C </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="water" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="water" /> */}
+                                        <Text>Aqui a umidade relativa é:  </Text>
                                         <Text> {pontos[4].umid}% </Text>
                                     </Button>
                                 </Left>
+                            </CardItem>
+                            <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Icon active name="leaf" />
-                                        <Text> </Text>
+                                        {/* <Icon active name="leaf" /> */}
+                                        <Text>Já o índice de qualidade do ar é:  </Text>
                                         <Text> {pontos[4].airq} </Text>
                                     </Button>
                                 </Left>

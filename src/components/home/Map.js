@@ -68,7 +68,7 @@ export default class Map extends React.Component<{}> {
                                 latitude: member.latitude,
                                 longitude: member.longitude
                             }}
-                            image={require("../../../assets/marker_rt_big.png")}
+                            image={require("../../../assets/marker_rt_big_blue.png")}
                             onPress={() => {
                                 this.onMarkerTouched(member);
                                 this.handleOpen();
@@ -141,7 +141,7 @@ export default class Map extends React.Component<{}> {
                                 show={this.state.show}
                                 cancellable={true}
                                 title={this.props.mapsStore.marker.name}
-                                subtitle="Clique nos botões abaixo para mais detalhes:"
+                                //subtitle="Clique nos botões abaixo para mais detalhes:"
                                 onRequestClose={() => {
                                     this.props.mapsStore.onTouchOutside();
                                 }}
@@ -267,17 +267,6 @@ export default class Map extends React.Component<{}> {
         );
     }
 
-    // exibeSegundoDialog() {
-    //     <SCLAlert
-    //         theme="info"
-    //         show={true}
-    //         title="Lorem"
-    //         subtitle="Lorem ipsum dolor"
-    //     >
-    //         <SCLAlertButton theme="info" onPress={this.handleClose}>Done</SCLAlertButton>
-    //     </SCLAlert>
-    // }
-
     //novos metodos retornando os temas padrao do dialog
     retornaCorTemp(temperatura) {
         temperatura = parseFloat(temperatura);
@@ -320,49 +309,6 @@ export default class Map extends React.Component<{}> {
                         return "ca03f77"
     }
 
-
-    //antigos metodos retornando as cores do dialog
-
-    // retornaCorTemp(temperatura) {
-    //     temperatura = parseFloat(temperatura);
-    //     if (temperatura <= 13) { return "#604a7e" }
-    //     else
-    //         if (temperatura > 13 && temperatura <= 19) { return "#19d1b6" }
-    //         else
-    //             if (temperatura > 19 && temperatura <= 26) { return "#04f008" }
-    //             else
-    //                 if (temperatura > 26 && temperatura <= 32) { return "#f79646" }
-    //                 else
-    //                     if (temperatura > 32 && temperatura <= 39) { return "#ff0000" }
-    //                     else
-    //                         return "#8b0000"
-    // }
-
-    // retornaCorHumi(humidade) {
-    //     humidade = parseFloat(humidade);
-    //     if (humidade <= 25) { return "#ff0000" }
-    //     else
-    //         if (humidade > 25 && humidade <= 40) { return "#ffbf00" }
-    //         else
-    //             if (humidade > 40 && humidade <= 60) { return "#04f008" }
-    //             else
-    //                 if (humidade > 60 && humidade <= 80) { return "#ffbf00" }
-    //                 else
-    //                     return "#ff0000"
-    // }
-
-    // retornaCorPolu(poluicao) {
-    //     poluicao = parseFloat(poluicao);
-    //     if (poluicao <= 40) { return "#04f008" }
-    //     else
-    //         if (poluicao > 40 && poluicao <= 80) { return "#ffbf00" }
-    //         else
-    //             if (poluicao > 80 && poluicao <= 120) { return "#f79646" }
-    //             else
-    //                 if (poluicao > 120 && poluicao <= 200) { return "#ff0000" }
-    //                 else
-    //                     return "#a03f77"
-    // }
 
     componentDidMount() {
     }

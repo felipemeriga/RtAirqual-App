@@ -40,7 +40,7 @@ export default class Profile extends React.Component<ScreenProps<>> {
 
     render(): React.Node {
         return (
-            <BaseContainer title="rt AirQual" navigation={this.props.navigation} scrollable style={style.container}>
+            <BaseContainer title="AIRTRACKING" navigation={this.props.navigation} scrollable style={style.container}>
                 {this.returnUserPhoto()}
                 <View style={style.row}>
                     <H1>{this.getUserInformation()}</H1>

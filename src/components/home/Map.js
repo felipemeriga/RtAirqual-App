@@ -165,7 +165,7 @@ export default class Map extends React.Component<{}> {
                                 </SCLAlertButton>
 
                                 <SCLAlertButton
-                                    theme={this.retornaCorHumi(this.props.mapsStore.markDetail.field2)}
+                                    theme={this.retornaCorUmi(this.props.mapsStore.markDetail.field2)}
                                     onPress={() => {
                                         //this.handleClose(); 
                                         //this.props.mapsStore.onTouchOutside();
@@ -283,15 +283,15 @@ export default class Map extends React.Component<{}> {
                             return "c8b0000"
     }
 
-    retornaCorHumi(humidade) {
-        humidade = parseFloat(humidade);
-        if (humidade <= 25) { return "cff0000" }
+    retornaCorUmi(umidade) {
+        umidade = parseFloat(umidade);
+        if (umidade <= 25) { return "cff0000" }
         else
-            if (humidade > 25 && humidade <= 40) { return "cffbf00" }
+            if (umidade > 25 && umidade <= 40) { return "cffbf00" }
             else
-                if (humidade > 40 && humidade <= 60) { return "c04f008" }
+                if (umidade > 40 && umidade <= 60) { return "c04f008" }
                 else
-                    if (humidade > 60 && humidade <= 80) { return "cffbf00" }
+                    if (umidade > 60 && umidade <= 80) { return "cffbf00" }
                     else
                         return "c8b0000"
     }

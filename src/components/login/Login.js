@@ -94,16 +94,16 @@ export default class Login extends React.Component<ScreenProps<>> {
     setPasswordRef = (input: TextInput) => this.password = input._root;
     setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
-    signIn = () => this.props.navigation.navigate("Walkthrough");
-    // signIn = () => {
-    //     if (this.email._getText() === "" || this.password._getText() === "") {
-    //         this.props.authStore.logInError("Preencha todos os campos!");
-    //     } else {
-    //         this.props.authStore.signIn(this.email._getText()
-    //             .toLocaleLowerCase(), this.password._getText());
-    //     }
+    //signIn = () => this.props.navigation.navigate("Walkthrough");
+    signIn = () => {
+        if (this.email._getText() === "" || this.password._getText() === "") {
+            this.props.authStore.logInError("Preencha todos os campos!");
+        } else {
+            this.props.authStore.signIn(this.email._getText()
+                .toLocaleLowerCase(), this.password._getText());
+        }
 
-    // };
+    };
     signUp = () => this.props.navigation.navigate("SignUp");
 
     render(): React.Node {

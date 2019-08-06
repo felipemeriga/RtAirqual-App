@@ -2,7 +2,7 @@
     "expo": {
 		"name": "RtAirqual",
         "sdkVersion": "32.0.0",
-        "version": "3.0",
+        "version": "4.0",
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/new_icon.png",
@@ -29,7 +29,7 @@
         },
 		"android": {
             "package": "com.rt.rtairqual",
-            "versionCode": 3.0
+            "versionCode": 4.0
 		},
         "assetBundlePatterns": [
             "**/*.ttf",

@@ -1,7 +1,7 @@
 // @flow
 import moment from "moment";
 import * as React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { H3 } from "native-base";
 
 import Avatar from "./Avatar";
@@ -18,7 +18,8 @@ type TaskProps = {
     collaborators?: number[],
     completed?: boolean,
     timeline?: boolean,
-    texto: string
+    texto: string,
+    imagem: string
 };
 
 export default class Task extends React.PureComponent<TaskProps> {
@@ -40,12 +41,12 @@ export default class Task extends React.PureComponent<TaskProps> {
                 <View style={[style.title, timeline ? style.timelineLeft : {}]}>
                     <H3>{title}</H3>
                     {subtitle && <Text style={Styles.grayText}>{subtitle}</Text>}
-                    <View style={style.row}>
+                    {/* <View style={style.row}>
                         {
                             // $FlowFixMe
                             collaborators.map((id, key) => <Avatar {...{ id, key }} style={style.avatar} />)
                         }
-                    </View>
+                    </View> */}
                 </View>
                 {/* <View style={[style.time, timeline ? style.timelineRight : {}]}>
                     <Text style={style.titleText}>{date.format("HH")}</Text>

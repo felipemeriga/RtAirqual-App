@@ -1,12 +1,13 @@
 // @flow
-import {inject, observer} from "mobx-react";
+import { inject, observer } from "mobx-react";
 import PropTypes from "prop-types";
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import {StyleSheet, View, Text, ScrollView} from "react-native";
-import {Tab, Tabs, TabHeading, H1} from "native-base";
-import {BaseContainer, Task, Styles} from "../pure-components";
-import {ScreenProps} from "../pure-components/Types";
+import { StyleSheet, View, Text, ScrollView, ListView } from "react-native";
+import { Tab, Tabs, TabHeading, H1 } from "native-base";
+import { BaseContainer, Task, Styles } from "../pure-components";
+import { ScreenProps } from "../pure-components/Types";
+import { ListItem } from 'react-native-elements';
 import variables from "../../../native-base-theme/variables/commonColor";
 
 const DIARIO = 1;
@@ -39,13 +40,13 @@ export default class Boletim extends React.Component<ScreenProps<>> {
         return (
             <Tabs>
                 <Tab heading={<TabHeading><Text style={style.tabHeading}>DIÁRIO</Text></TabHeading>}>
-                    <OverviewTab period={DIARIO}/>
+                    <OverviewTab period={DIARIO} />
                 </Tab>
                 <Tab heading={<TabHeading><Text style={style.tabHeading}>RANKING</Text></TabHeading>}>
-                    <OverviewTab period={RANKING}/>
+                    <OverviewTab period={RANKING} />
                 </Tab>
                 <Tab heading={<TabHeading><Text style={style.tabHeading}>HISTÓRICO</Text></TabHeading>}>
-                    <OverviewTab period={HISTORICO}/>
+                    <OverviewTab period={HISTORICO} />
                 </Tab>
             </Tabs>
         );
@@ -76,6 +77,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         };
     }
 
+
     render(): React.Node {
         const period = this.props.period;
         const diaDaSemana = new Date().getDate();
@@ -84,6 +86,11 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         const listDiary = this.props.boletimStore.listDiario;
         const listRanking = this.props.boletimStore.listRanking;
         const listHistorico = this.props.boletimStore.listHistorico;
+
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.state = {
+            dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+        };
 
         if (period === 1) {
             return (
@@ -104,9 +111,10 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                 </View>
             );
         } else if (period === 2) {
-            return (<View style={style.container}>
+            return (
+                <View style={style.container}>
                     <ScrollView>
-                        <View style={[style.tab, Styles.center]}>
+                        <View style={[style.tab, style.center]}>
                             <H1>Ranking do dia</H1>
                         </View>
                         {
@@ -123,22 +131,22 @@ class OverviewTab extends React.Component<OverviewTabProps> {
             );
         }
         return (<View style={style.container}>
-                <ScrollView>
-                    <View style={[style.tab, Styles.center]}>
-                        <H1>{mesDoAno.toUpperCase()}</H1>
-                    </View>
-                    {
-                        listHistorico.map((item, i) => (
-                            <Task
-                                key={i}
-                                // title={item.data}
-                                // subtitle={item.descricao}
-                                subtitle="Em desenvolvimento..."
-                            />
-                        ))
-                    }
-                </ScrollView>
-            </View>
+            <ScrollView>
+                <View style={[style.tab, style.center]}>
+                    <H1>{mesDoAno.toUpperCase()}</H1>
+                </View>
+                {
+                    listHistorico.map((item, i) => (
+                        <Task
+                            key={i}
+                            // title={item.data}
+                            // subtitle={item.descricao}
+                            subtitle="Em desenvolvimento..."
+                        />
+                    ))
+                }
+            </ScrollView>
+        </View>
         );
     }
 }
@@ -210,5 +218,12 @@ const style = StyleSheet.create({
         borderBottomColor: "#fff",
         borderBottomWidth: 1,
         marginHorizontal: variables.contentPadding * 2
+    },
+    center: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    heading: {
+        marginTop: variables.contentPadding * 2
     }
 });

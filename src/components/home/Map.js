@@ -137,7 +137,7 @@ export default class Map extends React.Component<{}> {
                             {/* <View style={styles.container}> */}
                             {/* <Button title={this.props.mapsStore.markDetail.field1} onPress={this.handleOpen}/> */}
                             <SCLAlert
-                                theme="inverse"
+                                theme="default"
                                 show={this.state.show}
                                 cancellable={true}
                                 title={this.props.mapsStore.marker.name}

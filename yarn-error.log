@@ -1,11 +1,11 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\1691228\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+  C:\Program Files\nodejs\node.exe C:\Users\sussel\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\RSA SecurID Token Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\ambiente\java\jdk1.7.0_79\bin;C:\Maven\apache-maven-3.6.1\bin;C:\Program Files\PuTTY\;C:\WINDOWS\System32\OpenSSH\;C:\Users\1691228\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Program Files\Amazon\AWSCLI\;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Users\1691228\AppData\Local\Programs\Python\Python37-32;C:\Users\1691228\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\JetBrains\IntelliJ IDEA 2019.1.3\bin;;C:\Users\1691228\AppData\Roaming\npm;C:\Program Files\JetBrains\WebStorm 2019.1.3\bin;
+  C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Users\sussel\AppData\Local\Microsoft\WindowsApps;C:\Users\sussel\AppData\Roaming\npm;C:\Users\sussel\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\sussel\AppData\Local\Microsoft\WindowsApps;C:\Users\sussel\AppData\Roaming\npm;C:\Users\sussel\AppData\Local\Programs\Microsoft VS Code\bin
 
 Yarn version: 
-  1.16.0
+  1.17.3
 
 Node version: 
   10.16.0
@@ -14,21 +14,11 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/lottie-react-native/-/lottie-react-native-2.5.0.tgz: ESOCKETTIMEDOUT
-      at ClientRequest.<anonymous> (C:\Users\1691228\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:130217:19)
-      at Object.onceWrapper (events.js:286:20)
-      at ClientRequest.emit (events.js:198:13)
-      at TLSSocket.emitRequestTimeout (_http_client.js:662:40)
-      at Object.onceWrapper (events.js:286:20)
-      at TLSSocket.emit (events.js:198:13)
-      at TLSSocket.Socket._onTimeout (net.js:442:8)
-      at ontimeout (timers.js:436:11)
-      at tryOnTimeout (timers.js:300:5)
-      at listOnTimeout (timers.js:263:5)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\sussel\Desktop\rt\RtAirqual-App\node_modules\expo-cli\node_modules\xdl\binaries\windows\adb\AdbWinUsbApi.dll'
 
 npm manifest: 
   {
-      "name": "RtAirqual",
+      "name": "AirTracking",
       "version": "2.2.7",
       "private": true,
       "devDependencies": {
@@ -50,7 +40,7 @@ npm manifest:
           "expo-cli": "^2.6.14",
           "flow-bin": "0.63.1",
           "flow-result-checker": "^0.3.0",
-          "jest-expo": "^32.0.0",
+          "jest-expo": "^33.0.0",
           "react-test-renderer": "16.0.0-alpha.12"
       },
       "main": "node_modules/expo/AppEntry.js",
@@ -78,7 +68,7 @@ npm manifest:
           "aws-amplify-react-native": "^2.1.9",
           "axios": "^0.18.0",
           "colors": "1.0.3",
-          "expo": "^32.0.0",
+          "expo": "^33.0.0",
           "jest-junit-reporter": "^1.1.0",
           "lodash": "^4.17.4",
           "mobx": "^5.9.0",
@@ -86,8 +76,8 @@ npm manifest:
           "moment": "^2.18.1",
           "native-base": "2.7.0",
           "prop-types": "^15.7.2",
-          "react": "16.5.0",
-          "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+          "react": "16.8.3",
+          "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
           "react-native-awesome-alerts": "^1.2.0",
           "react-native-extended-stylesheet": "^0.11.1",
           "react-native-maps": "^0.23.0",
@@ -101,6 +91,7 @@ npm manifest:
           "react-native-swiper": "^1.5.4",
           "react-native-table-component": "^1.2.0",
           "react-navigation": "^3.0.9",
+          "react-timer-mixin": "^0.13.4",
           "yarn": "^1.15.2"
       }
   }

@@ -191,7 +191,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de poluição </Text>
+                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
                                     </Button>
                                 </Left>
                             </CardItem>
@@ -236,7 +236,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de poluição </Text>
+                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
                                     </Button>
                                 </Left>
                             </CardItem>
@@ -281,7 +281,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de poluição </Text>
+                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
                                     </Button>
                                 </Left>
                             </CardItem>
@@ -326,7 +326,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de poluição </Text>
+                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
                                     </Button>
                                 </Left>
                             </CardItem>
@@ -371,7 +371,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             <CardItem>
                                 <Left>
                                     <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de poluição </Text>
+                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
                                     </Button>
                                 </Left>
                             </CardItem>

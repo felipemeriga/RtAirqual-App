@@ -5,7 +5,7 @@ import Platform from "react-native";
 
 
 import Gradient from "../../../assets/images/fundo_airtracking.png";
-import LoginBackground from "../../../assets/images/login&SplashBack.jpg";
+import LoginBackground from "../../../assets/images/loginSplashBack.jpg";
 import SignUp from "../../../assets/images/fundo_airtracking.png";
 import Check from "../../../assets/images/fundo_airtracking.png";
 import Walkthrough from "../../../assets/images/fundo_airtracking.png";

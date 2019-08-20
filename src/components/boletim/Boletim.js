@@ -7,7 +7,6 @@ import { StyleSheet, View, Text, ScrollView, ListView } from "react-native";
 import { Tab, Tabs, TabHeading, H1 } from "native-base";
 import { BaseContainer, Task, Styles } from "../pure-components";
 import { ScreenProps } from "../pure-components/Types";
-import { ListItem } from 'react-native-elements';
 import variables from "../../../native-base-theme/variables/commonColor";
 
 const DIARIO = 1;

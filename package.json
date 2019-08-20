@@ -1,5 +1,5 @@
 {
-    "name": "RtAirqual",
+    "name": "AirTracking",
     "version": "2.2.7",
     "private": true,
     "devDependencies": {
@@ -21,7 +21,7 @@
         "expo-cli": "^2.6.14",
         "flow-bin": "0.63.1",
         "flow-result-checker": "^0.3.0",
-        "jest-expo": "^32.0.0",
+        "jest-expo": "^33.0.0",
         "react-test-renderer": "16.0.0-alpha.12"
     },
     "main": "node_modules/expo/AppEntry.js",
@@ -49,7 +49,7 @@
         "aws-amplify-react-native": "^2.1.9",
         "axios": "^0.18.0",
         "colors": "1.0.3",
-        "expo": "^32.0.0",
+        "expo": "^33.0.0",
         "jest-junit-reporter": "^1.1.0",
         "lodash": "^4.17.4",
         "mobx": "^5.9.0",
@@ -57,11 +57,11 @@
         "moment": "^2.18.1",
         "native-base": "2.7.0",
         "prop-types": "^15.7.2",
-        "react": "16.5.0",
-        "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+        "react": "16.8.3",
+        "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
         "react-native-awesome-alerts": "^1.2.0",
         "react-native-extended-stylesheet": "^0.11.1",
-        "react-native-maps": "^0.23.0",
+        "react-native-maps": "0.25.0",
         "react-native-material-textfield": "^0.12.0",
         "react-native-modal": "^9.0.0",
         "react-native-popup-dialog": "^0.18.2",
@@ -72,6 +72,7 @@
         "react-native-swiper": "^1.5.4",
         "react-native-table-component": "^1.2.0",
         "react-navigation": "^3.0.9",
+        "react-timer-mixin": "^0.13.4",
         "yarn": "^1.15.2"
     }
 }

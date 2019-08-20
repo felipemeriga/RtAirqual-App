@@ -9,7 +9,6 @@ import DialogRt from "./DialogRt";
 import { inject, observer } from "mobx-react";
 import * as Progress from "react-native-progress";
 import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
-import { Button } from 'react-native-elements';
 import { SCLAlert, SCLAlertButton } from "react-native-scl-alert";
 
 @inject("mapsStore")

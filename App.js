@@ -8,7 +8,8 @@ import Amplify from "aws-amplify";
 import {
     createAppContainer, createSwitchNavigator, createDrawerNavigator
 } from "react-navigation";
-import {Font, AppLoading} from "expo";
+import { AppLoading} from "expo";
+import * as Font from 'expo-font'
 
 import {Images} from "./src/components/pure-components";
 import {Login} from "./src/components/login";

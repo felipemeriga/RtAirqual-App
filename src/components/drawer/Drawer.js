@@ -5,6 +5,7 @@ import {View, StyleSheet, Image, TouchableHighlight, Linking, Alert, console} fr
 import {Button, Icon, Header, Text, Left, Title, Body, Right} from "native-base";
 import {Constants} from "expo";
 import {DrawerActions} from "react-navigation";
+import { Ionicons } from '@expo/vector-icons';
 
 import {Images, Styles, WindowDimensions, Container} from "../pure-components";
 import type {NavigationProps} from "../pure-components/Types";
@@ -33,7 +34,10 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.dispatch(DrawerActions.closeDrawer())}>
-                            <Icon name="ios-close-outline" style={style.closeIcon}/>
+                            {/* <Icon name="ios-close-outline" style={style.closeIcon}/> */}
+                            <Ionicons name="ios-close" size={50} color="white" />
+                            
+
                         </Button>
                     </Left>
                     <Body>
@@ -43,12 +47,12 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                 </Header>
                 <View style={style.itemContainer}>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Pontos AirTracking" icon="ios-map-outline" left descricao="Home"/>
-                        <DrawerItem {...{navigation}} name="Boletim" icon="ios-paper-outline" descricao="Boletim"/* icon="ios-analytics-outline" */ />
+                        <DrawerItem {...{navigation}} name="Pontos AirTrak" icon="ios-map" left descricao="Home"/>
+                        <DrawerItem {...{navigation}} name="Boletim" icon="md-list" descricao="Boletim"/* icon="ios-analytics-outline" */ />
 
                     </View>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Blog" icon="ios-browsers-outline" descricao="Blog" left/>
+                        <DrawerItem {...{navigation}} name="Blog" icon="ios-globe" descricao="Blog" left/>
                         <DrawerItem {...{navigation}} name="WhatsApp" icon="logo-whatsapp" descricao="Whats"/>
                     </View>
                 </View>

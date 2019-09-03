@@ -8,7 +8,6 @@ import Avatar from "./Avatar";
 import Styles from "./Styles";
 
 import variables from "../../../native-base-theme/variables/commonColor";
-import Icon from "@expo/vector-icons/vendor/react-native-vector-icons/RNIMigration";
 // import Circle from "../components/Circle";
 
 type TaskProps = {

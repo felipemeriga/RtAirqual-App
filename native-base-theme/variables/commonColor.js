@@ -167,7 +167,7 @@ export default {
 
     // Header
   toolbarBtnColor: "white",
-  toolbarDefaultBg: '#565656',
+  toolbarDefaultBg: '#000',
   toolbarHeight: 64,
   toolbarIconSize: 20,
   toolbarSearchIconSize: 20,

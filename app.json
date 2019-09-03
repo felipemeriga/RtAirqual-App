@@ -1,8 +1,8 @@
 {
     "expo": {
-		"name": "AirTracking",
+		"name": "AirTrak",
         "sdkVersion": "33.0.0",
-        "version": "5.0",
+        "version": "1.0",
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/new_icon.png",
@@ -28,7 +28,7 @@
             "bundleIdentifier": "com.wcandillon.dopurplesky"
         },
 		"android": {
-            "package": "com.rt.AirTracking",
+            "package": "com.rt.AirTrak",
             "versionCode": 5.0
 		},
         "assetBundlePatterns": [

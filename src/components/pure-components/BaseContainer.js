@@ -4,6 +4,7 @@ import {StyleSheet, Image, Alert} from "react-native";
 import {Footer, FooterTab, Button, Header as NBHeader, Left, Body, Title, Right, Icon, Content} from "native-base";
 import {EvilIcons} from "@expo/vector-icons";
 import {Constants} from "expo";
+import { Ionicons } from '@expo/vector-icons';
 
 import Avatar from "./Avatar";
 import Images from "../images";
@@ -52,10 +53,13 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                             <Icon name="ios-add-circle-outline" style={style.icon} />
                         </Button>*/}
                         <Button transparent onPress={() => navigation.navigate("Home")}>
-                            <Icon name="ios-map-outline" style={style.largeIcon}/>
+                            {/* <Icon name="ios-map-outline" style={style.largeIcon}/> */}
+                            <Ionicons name="ios-map" size={50} color="black" />
                         </Button>
                         <Button onPress={() => navigation.navigate("Boletim")} transparent>
-                            <Icon name="ios-paper-outline" style={style.icon}/>
+                            {/* <Icon name="ios-paper-outline" style={style.icon}/> */}
+                            <Ionicons name="md-list" size={50} color="black" />
+                            
                         </Button>
                     </FooterTab>
                 </Footer>

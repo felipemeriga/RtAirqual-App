@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import {Linking} from "react-native";
 import {View, Image, StyleSheet, Dimensions} from "react-native";
 import {H1, Text, Button, Icon} from "native-base";
+import { Ionicons } from '@expo/vector-icons';
 
 import {BaseContainer, Images, Styles} from "../pure-components";
 import type {ScreenProps} from "../pure-components/Types";
@@ -51,12 +52,14 @@ export default class Profile extends React.Component<ScreenProps<>> {
                     <View style={style.rowShare}>
                         <Button transparent block style={style.btn}
                                 onPress={() => Linking.openURL("http://instagram.com/_u/rtairqual")}>
-                            <Icon style={style.icon} name="logo-instagram"/>
+                            {/* <Icon style={style.icon} name="logo-instagram" /> */}
+                            <Ionicons name="logo-instagram" size={50} color="black" />
                         </Button>
                         <Button transparent
                                 onPress={() => Linking.openURL("https://www.facebook.com/n/?rtairqual")}
                                 block style={[style.btn, style.facebook]}>
-                            <Icon style={style.icon} name="logo-facebook"/>
+                            {/* <Icon style={style.icon} name="logo-facebook"/> */}
+                            <Ionicons name="logo-facebook" size={50} color="black" />
                         </Button>
                     </View>
                 </View>

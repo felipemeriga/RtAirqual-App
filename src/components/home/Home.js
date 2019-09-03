@@ -11,8 +11,8 @@ import Styles from "../pure-components/Styles";
 import { Tab, Tabs, TabHeading, H1, H3, Container, Header, Content, Card, CardItem, Body, Thumbnail, Button, Icon, Left, Right } from "native-base";
 import variables from "../../../native-base-theme/variables/commonColor";
 
-const Mapa = 1;
-const Pontos = 2;
+// const Mapa = 1;
+const Pontos = 1;
 
 pontos = [
     { id: "lago", temp: 0, umid: 0, airq: 0 },
@@ -45,21 +45,25 @@ export default class Home extends React.Component<ScreenProps<>> {
         return (
             //<BaseContainer title={sectionName} {...{ navigation }} scrollable style={styles.container}>
             <BaseContainer title={sectionName} navigation={this.props.navigation}>
-                <Tabs>
-                    <Tab heading={<TabHeading><Text style={style.tabHeading}>Mapa</Text></TabHeading>}>
+                {/* <Tabs> */}
+                {/* <Tab heading={<TabHeading><Text style={style.tabHeading}>Mapa</Text></TabHeading>}>
                         {this.renderContent(Mapa)}
-                    </Tab>
-                    <Tab heading={<TabHeading><Text style={style.tabHeading}>Visão geral</Text></TabHeading>}>
-                        {this.renderContent(Pontos)}
-                    </Tab>
-                </Tabs>
+                    </Tab> */}
+                <Tab heading={
+                    <TabHeading>
+                        <Text style={style.tabHeading}>Visão geral</Text>
+                    </TabHeading>}
+                >
+                    {this.renderContent(Pontos)}
+                </Tab>
+                {/* </Tabs> */}
             </BaseContainer>
         );
     }
 }
 
 type OverviewTabProps = {
-    tela: 1 | 2
+    tela: 1
 };
 
 teste = null;
@@ -123,12 +127,12 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         var month = new Date().getMonth() + 1; //Current Month
         var year = new Date().getFullYear(); //Current Year
         var hours = new Date().getHours(); //Current Hours
-        if (hours<10){
-            hours = "0"+hours;
+        if (hours < 10) {
+            hours = "0" + hours;
         }
         var min = new Date().getMinutes(); //Current Minutes
-        if (min<10){
-            min = "0"+min;
+        if (min < 10) {
+            min = "0" + min;
         }
         // var sec = new Date().getSeconds(); //Current Seconds
 
@@ -137,8 +141,239 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         if (tela === 1) {
             if (this.props.channelsStore.loadingChannels === false
                 && this.props.channelsStore.loadingLocalization === false) {
+                // return (
+                //     <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization} />
+                // ); this.carregaCards();
                 return (
-                    <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization} />
+                    <Container>
+                        <Content>
+                            <Card>
+                                <CardItem>
+                                    <Left>
+                                        <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                        <Body>
+                                            <Text>Lago Igapó</Text>
+                                            <Text note>Atualizado em: {data}</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                                <CardItem cardBody>
+                                    <Image source={require('../../../assets/images/lago_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="thermometer" /> */}
+                                            <Text>CT: </Text>
+                                            <Text> {pontos[0].temp}° C </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="water" /> */}
+                                            <Text>UR:  </Text>
+                                            <Text> {pontos[0].umid}% </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="leaf" /> */}
+                                            <Text>IQA:  </Text>
+                                            <Text> {pontos[0].airq} </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            <Text style={{ fontStyle: 'italic' }}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                            </Card>
+
+                            <Card>
+                                <CardItem>
+                                    <Left>
+                                        <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                        <Body>
+                                            <Text>Jardim Botânico</Text>
+                                            <Text note>Atualizado em: {data}</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                                <CardItem cardBody>
+                                    <Image source={require('../../../assets/images/jardim_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="thermometer" /> */}
+                                            <Text>CT: </Text>
+                                            <Text> {pontos[1].temp}° C </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="water" /> */}
+                                            <Text>UR:  </Text>
+                                            <Text> {pontos[1].umid}% </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="leaf" /> */}
+                                            <Text>IQA:  </Text>
+                                            <Text> {pontos[1].airq} </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            <Text style={{ fontStyle: 'italic' }}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                            </Card>
+
+                            <Card>
+                                <CardItem>
+                                    <Left>
+                                        <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                        <Body>
+                                            <Text>PUC</Text>
+                                            <Text note>Atualizado em: {data}</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                                <CardItem cardBody>
+                                    <Image source={require('../../../assets/images/puc_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="thermometer" /> */}
+                                            <Text>CT: </Text>
+                                            <Text> {pontos[2].temp}° C </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="water" /> */}
+                                            <Text>UR:  </Text>
+                                            <Text> {pontos[2].umid}% </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="leaf" /> */}
+                                            <Text>IQA:  </Text>
+                                            <Text> {pontos[2].airq} </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            <Text style={{ fontStyle: 'italic' }}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                            </Card>
+
+                            <Card>
+                                <CardItem>
+                                    <Left>
+                                        <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                        <Body>
+                                            <Text>Pista atletismo UEL</Text>
+                                            <Text note>Atualizado em: {data}</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                                <CardItem cardBody>
+                                    <Image source={require('../../../assets/images/uel_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="thermometer" /> */}
+                                            <Text>CT: </Text>
+                                            <Text> {pontos[3].temp}° C </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="water" /> */}
+                                            <Text>UR:  </Text>
+                                            <Text> {pontos[3].umid}% </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="leaf" /> */}
+                                            <Text>IQA:  </Text>
+                                            <Text> {pontos[3].airq} </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            <Text style={{ fontStyle: 'italic' }}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                            </Card>
+
+                            <Card>
+                                <CardItem>
+                                    <Left>
+                                        <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                        <Body>
+                                            <Text>UTFPR</Text>
+                                            <Text note>Atualizado em: {data}</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                                <CardItem cardBody>
+                                    <Image source={require('../../../assets/images/utfpr_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="thermometer" /> */}
+                                            <Text>CT: </Text>
+                                            <Text> {pontos[4].temp}° C </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="water" /> */}
+                                            <Text>UR:  </Text>
+                                            <Text> {pontos[4].umid}% </Text>
+                                        </Button>
+                                    </Left>
+                                    <Left>
+                                        <Button transparent>
+                                            {/* <Icon active name="leaf" /> */}
+                                            <Text>IQA:  </Text>
+                                            <Text> {pontos[4].airq} </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                                <CardItem>
+                                    <Left>
+                                        <Button transparent>
+                                            <Text style={{ fontStyle: 'italic' }}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                            </Card>
+                        </Content>
+                    </Container>
                 );
             }
             return (
@@ -146,240 +381,241 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                     <Progress.Circle size={50} indeterminate />
                 </View>
             );
-        } else if (tela === 2) {
-            this.carregaCards();
-            return (
-                <Container>
-                    <Content>
-                    <Card>
-                            <CardItem>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
-                                    <Body>
-                                        <Text>Lago Igapó</Text>
-                                        <Text note>Atualizado em: {data}</Text>
-                                    </Body>
-                                </Left>
-                            </CardItem>
-                            <CardItem cardBody>
-                                <Image source={require('../../../assets/images/lago_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="thermometer" /> */}
-                                        <Text>CT: </Text>
-                                        <Text> {pontos[0].temp}° C </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="water" /> */}
-                                        <Text>UR:  </Text>
-                                        <Text> {pontos[0].umid}% </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="leaf" /> */}
-                                        <Text>IQA:  </Text>
-                                        <Text> {pontos[0].airq} </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
-                                    <Body>
-                                        <Text>Jardim Botânico</Text>
-                                        <Text note>Atualizado em: {data}</Text>
-                                    </Body>
-                                </Left>
-                            </CardItem>
-                            <CardItem cardBody>
-                                <Image source={require('../../../assets/images/jardim_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="thermometer" /> */}
-                                        <Text>CT: </Text>
-                                        <Text> {pontos[1].temp}° C </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="water" /> */}
-                                        <Text>UR:  </Text>
-                                        <Text> {pontos[1].umid}% </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="leaf" /> */}
-                                        <Text>IQA:  </Text>
-                                        <Text> {pontos[1].airq} </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
-                                    <Body>
-                                        <Text>PUC</Text>
-                                        <Text note>Atualizado em: {data}</Text>
-                                    </Body>
-                                </Left>
-                            </CardItem>
-                            <CardItem cardBody>
-                                <Image source={require('../../../assets/images/puc_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="thermometer" /> */}
-                                        <Text>CT: </Text>
-                                        <Text> {pontos[2].temp}° C </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="water" /> */}
-                                        <Text>UR:  </Text>
-                                        <Text> {pontos[2].umid}% </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="leaf" /> */}
-                                        <Text>IQA:  </Text>
-                                        <Text> {pontos[2].airq} </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
-                                    <Body>
-                                        <Text>Pista atletismo UEL</Text>
-                                        <Text note>Atualizado em: {data}</Text>
-                                    </Body>
-                                </Left>
-                            </CardItem>
-                            <CardItem cardBody>
-                                <Image source={require('../../../assets/images/uel_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="thermometer" /> */}
-                                        <Text>CT: </Text>
-                                        <Text> {pontos[3].temp}° C </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="water" /> */}
-                                        <Text>UR:  </Text>
-                                        <Text> {pontos[3].umid}% </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="leaf" /> */}
-                                        <Text>IQA:  </Text>
-                                        <Text> {pontos[3].airq} </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
-                                    <Body>
-                                        <Text>UTFPR</Text>
-                                        <Text note>Atualizado em: {data}</Text>
-                                    </Body>
-                                </Left>
-                            </CardItem>
-                            <CardItem cardBody>
-                                <Image source={require('../../../assets/images/utfpr_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="thermometer" /> */}
-                                        <Text>CT: </Text>
-                                        <Text> {pontos[4].temp}° C </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="water" /> */}
-                                        <Text>UR:  </Text>
-                                        <Text> {pontos[4].umid}% </Text>
-                                    </Button>
-                                </Left>
-                                <Left>
-                                    <Button transparent>
-                                        {/* <Icon active name="leaf" /> */}
-                                        <Text>IQA:  </Text>
-                                        <Text> {pontos[4].airq} </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                            <CardItem>
-                                <Left>
-                                    <Button transparent>
-                                        <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
-                                    </Button>
-                                </Left>
-                            </CardItem>
-                        </Card>
-                    </Content>
-                </Container>
-            );
         }
+        // else if (tela === 2) {
+        // this.carregaCards();
+        // return (
+        //     <Container>
+        //         <Content>
+        //         <Card>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Thumbnail source={require('../../../assets/new_icon.png')} />
+        //                         <Body>
+        //                             <Text>Lago Igapó</Text>
+        //                             <Text note>Atualizado em: {data}</Text>
+        //                         </Body>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem cardBody>
+        //                     <Image source={require('../../../assets/images/lago_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="thermometer" /> */}
+        //                             <Text>CT: </Text>
+        //                             <Text> {pontos[0].temp}° C </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="water" /> */}
+        //                             <Text>UR:  </Text>
+        //                             <Text> {pontos[0].umid}% </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="leaf" /> */}
+        //                             <Text>IQA:  </Text>
+        //                             <Text> {pontos[0].airq} </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //             </Card>
+
+        //             <Card>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Thumbnail source={require('../../../assets/new_icon.png')} />
+        //                         <Body>
+        //                             <Text>Jardim Botânico</Text>
+        //                             <Text note>Atualizado em: {data}</Text>
+        //                         </Body>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem cardBody>
+        //                     <Image source={require('../../../assets/images/jardim_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="thermometer" /> */}
+        //                             <Text>CT: </Text>
+        //                             <Text> {pontos[1].temp}° C </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="water" /> */}
+        //                             <Text>UR:  </Text>
+        //                             <Text> {pontos[1].umid}% </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="leaf" /> */}
+        //                             <Text>IQA:  </Text>
+        //                             <Text> {pontos[1].airq} </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //             </Card>
+
+        //             <Card>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Thumbnail source={require('../../../assets/new_icon.png')} />
+        //                         <Body>
+        //                             <Text>PUC</Text>
+        //                             <Text note>Atualizado em: {data}</Text>
+        //                         </Body>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem cardBody>
+        //                     <Image source={require('../../../assets/images/puc_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="thermometer" /> */}
+        //                             <Text>CT: </Text>
+        //                             <Text> {pontos[2].temp}° C </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="water" /> */}
+        //                             <Text>UR:  </Text>
+        //                             <Text> {pontos[2].umid}% </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="leaf" /> */}
+        //                             <Text>IQA:  </Text>
+        //                             <Text> {pontos[2].airq} </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //             </Card>
+
+        //             <Card>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Thumbnail source={require('../../../assets/new_icon.png')} />
+        //                         <Body>
+        //                             <Text>Pista atletismo UEL</Text>
+        //                             <Text note>Atualizado em: {data}</Text>
+        //                         </Body>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem cardBody>
+        //                     <Image source={require('../../../assets/images/uel_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="thermometer" /> */}
+        //                             <Text>CT: </Text>
+        //                             <Text> {pontos[3].temp}° C </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="water" /> */}
+        //                             <Text>UR:  </Text>
+        //                             <Text> {pontos[3].umid}% </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="leaf" /> */}
+        //                             <Text>IQA:  </Text>
+        //                             <Text> {pontos[3].airq} </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //             </Card>
+
+        //             <Card>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Thumbnail source={require('../../../assets/new_icon.png')} />
+        //                         <Body>
+        //                             <Text>UTFPR</Text>
+        //                             <Text note>Atualizado em: {data}</Text>
+        //                         </Body>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem cardBody>
+        //                     <Image source={require('../../../assets/images/utfpr_card.png')} style={{ height: 200, width: null, flex: 1 }} />
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="thermometer" /> */}
+        //                             <Text>CT: </Text>
+        //                             <Text> {pontos[4].temp}° C </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="water" /> */}
+        //                             <Text>UR:  </Text>
+        //                             <Text> {pontos[4].umid}% </Text>
+        //                         </Button>
+        //                     </Left>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             {/* <Icon active name="leaf" /> */}
+        //                             <Text>IQA:  </Text>
+        //                             <Text> {pontos[4].airq} </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //                 <CardItem>
+        //                     <Left>
+        //                         <Button transparent>
+        //                             <Text style={{fontStyle: 'italic'}}>* CT: conforto térmico; UR: umidade relativa do ar; IQA: índice de qualidade do ar </Text>
+        //                         </Button>
+        //                     </Left>
+        //                 </CardItem>
+        //             </Card>
+        //         </Content>
+        //     </Container>
+        // );
+        // }
     }
 
     retornaCorTemp(temperatura) {

@@ -1,6 +1,6 @@
 import { Platform, Dimensions } from 'react-native';
 import _ from 'lodash';
-import {Constants} from "expo";
+import Constants from 'expo-constants'
 
 import variable from './../variables/platform';
 

@@ -28,7 +28,7 @@ Trace:
 
 npm manifest: 
   {
-      "name": "AirTracking",
+      "name": "AirTrak",
       "version": "2.2.7",
       "private": true,
       "devDependencies": {

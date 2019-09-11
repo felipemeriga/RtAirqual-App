@@ -3,7 +3,7 @@ import * as React from "react";
 import {inject, observer} from "mobx-react";
 import {View, StyleSheet, Image, TouchableHighlight, Linking, Alert, console} from "react-native";
 import {Button, Icon, Header, Text, Left, Title, Body, Right} from "native-base";
-import {Constants} from "expo";
+import Constants from 'expo-constants'
 import {DrawerActions} from "react-navigation";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -36,8 +36,6 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                         <Button transparent onPress={() => this.props.navigation.dispatch(DrawerActions.closeDrawer())}>
                             {/* <Icon name="ios-close-outline" style={style.closeIcon}/> */}
                             <Ionicons name="ios-close" size={50} color="white" />
-                            
-
                         </Button>
                     </Left>
                     <Body>
@@ -48,7 +46,7 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                 <View style={style.itemContainer}>
                     <View style={style.row}>
                         <DrawerItem {...{navigation}} name="Pontos AirTrak" icon="ios-map" left descricao="Home"/>
-                        <DrawerItem {...{navigation}} name="Boletim" icon="md-list" descricao="Boletim"/* icon="ios-analytics-outline" */ />
+                        <DrawerItem {...{navigation}} name="Feed" icon="ios-calendar" descricao="Boletim"/* icon="ios-analytics-outline" */ />
 
                     </View>
                     <View style={style.row}>
@@ -57,7 +55,7 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                     </View>
                 </View>
                 <Button transparent block onPress={this.login}>
-                    <Text>Sair</Text>
+                    <Text style={{fontWeight: 'bold'}}>Sair</Text>
                 </Button>
             </Container>
         );

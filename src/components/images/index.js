@@ -1,18 +1,18 @@
 // @flow
 /* eslint-disable global-require */
-import {Asset} from "expo";
+import { Asset } from 'expo-asset'
 import Platform from "react-native";
 
 
 import Gradient from "../../../assets/images/fundo_airtracking.png";
-import LoginBackground from "../../../assets/images/loginSplashBack.jpg";
+import LoginBackground from "../../../assets/images/loginFundoPreto.jpg";
 import SignUp from "../../../assets/images/fundo_airtracking.png";
 import Check from "../../../assets/images/fundo_airtracking.png";
 import Walkthrough from "../../../assets/images/fundo_airtracking.png";
 import Profile from "../../../assets/images/profile.jpg";
 import LogoSymbol from "../../../assets/images/logoSymbol.png";
-// import LogoLetter from "../../../assets/images/logoLetter.png";
-import LogoLetter from "../../../assets/images/airtracking_positivo.png";
+import BoletimBackground from "../../../assets/images/boletim_background.jpg";
+import LogoLetter from "../../../assets/images/airtrack_logo_slogan_negativo.png";
 import SmartCity from "../../../assets/images/smartCityRT.png";
 import Notifications from "../../../assets/images/notifications.png";
 import Boletim from "../../../assets/images/boletim.png"; 
@@ -34,6 +34,7 @@ export default class Images {
     static walkthrough = Walkthrough;
     static profile = Profile;
     static logoSymbol = LogoSymbol;
+    static BoletimBackground = BoletimBackground;
     static logoLetter = LogoLetter;
     static defaultAvatar = DefaultAvatar;
     static avatar1 = DefaultAvatar1;

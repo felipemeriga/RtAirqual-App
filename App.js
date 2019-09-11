@@ -1,26 +1,26 @@
 // @flow
 /* eslint-disable no-console, global-require, no-nested-ternary, react/jsx-indent */
 import * as React from "react";
-import {Dimensions} from "react-native";
-import {StyleProvider} from "native-base";
-import {Provider} from "mobx-react";
+import { Dimensions } from "react-native";
+import { StyleProvider } from "native-base";
+import { Provider } from "mobx-react";
 import Amplify from "aws-amplify";
 import {
     createAppContainer, createSwitchNavigator, createDrawerNavigator
 } from "react-navigation";
-import { AppLoading} from "expo";
+import { AppLoading } from "expo";
 import * as Font from 'expo-font'
 
-import {Images} from "./src/components/pure-components";
-import {Login} from "./src/components/login";
-import {SignUp} from "./src/components/sign-up";
-import {Walkthrough} from "./src/components/walkthrough";
-import {Drawer} from "./src/components/drawer";
-import {Home} from "./src/components/home";
-import {Check} from "./src/components/check";
-import {Boletim} from "./src/components/boletim";
-import {Profile} from "./src/components/profile";
-import {Create} from "./src/components/create";
+import { Images } from "./src/components/pure-components";
+import { Login } from "./src/components/login";
+import { SignUp } from "./src/components/sign-up";
+import { Walkthrough } from "./src/components/walkthrough";
+import { Drawer } from "./src/components/drawer";
+import { Home } from "./src/components/home";
+import { Check } from "./src/components/check";
+import { Boletim } from "./src/components/boletim";
+import { Profile } from "./src/components/profile";
+import { Create } from "./src/components/create";
 import channelsStore from "./src/stores/ChannelsStore";
 import mapsStore from "./src/stores/MapsStore";
 import authStore from "./src/stores/AuthStore";
@@ -89,22 +89,22 @@ export default class App extends React.Component<{}, AppState> {
             "Avenir-Light": require("./fonts/Avenir-Light.ttf")
         }));
         Promise.all(promises.concat(Images.downloadAsync()))
-            .then(() => this.setState({ready: true}))
+            .then(() => this.setState({ ready: true }))
             // eslint-disable-next-line
             .catch(error => console.error(error));
     }
 
     render(): React.Node {
-        const {ready} = this.state;
+        const { ready } = this.state;
         return (
             <Provider {...stores}>
                 <StyleProvider style={getTheme(variables)}>
                     {
                         ready
                             ?
-                            <AppNavigator onNavigationStateChange={() => undefined}/>
+                            <AppNavigator onNavigationStateChange={() => undefined} />
                             :
-                            <AppLoading startAsync={null} onError={null} onFinish={null}/>
+                            <AppLoading startAsync={null} onError={null} onFinish={null} />
                     }
                 </StyleProvider>
             </Provider>
@@ -113,10 +113,10 @@ export default class App extends React.Component<{}, AppState> {
 }
 
 const MainNavigator = createDrawerNavigator({
-    Home: {screen: Home},
-    Boletim: {screen: Boletim},
-    Profile: {screen: Profile},
-    Create: {screen: Create}
+    Home: { screen: Home },
+    Boletim: { screen: Boletim },
+    Profile: { screen: Profile },
+    Create: { screen: Create }
 }, {
     drawerWidth: Dimensions.get("window").width,
     // eslint-disable-next-line flowtype/no-weak-types
@@ -125,11 +125,11 @@ const MainNavigator = createDrawerNavigator({
 });
 
 const AppNavigator = createAppContainer(createSwitchNavigator({
-    Check: {screen: Check},
-    Login: {screen: Login},
-    SignUp: {screen: SignUp},
-    Walkthrough: {screen: Walkthrough},
-    Main: {screen: MainNavigator}
+    Check: { screen: Check },
+    Login: { screen: Login },
+    SignUp: { screen: SignUp },
+    Walkthrough: { screen: Walkthrough },
+    Main: { screen: MainNavigator }
 }, {
     headerMode: "none",
     cardStyle: {
@@ -140,4 +140,4 @@ const AppNavigator = createAppContainer(createSwitchNavigator({
 
 // You can get the current config object
 
-export {AppNavigator};
+export { AppNavigator };

@@ -1,8 +1,8 @@
 {
     "expo": {
-		"name": "AirTrak",
+		"name": "Airtrak",
         "sdkVersion": "33.0.0",
-        "version": "1.0",
+        "version": "1.3",
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/new_icon.png",
@@ -25,11 +25,11 @@
             "assetExts": ["otf", "ttf"]
         },
         "ios": {
-            "bundleIdentifier": "com.wcandillon.dopurplesky"
+            "bundleIdentifier": "com.rt.AirTrak"
         },
 		"android": {
             "package": "com.rt.AirTrak",
-            "versionCode": 5.0
+            "versionCode": 7
 		},
         "assetBundlePatterns": [
             "**/*.ttf",

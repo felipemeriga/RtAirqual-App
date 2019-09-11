@@ -3,7 +3,7 @@ import * as React from "react";
 import { StyleSheet, Image, Alert, Text } from "react-native";
 import { Footer, FooterTab, Button, Header as NBHeader, Left, Body, Title, Right, Icon, Content } from "native-base";
 import { EvilIcons } from "@expo/vector-icons";
-import Constants from 'expo-constants'
+import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 
 import Avatar from "./Avatar";
@@ -18,21 +18,21 @@ type BaseContainerProps = NavigationProps<> & ChildrenProps & {
     title: string | React.Node
 };
 
-export default class BaseContainer extends React.PureComponent<BaseContainerProps> {
+export default class BaseContainerBoletim extends React.PureComponent<BaseContainerProps> {
     render(): React.Node {
         const { title, navigation } = this.props;
         return (
             <Container safe>
                 <Image source={Images.gradient} style={[StyleSheet.absoluteFill, style.img]} />
-                <NBHeader noShadow>
+                <NBHeader style={{ backgroundColor: '#01ffe8' }}>
                     <Left>
                         <Button onPress={() => navigation.openDrawer()} transparent>
-                            <EvilIcons name="navicon" size={35} color="white" />
+                            <EvilIcons name="navicon" size={35} color="black" />
                         </Button>
                     </Left>
                     <Body>
                         {
-                            typeof (title) === "string" ? <Title>{title.toUpperCase()}</Title> : title
+                            typeof (title) === "string" ? <Title style={{ color: "black", fontWeight: 'bold' }}>{title.toUpperCase()}</Title> : title
                         }
                     </Body>
                     <Right style={style.right}>
@@ -45,7 +45,7 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                     {this.props.children}
                 </Content>
                 <Footer>
-                    <FooterTab>
+                    <FooterTab style={{ backgroundColor: 'white' }}>
                         {/* <Button
                         onPress = {emBreve()}
                         onPress={() => navigation.navigate("Boletim")} transparent
@@ -61,7 +61,6 @@ export default class BaseContainer extends React.PureComponent<BaseContainerProp
                             {/* <Icon name="ios-paper-outline" style={style.icon}/> */}
                             <Ionicons name="ios-calendar" size={50} color="black" />
                             <Text>Feed</Text>
-
                         </Button>
                     </FooterTab>
                 </Footer>

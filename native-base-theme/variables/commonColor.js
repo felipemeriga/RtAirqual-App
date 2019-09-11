@@ -158,7 +158,7 @@ export default {
 
     // Tab
   tabDefaultBg: 'transparent',
-  topTabBarTextColor: '#b3c7f9',
+  topTabBarTextColor: '#fff',
   topTabBarActiveTextColor: '#fff',
   topTabActiveBgColor: '#565656',
   topTabBarBorderColor: '#fff',

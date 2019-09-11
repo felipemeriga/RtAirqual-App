@@ -3,15 +3,16 @@ import { inject, observer } from "mobx-react";
 import PropTypes from "prop-types";
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import { StyleSheet, View, Text, ScrollView, ListView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, ListView, FlatList, ImageBackground, StatusBar } from "react-native";
 import { Tab, Tabs, TabHeading, H1 } from "native-base";
-import { BaseContainer, Task, Styles } from "../pure-components";
+import { BaseContainerBoletim, BaseContainer, Task, Styles } from "../pure-components";
 import { ScreenProps } from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
+import CustomRow from './CustomRow';
 
-const DIARIO = 1;
-const RANKING = 2;
-const HISTORICO = 3;
+const BOLETIM = 1;
+const ALERTAS = 2;
+
 
 @inject("boletimStore")
 @observer
@@ -33,19 +34,17 @@ export default class Boletim extends React.Component<ScreenProps<>> {
                         color="#FFF"
                         borderWidth={5}
                     />
+                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Recebendos dados...</Text>
                 </View>
             );
         }
         return (
-            <Tabs>
-                <Tab heading={<TabHeading><Text style={style.tabHeading}>DIÁRIO</Text></TabHeading>}>
-                    <OverviewTab period={DIARIO} />
+            <Tabs style={{ backgroundColor: "white" }}>
+                <Tab heading={<TabHeading style={style.tabBoletim}><Text style={style.tabHeadingBoletim}>Boletim</Text></TabHeading>}>
+                    <OverviewTab period={BOLETIM} />
                 </Tab>
-                <Tab heading={<TabHeading><Text style={style.tabHeading}>RANKING</Text></TabHeading>}>
-                    <OverviewTab period={RANKING} />
-                </Tab>
-                <Tab heading={<TabHeading><Text style={style.tabHeading}>HISTÓRICO</Text></TabHeading>}>
-                    <OverviewTab period={HISTORICO} />
+                <Tab heading={<TabHeading style={style.tabAlertas}><Text style={style.tabHeadingBoletim}>Alertas</Text></TabHeading>}>
+                    <OverviewTab period={ALERTAS} />
                 </Tab>
             </Tabs>
         );
@@ -53,15 +52,15 @@ export default class Boletim extends React.Component<ScreenProps<>> {
 
     render(): React.Node {
         return (
-            <BaseContainer title="Boletim" navigation={this.props.navigation}>
+            <BaseContainerBoletim title="FEED" navigation={this.props.navigation}>
                 {this.renderContent()}
-            </BaseContainer>
+            </BaseContainerBoletim>
         );
     }
 }
 
 type OverviewTabProps = {
-    period: 1 | 2 | 3
+    period: 1 | 2
 };
 
 @inject("boletimStore")
@@ -76,7 +75,6 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         };
     }
 
-
     render(): React.Node {
         const period = this.props.period;
         const diaDaSemana = new Date().getDate();
@@ -84,7 +82,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         const ano = new Date().getFullYear();
         const listDiary = this.props.boletimStore.listDiario;
         const listRanking = this.props.boletimStore.listRanking;
-        const listHistorico = this.props.boletimStore.listHistorico;
+
 
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
@@ -93,60 +91,42 @@ class OverviewTab extends React.Component<OverviewTabProps> {
 
         if (period === 1) {
             return (
-                <View style={style.container}>
-                    <ScrollView>
-                        <View style={[style.tab, Styles.center]}>
-                            <H1>Londrina, {diaDaSemana} de {mesDoAno} de {ano} </H1>
-                        </View>
-                        {
-                            listDiary.map((item, i) => (
-                                <Task
-                                    key={i}
-                                    subtitle={item.descricao}
-                                />
-                            ))
-                        }
+                <View style={style.containerDiario}>
+                    <StatusBar
+                        backgroundColor="black"
+                        barStyle="light-content"
+                    />
+                    <ScrollView >
+                        <ImageBackground source={require("../../../assets/images/boletim_background.jpg")} style={{ width: '100%', height: '100%' }}>
+                            <View style={[style.tab, Styles.center]}>
+                                <H1 style={{ color: "black" }}>Londrina, {diaDaSemana} de {mesDoAno} de {ano} </H1>
+                            </View>
+                            {
+                                listDiary.map((item, i) => (
+                                    <Task
+                                        key={i}
+                                        subtitle={item.descricao}
+                                    />
+                                ))
+                            }
+                        </ImageBackground>
                     </ScrollView>
                 </View>
             );
         } else if (period === 2) {
             return (
-                <View style={style.container}>
-                    <ScrollView>
-                        <View style={[style.tab, style.center]}>
-                            <H1>Ranking do dia</H1>
-                        </View>
-                        {
-                            listRanking.map((item, i) => (
-                                <Task
-                                    key={i}
-                                    title={item.local}
-                                    subtitle={item.descricao}
-                                />
-                            ))
-                        }
-                    </ScrollView>
+                <View style={style.containerRanking}>
+                    <FlatList
+                        data={listRanking}
+                        renderItem={({ item }) => <CustomRow
+                            title={item.local}
+                            description={item.descricao}
+                        // image_url={item.image_url}
+                        />}
+                    />
                 </View>
             );
         }
-        return (<View style={style.container}>
-            <ScrollView>
-                <View style={[style.tab, style.center]}>
-                    <H1>{mesDoAno.toUpperCase()}</H1>
-                </View>
-                {
-                    listHistorico.map((item, i) => (
-                        <Task
-                            key={i}
-                            // title={item.data}
-                            // subtitle={item.descricao}
-                            subtitle="Em desenvolvimento..."
-                        />
-                    ))
-                }
-            </ScrollView>
-        </View>
-        );
     }
 }
 
@@ -199,22 +179,64 @@ function retornaMes(date) {
 }
 
 const style = StyleSheet.create({
+    containerDiario: {
+        backgroundColor: 'white'
+    },
+    tabBoletim: {
+        borderRightWidth: 0.3,
+        borderBottomWidth: 0.3
+    },
+    tabAlertas: {
+        borderLeftWidth: 0.3,
+        borderBottomWidth: 0.3
+    },
     container: {
-        flexGrow: 1
+        flexGrow: 1,
+        flexDirection: 'row',
+        padding: 10,
+        marginLeft: 16,
+        marginRight: 16,
+        marginTop: 8,
+        marginBottom: 8,
+        borderRadius: 5,
+        backgroundColor: '#fff',
+        elevation: 2,
+    },
+    containerRanking: {
+        flexGrow: 1,
+    },
+    title: {
+        fontSize: 16,
+        color: '#000',
     },
     tabHeading: {
         color: "white"
+    },
+    tabHeadingBoletim: {
+        color: "#000",
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    container_text: {
+        flex: 1,
+        flexDirection: 'column',
+        marginLeft: 12,
+        justifyContent: 'center',
+    },
+    description: {
+        fontSize: 11,
+        fontStyle: 'italic',
     },
     tab: {
         padding: variables.contentPadding * 4
     },
     textoBoletim: {
-        fontSize: (variables.fontSizeBase * 0.7) + variables.contentPadding,
+        fontSize: (variables.fontSizeBase * 1) + variables.contentPadding,
         color: "white",
         padding: variables.contentPadding,
         alignSelf: "baseline",
         flexDirection: "row",
-        borderBottomColor: "#fff",
+        borderBottomColor: "#000",
         borderBottomWidth: 1,
         marginHorizontal: variables.contentPadding * 2
     },
@@ -222,7 +244,5 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    heading: {
-        marginTop: variables.contentPadding * 2
-    }
+
 });

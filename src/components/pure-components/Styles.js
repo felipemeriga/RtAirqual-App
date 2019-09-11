@@ -37,7 +37,7 @@ const Styles = StyleSheet.create({
         fontSize: 18,
     },
     grayText: {
-        color: variables.listBorderColor,
+        color:'#000',
         fontSize: 20
     },
     listItem: {

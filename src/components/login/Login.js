@@ -1,10 +1,10 @@
 // @flow
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import { StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid } from "react-native";
+import { StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid, KeyboardAvoidingView, StatusBar } from "react-native";
 import { inject, observer } from "mobx-react";
 import { Button, Text, Content } from "native-base";
-import { Constants } from "expo";
+import Constants from 'expo-constants'
 
 import { Images, WindowDimensions, Field, Small, Styles } from "../pure-components";
 import { AnimatedView } from "../pure-components/Animations";
@@ -15,8 +15,6 @@ import variables from "../../../native-base-theme/variables/commonColor";
 @inject("authStore")
 @observer
 export default class Login extends React.Component<ScreenProps<>> {
-
-
     // $FlowFixMe
     password: TextInput;
     email: TextInput;
@@ -52,13 +50,21 @@ export default class Login extends React.Component<ScreenProps<>> {
         if (this.props.authStore.autheticating) {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Progress.Circle size={80} 
-                    indeterminate style={styles.loadingCircle} />
+                    <Progress.Circle
+                        size={65} indeterminate
+                        color="#FFF"
+                        borderWidth={5}
+                    />
+                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Conectando...</Text>
                 </View>
             );
         }
         return (
-            <View>
+            <KeyboardAvoidingView behavior="padding">
+                <StatusBar
+                    backgroundColor="black"
+                    barStyle="light-content"
+                />
                 <Field
                     label="Usuário ou email"
                     autoCapitalize="none"
@@ -86,7 +92,7 @@ export default class Login extends React.Component<ScreenProps<>> {
                         </Button>
                     </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 
@@ -97,7 +103,7 @@ export default class Login extends React.Component<ScreenProps<>> {
     //signIn = () => this.props.navigation.navigate("Walkthrough");
     signIn = () => {
         if (this.email._getText() === "" || this.password._getText() === "") {
-            this.props.authStore.logInError("Preencha todos os campos!");
+            this.props.authStore.logInError("É necessário preencher os campos corretamente!");
         } else {
             this.props.authStore.signIn(this.email._getText()
                 .toLocaleLowerCase(), this.password._getText());
@@ -117,16 +123,16 @@ export default class Login extends React.Component<ScreenProps<>> {
                         <AnimatedView style={styles.innerContent}>
                             <Animated.View style={{ opacity: this.props.authStore.animation }}>
                                 {/* <View style={styles.verticalAlign}> */}
-                                    {/* <View style={styles.logo}>
+                                {/* <View style={styles.logo}>
                                         <View>
                                             <Image source={Images.logoSymbol} style={styles.logoSymbol} />
                                         </View>
                                     </View> */}
-                                    <View style={styles.logoLetterView}>
-                                        <View>
-                                            <Image source={Images.logoLetter} style={styles.logoLetter} />
-                                        </View>
+                                <View style={styles.logoLetterView}>
+                                    <View>
+                                        <Image source={Images.logoLetter} style={styles.logoLetter} />
                                     </View>
+                                </View>
                                 {/* </View> */}
                             </Animated.View>
                             {this.renderContent()}
@@ -144,10 +150,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     image: {
-        ...StyleSheet.absoluteFillObject,
         height,
-        width,
-        flex: 1
+        width
     },
     content: {
         flexGrow: 1
@@ -162,7 +166,8 @@ const styles = StyleSheet.create({
     logo: {
         marginVertical: variables.contentPadding * 2,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginTop: 200
 
     },
     logoLetterView: {
@@ -180,7 +185,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     logoLetter: {
-        width: width ,
+        width: width,
         height: height * 0.11,
         marginBottom: height * 0.15
     }

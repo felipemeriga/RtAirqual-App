@@ -41,17 +41,18 @@ export default class Profile extends React.Component<ScreenProps<>> {
 
     render(): React.Node {
         return (
-            <BaseContainer title="AIRTRACKING" navigation={this.props.navigation} scrollable style={style.container}>
+            <BaseContainer title="Airtrak" navigation={this.props.navigation} scrollable style={style.container}>
                 {this.returnUserPhoto()}
                 <View style={style.row}>
                     <H1>{this.getUserInformation()}</H1>
                     <Text style={Styles.textCentered}>Parabéns por estar praticando em alta performance conosco!</Text>
+                    <Text style={Styles.textCentered}>Em breve teremos várias informações importantíssimas para que você dê um gás na sua performance, fique ligado!</Text>
                 </View>
 
                 <View style={style.buttonsBottom}>
                     <View style={style.rowShare}>
                         <Button transparent block style={style.btn}
-                                onPress={() => Linking.openURL("http://instagram.com/_u/rtairqual")}>
+                                onPress={() => Linking.openURL("https://www.instagram.com/airtrak/")}>
                             {/* <Icon style={style.icon} name="logo-instagram" /> */}
                             <Ionicons name="logo-instagram" size={50} color="black" />
                         </Button>
@@ -78,7 +79,7 @@ const style = StyleSheet.create({
     },
     img: {
         width,
-        height: width * (500 / 750),
+        height: width * 0.4,
         resizeMode: "cover"
     },
     row: {

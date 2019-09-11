@@ -1,14 +1,14 @@
 // @flow
 import * as React from "react";
-import {View, Image, StyleSheet, ToastAndroid, Animated} from "react-native";
+import { View, Image, StyleSheet, ToastAndroid, Animated,StatusBar } from "react-native";
 import * as Progress from "react-native-progress";
-import {TextField} from "react-native-material-textfield";
-import {Button, Header, Left, Right, Body, Icon, Title, Text, Content} from "native-base";
-import {Constants} from "expo";
-import {inject, observer} from "mobx-react";
-import {Container, Images, Styles, WindowDimensions} from "../pure-components";
-import {AnimatedView} from "../pure-components/Animations";
-import type {ScreenProps} from "../pure-components/Types";
+import { TextField } from "react-native-material-textfield";
+import { Button, Header, Left, Right, Body, Icon, Title, Text, Content } from "native-base";
+import Constants from 'expo-constants'
+import { inject, observer } from "mobx-react";
+import { Container, Images, Styles, WindowDimensions } from "../pure-components";
+import { AnimatedView } from "../pure-components/Animations";
+import type { ScreenProps } from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
 
 
@@ -82,43 +82,47 @@ export default class SignUp extends React.Component<ScreenProps<>> {
             return (
                 <View style={[Styles.center, Styles.flexGrow]}>
                     <Progress.Circle size={80}
-                    color="#FFF"
-                    indeterminate/>
+                        color="#FFF"
+                        indeterminate />
                 </View>
             );
         }
         return (
 
             <Content contentContainerStyle={style.container}>
+                <StatusBar
+                    backgroundColor="black"
+                    barStyle="light-content"
+                />
                 <AnimatedView>
-                    <Animated.View style={{opacity: this.props.authStore.animation}}>
+                    <Animated.View style={{ opacity: this.props.authStore.animation }}>
                         <Header noShadow>
                             <Left>
                                 <Button onPress={this.back} transparent>
-                                    <Icon name="close"/>
+                                    <Icon name="ios-close" />
                                 </Button>
                             </Left>
                             <Body>
                                 <Title>Criar Conta</Title>
                             </Body>
-                            <Right/>
+                            <Right />
                         </Header>
                         <View style={style.row}>
                             <Button transparent block style={style.btn} onPress={this.googleFederatedSignIn}>
-                                <Icon name="logo-google"/>
+                                <Icon name="logo-google" />
                                 <Text style={Styles.textCentered}>Conectar com</Text>
                                 <Text style={Styles.textCentered}>Google</Text>
                             </Button>
                             <Button transparent
-                                    block style={[style.btn, style.facebook]}
-                                    onPress={this.facebookFederatedSignIn}>
-                                <Icon name="logo-facebook"/>
+                                block style={[style.btn, style.facebook]}
+                                onPress={this.facebookFederatedSignIn}>
+                                <Icon name="logo-facebook" />
                                 <Text style={Styles.textCentered}>Conectar com</Text>
                                 <Text style={Styles.textCentered}>Facebook</Text>
                             </Button>
                         </View>
                         <Button transparent block style={[style.btn, style.email]}>
-                            <Icon name="ios-mail-outline" style={style.icon}/>
+                            <Icon name="ios-mail" style={style.icon} />
                             <Text>Ou use um endereço de email válido</Text>
                         </Button>
                         <View style={[Styles.form, Styles.flexGrow]}>
@@ -185,7 +189,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
         this.hasError();
         return (
             <Container safe style={Styles.flexGrow}>
-                <Image source={Images.gradient} style={style.img}/>
+                <Image source={Images.gradient} style={style.img} />
                 {this.renderContent()}
             </Container>
         );

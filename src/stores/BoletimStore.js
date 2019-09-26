@@ -36,7 +36,9 @@ class BoletimStore {
                     const ite = {
                         local: item.name,
                         descricao: item.mensagem,
-                        id: item.ID
+                        id: item.ID,
+                        data: item.data,
+                        classificacao: item.classificacao
                     };
 
                     iterableListRanking.push(ite);

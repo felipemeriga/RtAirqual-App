@@ -5,6 +5,7 @@ import Platform from "react-native";
 
 
 import Gradient from "../../../assets/images/fundo_airtracking.png";
+// import Gradient from "../../../assets/images/loginFundoPreto.jpg";
 import LoginBackground from "../../../assets/images/loginFundoPreto.jpg";
 import SignUp from "../../../assets/images/fundo_airtracking.png";
 import Check from "../../../assets/images/fundo_airtracking.png";
@@ -19,7 +20,7 @@ import Boletim from "../../../assets/images/boletim.png";
 import Graphic from "../../../assets/images/graphic.png";
 import RtMarkerIos from "../../../assets/marker_rt_small.png";
 import RtMarkerAndroid from "../../../assets/marker_rt_big.png";
-import DefaultAvatar from "../../../assets/images/avatars/default-avatar.jpg";
+import DefaultAvatar from "../../../assets/images/user_icon.png";
 import DefaultAvatar1 from "../../../assets/images/avatars/avatar-1.jpg";
 import DefaultAvatar2 from "../../../assets/images/avatars/avatar-2.jpg";
 import DefaultAvatar3 from "../../../assets/images/avatars/avatar-3.jpg";

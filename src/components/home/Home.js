@@ -1,12 +1,12 @@
 // @flow
 import * as Progress from "react-native-progress";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, ImageBackground } from "react-native";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { BaseContainer } from "../pure-components";
 import { ScreenProps } from "../pure-components/Types";
 import Styles from "../pure-components/Styles";
-import { Container, Content, Card, CardItem, Body, Thumbnail, Button, Icon, Left, Right } from "native-base";
+import { Container, Content, Card, CardItem, Body, Thumbnail, Icon, Button, Left, Right } from "native-base";
 import variables from "../../../native-base-theme/variables/commonColor";
 
 pontos = [
@@ -53,6 +53,9 @@ export default class Home extends React.Component<ScreenProps<>> {
         this.props.channelsStore.getChannels();
     }
 
+    componentDidUpdate(): React.Node {
+    }
+
     renderContent = () => {
         if (this.props.channelsStore.loadingChannels) {
             return (
@@ -62,7 +65,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                         color="#FFF"
                         borderWidth={5}
                     />
-                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Recebendos dados...</Text>
+                    <Text style={style.textoLoading}>Recebendos dados...</Text>
                 </View>
             );
         } else {
@@ -87,98 +90,91 @@ export default class Home extends React.Component<ScreenProps<>> {
                 <Container>
                     <Content>
                         <Card>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem style={style.cardItem}>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
                                     <Body>
-                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Lago Igapó</Text>
-                                        <Text style={{ fontStyle: 'italic' }}>Atualizado em: {data}</Text>
+                                        <Text style={style.textoNomePonto}>Lago Igapó</Text>
+                                        <Text style={style.textoDica}>{data}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
                                     <View>
                                         <Icon
                                             name='ios-refresh'
-                                            color='black'
-                                            onPress={() => this.props.channelsStore.getChannels("https://2y3nnveut3.execute-api.us-west-2.amazonaws.com/dev?endPoint=https://api.thingspeak.com/channels/281488/feeds.json?results=2?id=281488")}
-                                            style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        <Text onPress={() => this.props.channelsStore.getChannels("https://2y3nnveut3.execute-api.us-west-2.amazonaws.com/dev?endPoint=https://api.thingspeak.com/channels/281488/feeds.json?results=2?id=281488")} >Atualizar</Text>
+                                            color='#fff'
+                                            onPress={() => this.props.channelsStore.getChannels()}
+                                        />
                                     </View>
                                 </Right>
                             </CardItem>
-                            <CardItem cardBody style={{ backgroundColor: '#eee' }}>
-                                <Image source={require('../../../assets/images/lago_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem style={{ backgroundColor: '#eee' }} >
-                                <Text style={{ fontStyle: 'italic', fontSize: 13 }}>*Não deixe condições adversas te atrapalhar! Clique nos botões abaixo para receber dicas!</Text>
-                            </CardItem>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorTemp(pontos[0].temp),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                    onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Conforto térmico: {'\n'} {pontos[0].temp} °C</Text>
-                                </Button>
+                            <CardItem cardBody style={style.cardItem}>
+                                <ImageBackground source={require('../../../assets/images/ponto_lago.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                    <View style={style.viewBotaoDados}>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorTemp(pontos[0].temp),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[0].temp} °C</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorUmi(pontos[0].umid),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                    onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Umidade relativa: {'\n'} {pontos[0].umid}%</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorUmi(pontos[0].umid),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[0].umid}%</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorPolu(pontos[0].airq),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff',
-                                }}
-                                    onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Qualidade do ar: {'\n'} {pontos[0].airq}</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorPolu(pontos[0].airq),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[0].airq}</Text>
+                                        </Button>
+                                    </View>
+                                </ImageBackground>
                             </CardItem>
                             {
                                 this.state.status ?
                                     <View>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Conforto térmico:\n" + this.props.channelsStore.dicasPontos[0].dicaTemp + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Umidade relativa:\n" + this.props.channelsStore.dicasPontos[0].dicaUmid + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Qualidade do ar:\n" + this.props.channelsStore.dicasPontos[0].dicaAirq + "\n"}
                                         </Text>
                                     </View>
                                     : null
                             }
                         </Card>
-
                         <Card>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem style={style.cardItem}>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
                                     <Body>
-                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Jardim Botânico</Text>
-                                        <Text note>Atualizado em: {data}</Text>
+                                        <Text style={style.textoNomePonto}>Jardim Botânico</Text>
+                                        <Text note> {data}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
@@ -188,66 +184,64 @@ export default class Home extends React.Component<ScreenProps<>> {
                                             color='black'
                                             onPress={() => this.props.channelsStore.getChannels()}
                                             style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text>
+                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
                                     </View>
                                 </Right>
                             </CardItem>
-                            <CardItem cardBody style={{ backgroundColor: '#eee' }} >
-                                <Image source={require('../../../assets/images/jardim_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorTemp(pontos[1].temp),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Conforto térmico: {'\n'} {pontos[1].temp} °C</Text>
-                                </Button>
+                            <CardItem cardBody style={style.cardItem}>
+                                <ImageBackground source={require('../../../assets/images/ponto_jardimbotanico.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                    <View style={style.viewBotaoDados}>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorTemp(pontos[1].temp),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[1].temp} °C</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorUmi(pontos[1].umid),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Umidade relativa: {'\n'} {pontos[1].umid}%</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorUmi(pontos[1].umid),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[1].umid}%</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorPolu(pontos[1].airq),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Qualidade do ar: {'\n'} {pontos[1].airq}</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorPolu(pontos[1].airq),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[1].airq}</Text>
+                                        </Button>
+                                    </View>
+                                </ImageBackground>
                             </CardItem>
                             {
                                 this.state.status ?
                                     <View>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[1].dicaTemp + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[1].dicaUmid + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[1].dicaAirq}
                                         </Text>
                                     </View>
@@ -256,12 +250,12 @@ export default class Home extends React.Component<ScreenProps<>> {
                         </Card>
 
                         <Card>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem style={style.cardItem}>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
                                     <Body>
-                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Pista de atletismo - UEL</Text>
-                                        <Text note>Atualizado em: {data}</Text>
+                                        <Text style={style.textoNomePonto}>Pista de atletismo - UEL</Text>
+                                        <Text note> {data}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
@@ -271,67 +265,64 @@ export default class Home extends React.Component<ScreenProps<>> {
                                             color='black'
                                             onPress={() => this.props.channelsStore.getChannels()}
                                             style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text>
+                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
                                     </View>
                                 </Right>
                             </CardItem>
-                            <CardItem cardBody style={{ backgroundColor: '#eee' }}>
-                                <Image source={require('../../../assets/images/uel_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem cardBody style={style.cardItem}>
+                                <ImageBackground source={require('../../../assets/images/ponto_uel.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                    <View style={style.viewBotaoDados}>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorTemp(pontos[3].temp),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[3].temp} °C</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorTemp(pontos[3].temp),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Conforto térmico: {'\n'} {pontos[3].temp} °C</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorUmi(pontos[3].umid),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[3].umid}%</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorUmi(pontos[3].umid),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Umidade relativa: {'\n'} {pontos[3].umid}%</Text>
-                                </Button>
-
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorPolu(pontos[3].airq),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Qualidade do ar: {'\n'} {pontos[3].airq}</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorPolu(pontos[3].airq),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[3].airq}</Text>
+                                        </Button>
+                                    </View>
+                                </ImageBackground>
                             </CardItem>
                             {
                                 this.state.status ?
                                     <View>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Conforto térmico:\n" + this.props.channelsStore.dicasPontos[3].dicaTemp + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Umidade relativa:\n" + this.props.channelsStore.dicasPontos[3].dicaUmid + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Qualidade do ar:\n" + this.props.channelsStore.dicasPontos[3].dicaAirq + "\n"}
                                         </Text>
                                     </View>
@@ -340,12 +331,12 @@ export default class Home extends React.Component<ScreenProps<>> {
                         </Card>
 
                         <Card>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem style={style.cardItem}>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
                                     <Body>
-                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>UTFPR</Text>
-                                        <Text note>Atualizado em: {data}</Text>
+                                        <Text style={style.textoNomePonto}>UTFPR</Text>
+                                        <Text note> {data}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
@@ -355,67 +346,64 @@ export default class Home extends React.Component<ScreenProps<>> {
                                             color='black'
                                             onPress={() => this.props.channelsStore.getChannels()}
                                             style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text>
+                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
                                     </View>
                                 </Right>
                             </CardItem>
-                            <CardItem cardBody style={{ backgroundColor: '#eee' }}>
-                                <Image source={require('../../../assets/images/utfpr_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem cardBody style={style.cardItem}>
+                                <ImageBackground source={require('../../../assets/images/ponto_utfpr.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                    <View style={style.viewBotaoDados}>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorTemp(pontos[4].temp),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[4].temp} °C</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorTemp(pontos[4].temp),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Conforto térmico: {'\n'} {pontos[4].temp} °C</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorUmi(pontos[4].umid),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[4].umid}%</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorUmi(pontos[4].umid),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Umidade relativa: {'\n'} {pontos[4].umid}%</Text>
-                                </Button>
-
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorPolu(pontos[4].airq),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Qualidade do ar: {'\n'} {pontos[4].airq}</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorPolu(pontos[4].airq),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[4].airq}</Text>
+                                        </Button>
+                                    </View>
+                                </ImageBackground>
                             </CardItem>
                             {
                                 this.state.status ?
                                     <View>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[4].dicaTemp + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[4].dicaUmid + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[4].dicaAirq}
                                         </Text>
                                     </View>
@@ -424,12 +412,12 @@ export default class Home extends React.Component<ScreenProps<>> {
                         </Card>
 
                         <Card>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem style={style.cardItem}>
                                 <Left>
-                                    <Thumbnail source={require('../../../assets/new_icon.png')} />
+                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
                                     <Body>
-                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Zerão</Text>
-                                        <Text note>Atualizado em: {data}</Text>
+                                        <Text style={style.textoNomePonto}>Zerão</Text>
+                                        <Text note> {data}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
@@ -439,67 +427,64 @@ export default class Home extends React.Component<ScreenProps<>> {
                                             color='black'
                                             onPress={() => this.props.channelsStore.getChannels()}
                                             style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text>
+                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
                                     </View>
                                 </Right>
                             </CardItem>
-                            <CardItem cardBody style={{ backgroundColor: '#eee' }}>
-                                <Image source={require('../../../assets/images/zerao_card.png')} style={{ height: 200, width: null, flex: 1 }} />
-                            </CardItem>
-                            <CardItem style={{ backgroundColor: '#eee' }}>
+                            <CardItem cardBody style={style.cardItem}>
+                                <ImageBackground source={require('../../../assets/images/ponto_zerao.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                    <View style={style.viewBotaoDados}>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorTemp(pontos[2].temp),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[2].temp} °C</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorTemp(pontos[2].temp),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Conforto térmico: {'\n'} {pontos[2].temp} °C</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorUmi(pontos[2].umid),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[2].umid}%</Text>
+                                        </Button>
 
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorUmi(pontos[2].umid),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Umidade relativa: {'\n'} {pontos[2].umid}%</Text>
-                                </Button>
-
-                                <Button large style={{
-                                    borderWidth: 2,
-                                    borderColor: this.retornaCorPolu(pontos[2].airq),
-                                    flex: 1,
-                                    borderRadius: 15,
-                                    justifyContent: 'center',
-                                    margin: 1,
-                                    backgroundColor: '#fff'
-                                }}
-                                onPress={() => this.ShowHideTextComponentView()}
-                                >
-                                    <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Qualidade do ar: {'\n'} {pontos[2].airq}</Text>
-                                </Button>
+                                        <Button transparent large style={{
+                                            borderWidth: 2,
+                                            borderColor: this.retornaCorPolu(pontos[2].airq),
+                                            flex: 1,
+                                            borderRadius: 15,
+                                            justifyContent: 'center',
+                                            margin: 3
+                                        }}
+                                            onPress={() => this.ShowHideTextComponentView()}
+                                        >
+                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[2].airq}</Text>
+                                        </Button>
+                                    </View>
+                                </ImageBackground>
                             </CardItem>
                             {
                                 this.state.status ?
                                     <View>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[2].dicaTemp + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[2].dicaUmid + "\n"}
                                         </Text>
-                                        <Text style={{ fontStyle: 'italic' }}>
+                                        <Text style={style.textoDica}>
                                             {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[2].dicaAirq}
                                         </Text>
                                     </View>
@@ -512,17 +497,10 @@ export default class Home extends React.Component<ScreenProps<>> {
         }
     }
 
-    componentDidUpdate(): React.Node {
-    }
 
 
     getTempUmidAirqToCards() {
         //PUC PONTOS[2] cardsDetail[0]
-        console.log(this.props.channelsStore.cardsDetail[0].lastValues.moisture);
-        console.log(this.props.channelsStore.cardsDetail[1].lastValues.moisture);
-        console.log(this.props.channelsStore.cardsDetail[2].lastValues.moisture);
-        console.log(this.props.channelsStore.cardsDetail[3].lastValues.moisture);
-        console.log(this.props.channelsStore.cardsDetail[4].lastValues.moisture);
         pontos[2].temp = parseFloat(this.props.channelsStore.cardsDetail[0].lastValues.thermalConfort).toFixed(1);
         pontos[2].umid = parseFloat(this.props.channelsStore.cardsDetail[0].lastValues.moisture).toFixed(0);
         pontos[2].airq = this.props.channelsStore.cardsDetail[0].lastValues.airQuality;
@@ -600,16 +578,36 @@ export default class Home extends React.Component<ScreenProps<>> {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
-
 const style = StyleSheet.create({
+    viewBotaoDados: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 0
+    },
+    textoBotaoDados: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: 'white'
+    },
+    textoLoading: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20,
+        margin: 10
+    },
+    textoNomePonto: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    textoDica: {
+        fontStyle: 'italic'
+    },
+    cardItem: {
+        backgroundColor: '#eee'
+    },
     container: {
         flexGrow: 1
     },
@@ -629,18 +627,11 @@ const style = StyleSheet.create({
         alignSelf: "baseline"
     },
     buttonStyle: {
-        // backgroundColor: '#fff',
         borderWidth: 2,
         borderColor: '#336633',
         flex: 1,
         borderRadius: 15,
         justifyContent: 'center',
         margin: 1
-        // paddingTop: 4,
-        // paddingBottom: 4,
-        // paddingRight: 10,
-        // paddingLeft: 10,
-        // marginTop: 10,
-        // width: 300
     }
 });

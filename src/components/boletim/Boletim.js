@@ -83,6 +83,23 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         const listDiary = this.props.boletimStore.listDiario;
         const listRanking = this.props.boletimStore.listRanking;
 
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+        var year = new Date().getFullYear(); //Current Year
+        var hours = new Date().getHours(); //Current Hours
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        var min = new Date().getMinutes(); //Current Minutes
+        if (min < 10) {
+            min = "0" + min;
+        }
+        var sec = new Date().getSeconds(); //Current Seconds
+        if (sec < 10) {
+            sec = "0" + sec;
+        }
+        const data = date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec;
+
 
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
@@ -104,7 +121,6 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             {
                                 listDiary.map((item, i) => (
                                     <Task
-                                        key={i}
                                         subtitle={item.descricao}
                                     />
                                 ))
@@ -119,9 +135,10 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                     <FlatList
                         data={listRanking}
                         renderItem={({ item }) => <CustomRow
+                        data={item.data}
+                        classificacao={item.classificacao}
                             title={item.local}
                             description={item.descricao}
-                        // image_url={item.image_url}
                         />}
                     />
                 </View>

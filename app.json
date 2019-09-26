@@ -5,11 +5,11 @@
         "version": "1.3",
         "orientation": "portrait",
         "privacy": "public",
-        "icon": "./assets/new_icon.png",
+        "icon": "./assets/images/atk_icon_black.png",
         "facebookScheme": "fb2286396934947742",
         "primaryColor": "#333333",
         "notification": {
-            "icon": "./assets/new_icon.png",
+            "icon": "./assets/images/atk_icon_black.png",
             "color": "#000000"
         },
         "splash": {

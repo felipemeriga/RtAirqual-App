@@ -24,15 +24,16 @@ export default class BaseContainerBoletim extends React.PureComponent<BaseContai
         return (
             <Container safe>
                 <Image source={Images.gradient} style={[StyleSheet.absoluteFill, style.img]} />
-                <NBHeader style={{ backgroundColor: '#01ffe8' }}>
+                <NBHeader style={{ backgroundColor: '#000' }}>
+                {/* '#01ffe8' */}
                     <Left>
                         <Button onPress={() => navigation.openDrawer()} transparent>
-                            <EvilIcons name="navicon" size={35} color="black" />
+                            <EvilIcons name="navicon" size={35} color="white" />
                         </Button>
                     </Left>
                     <Body>
                         {
-                            typeof (title) === "string" ? <Title style={{ color: "black", fontWeight: 'bold' }}>{title.toUpperCase()}</Title> : title
+                            typeof (title) === "string" ? <Title style={{ color: "white", fontWeight: 'bold' }}>{title.toUpperCase()}</Title> : title
                         }
                     </Body>
                     <Right style={style.right}>
@@ -45,7 +46,7 @@ export default class BaseContainerBoletim extends React.PureComponent<BaseContai
                     {this.props.children}
                 </Content>
                 <Footer>
-                    <FooterTab style={{ backgroundColor: 'white' }}>
+                    <FooterTab style={{ backgroundColor: 'black' }}>
                         {/* <Button
                         onPress = {emBreve()}
                         onPress={() => navigation.navigate("Boletim")} transparent
@@ -54,13 +55,13 @@ export default class BaseContainerBoletim extends React.PureComponent<BaseContai
                         </Button>*/}
                         <Button transparent onPress={() => navigation.navigate("Home")}>
                             {/* <Icon name="ios-map-outline" style={style.largeIcon}/> */}
-                            <Ionicons name="ios-map" size={50} color="black" />
-                            <Text>Pontos</Text>
+                            <Ionicons name="ios-map" size={50} color="white" />
+                            <Text style={{color:'white'}}>Pontos</Text>
                         </Button>
                         <Button onPress={() => navigation.navigate("Boletim")} transparent>
                             {/* <Icon name="ios-paper-outline" style={style.icon}/> */}
-                            <Ionicons name="ios-calendar" size={50} color="black" />
-                            <Text>Feed</Text>
+                            <Ionicons name="ios-calendar" size={50} color="white" />
+                            <Text style={{color:'white'}}>Feed</Text>
                         </Button>
                     </FooterTab>
                 </Footer>

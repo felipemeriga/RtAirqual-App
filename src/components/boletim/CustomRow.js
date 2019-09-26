@@ -35,16 +35,24 @@ const styles = StyleSheet.create({
     },
 });
 
-const CustomRow = ({ title, description }) => (
-    <View style={styles.container}>
-        {/* <Image source={{ uri: image_url }} style={styles.photo} /> */}
-        <View style={styles.container_text}>
-            <Text style={styles.title}>
-                {title}
-            </Text>
-            <Text style={styles.description}>
-                {description}
-            </Text>
+const CustomRow = ({ data, classificacao, title, description }) => (
+    <View>
+        <Text style={styles.title}>
+            {classificacao}
+        </Text>
+        <Text>
+            {data}
+        </Text>
+        <View style={styles.container}>
+            {/* <Image source={{ uri: image_url }} style={styles.photo} /> */}
+            <View style={styles.container_text}>
+                <Text style={styles.title}>
+                    {title}
+                </Text>
+                <Text style={styles.description}>
+                    {description}
+                </Text>
+            </View>
         </View>
     </View>
 );

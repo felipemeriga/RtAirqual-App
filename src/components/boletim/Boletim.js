@@ -9,6 +9,8 @@ import { BaseContainerBoletim, BaseContainer, Task, Styles } from "../pure-compo
 import { ScreenProps } from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
 import CustomRow from './CustomRow';
+import Swiper from 'react-native-swiper';
+import { format, render, cancel, register } from 'timeago.js';
 
 const BOLETIM = 1;
 const ALERTAS = 2;
@@ -40,7 +42,10 @@ export default class Boletim extends React.Component<ScreenProps<>> {
         }
         return (
             <Tabs style={{ backgroundColor: "white" }}>
-                <Tab heading={<TabHeading style={style.tabBoletim}><Text style={style.tabHeadingBoletim}>Boletim</Text></TabHeading>}>
+                <Tab heading={
+                    <TabHeading style={style.tabBoletim}>
+                        <Text style={style.tabHeadingBoletim}>Boletim</Text>
+                    </TabHeading>}>
                     <OverviewTab period={BOLETIM} />
                 </Tab>
                 <Tab heading={<TabHeading style={style.tabAlertas}><Text style={style.tabHeadingBoletim}>Alertas</Text></TabHeading>}>
@@ -110,7 +115,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
             return (
                 <View style={style.containerDiario}>
                     <StatusBar
-                        backgroundColor="black"
+                        backgroundColor="white"
                         barStyle="light-content"
                     />
                     <ScrollView >
@@ -135,7 +140,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                     <FlatList
                         data={listRanking}
                         renderItem={({ item }) => <CustomRow
-                        data={item.data}
+                        data={format(item.data, 'en_US')}
                         classificacao={item.classificacao}
                             title={item.local}
                             description={item.descricao}

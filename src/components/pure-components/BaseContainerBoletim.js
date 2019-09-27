@@ -24,7 +24,7 @@ export default class BaseContainerBoletim extends React.PureComponent<BaseContai
         return (
             <Container safe>
                 <Image source={Images.gradient} style={[StyleSheet.absoluteFill, style.img]} />
-                <NBHeader style={{ backgroundColor: '#000' }}>
+                <NBHeader style={{ backgroundColor: '#000wwwwwwww   ' }}>
                 {/* '#01ffe8' */}
                     <Left>
                         <Button onPress={() => navigation.openDrawer()} transparent>

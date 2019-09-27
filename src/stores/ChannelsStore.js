@@ -163,30 +163,30 @@ class ChannelsStore {
                     this.dicasPontos[4].dicaUmid = this.relativeHumityMessage.message;
                 }
                 this.dicasPontos[4].dicaAirq = this.airQualityMessage.message;
-                console.log("Dados Lago...");
-                console.log(this.dicasPontos[0].dicaTemp + "\n");
-                console.log(this.dicasPontos[0].dicaUmid + "\n");
-                console.log(this.dicasPontos[0].dicaAirq + "\n" + "\n" + "\n");
+                // console.log("Dados Lago...");
+                // console.log(this.dicasPontos[0].dicaTemp + "\n");
+                // console.log(this.dicasPontos[0].dicaUmid + "\n");
+                // console.log(this.dicasPontos[0].dicaAirq + "\n" + "\n" + "\n");
                 
-                console.log("Dados Jardim...");
-                console.log(this.dicasPontos[1].dicaTemp + "\n");
-                console.log(this.dicasPontos[1].dicaUmid + "\n");
-                console.log(this.dicasPontos[1].dicaAirq + "\n" + "\n" + "\n");
+                // console.log("Dados Jardim...");
+                // console.log(this.dicasPontos[1].dicaTemp + "\n");
+                // console.log(this.dicasPontos[1].dicaUmid + "\n");
+                // console.log(this.dicasPontos[1].dicaAirq + "\n" + "\n" + "\n");
 
-                console.log("Dados PUC...");
-                console.log(this.dicasPontos[2].dicaTemp + "\n");
-                console.log(this.dicasPontos[2].dicaUmid + "\n");
-                console.log(this.dicasPontos[2].dicaAirq + "\n" + "\n" + "\n");
+                // console.log("Dados PUC...");
+                // console.log(this.dicasPontos[2].dicaTemp + "\n");
+                // console.log(this.dicasPontos[2].dicaUmid + "\n");
+                // console.log(this.dicasPontos[2].dicaAirq + "\n" + "\n" + "\n");
 
-                console.log("Dados UEL...");
-                console.log(this.dicasPontos[3].dicaTemp + "\n");
-                console.log(this.dicasPontos[3].dicaUmid + "\n");
-                console.log(this.dicasPontos[3].dicaAirq + "\n" + "\n" + "\n");
+                // console.log("Dados UEL...");
+                // console.log(this.dicasPontos[3].dicaTemp + "\n");
+                // console.log(this.dicasPontos[3].dicaUmid + "\n");
+                // console.log(this.dicasPontos[3].dicaAirq + "\n" + "\n" + "\n");
 
-                console.log("Dados UTFPR...");
-                console.log(this.dicasPontos[4].dicaTemp + "\n");
-                console.log(this.dicasPontos[4].dicaUmid + "\n");
-                console.log(this.dicasPontos[4].dicaAirq + "\n" + "\n" + "\n");
+                // console.log("Dados UTFPR...");
+                // console.log(this.dicasPontos[4].dicaTemp + "\n");
+                // console.log(this.dicasPontos[4].dicaUmid + "\n");
+                // console.log(this.dicasPontos[4].dicaAirq + "\n" + "\n" + "\n");
                 this.loadingChannels = false;
             })
             .catch((err) => {

@@ -1,6 +1,6 @@
 // @flow
 import * as Progress from "react-native-progress";
-import { StyleSheet, View, Image, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Image, Text, ImageBackground, Alert } from "react-native";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { BaseContainer } from "../pure-components";
@@ -87,7 +87,6 @@ export default class Home extends React.Component<ScreenProps<>> {
             }
             const data = date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec;
             return (
-                <Container>
                     <Content>
                         <Card>
                             <CardItem style={style.cardItem}>
@@ -112,40 +111,43 @@ export default class Home extends React.Component<ScreenProps<>> {
                                 <ImageBackground source={require('../../../assets/images/ponto_lago.png')} style={{ height: 250, width: null, flex: 1 }} >
                                     <View style={style.viewBotaoDados}>
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorTemp(pontos[0].temp),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaTemp)}
                                         >
                                             <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[0].temp} °C</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorUmi(pontos[0].umid),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaUmid)}
                                         >
                                             <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[0].umid}%</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorPolu(pontos[0].airq),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaAirq)}
                                         >
                                             <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[0].airq}</Text>
                                         </Button>
@@ -192,40 +194,43 @@ export default class Home extends React.Component<ScreenProps<>> {
                                 <ImageBackground source={require('../../../assets/images/ponto_jardimbotanico.png')} style={{ height: 250, width: null, flex: 1 }} >
                                     <View style={style.viewBotaoDados}>
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorTemp(pontos[1].temp),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaTemp)}
                                         >
                                             <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[1].temp} °C</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorUmi(pontos[1].umid),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaUmid)}
                                         >
                                             <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[1].umid}%</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorPolu(pontos[1].airq),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaAirq)}
                                         >
                                             <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[1].airq}</Text>
                                         </Button>
@@ -273,40 +278,45 @@ export default class Home extends React.Component<ScreenProps<>> {
                                 <ImageBackground source={require('../../../assets/images/ponto_uel.png')} style={{ height: 250, width: null, flex: 1 }} >
                                     <View style={style.viewBotaoDados}>
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorTemp(pontos[3].temp),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaTemp)}
                                         >
                                             <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[3].temp} °C</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorUmi(pontos[3].umid),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaUmid)}
+
                                         >
                                             <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[3].umid}%</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorPolu(pontos[3].airq),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaAirq)}
+
                                         >
                                             <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[3].airq}</Text>
                                         </Button>
@@ -354,40 +364,43 @@ export default class Home extends React.Component<ScreenProps<>> {
                                 <ImageBackground source={require('../../../assets/images/ponto_utfpr.png')} style={{ height: 250, width: null, flex: 1 }} >
                                     <View style={style.viewBotaoDados}>
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorTemp(pontos[4].temp),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaTemp)}
                                         >
                                             <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[4].temp} °C</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorUmi(pontos[4].umid),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaUmid)}
                                         >
                                             <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[4].umid}%</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorPolu(pontos[4].airq),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaAirq)}
                                         >
                                             <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[4].airq}</Text>
                                         </Button>
@@ -435,40 +448,43 @@ export default class Home extends React.Component<ScreenProps<>> {
                                 <ImageBackground source={require('../../../assets/images/ponto_zerao.png')} style={{ height: 250, width: null, flex: 1 }} >
                                     <View style={style.viewBotaoDados}>
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorTemp(pontos[2].temp),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaTemp)}
                                         >
                                             <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[2].temp} °C</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorUmi(pontos[2].umid),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaUmid)}
                                         >
                                             <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[2].umid}%</Text>
                                         </Button>
 
                                         <Button transparent large style={{
-                                            borderWidth: 2,
+                                            borderWidth: 3,
                                             borderColor: this.retornaCorPolu(pontos[2].airq),
                                             flex: 1,
                                             borderRadius: 15,
                                             justifyContent: 'center',
                                             margin: 3
                                         }}
-                                            onPress={() => this.ShowHideTextComponentView()}
+                                            // onPress={() => this.ShowHideTextComponentView()}
+                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaAirq)}
                                         >
                                             <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[2].airq}</Text>
                                         </Button>
@@ -492,12 +508,21 @@ export default class Home extends React.Component<ScreenProps<>> {
                             }
                         </Card>
                     </Content>
-                </Container>
             );
         }
     }
 
-
+    exibeDialogDica(dica){
+        console.log(dica);
+        Alert.alert(
+            'Dica:',
+            dica,
+            [
+              {text: 'Voltar'}
+            ],
+            {cancelable: true},
+          );
+    }
 
     getTempUmidAirqToCards() {
         //PUC PONTOS[2] cardsDetail[0]
@@ -627,7 +652,7 @@ const style = StyleSheet.create({
         alignSelf: "baseline"
     },
     buttonStyle: {
-        borderWidth: 2,
+        borderWidth: 3,
         borderColor: '#336633',
         flex: 1,
         borderRadius: 15,

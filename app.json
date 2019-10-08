@@ -1,8 +1,8 @@
 {
     "expo": {
 		"name": "Airtrak",
-        "sdkVersion": "33.0.0",
-        "version": "1.5",
+        "sdkVersion": "35.0.0",
+        "version": "1.5.0",
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/images/atk_icon_black.png",

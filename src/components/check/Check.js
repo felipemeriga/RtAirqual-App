@@ -1,6 +1,7 @@
 // @flow
 import * as React from "react";
-import {Notifications, Permissions} from "expo";
+import {Notifications} from "expo";
+import * as Permissions from 'expo-permissions'
 import {Image, StyleSheet, View} from "react-native";
 import {Auth} from "aws-amplify";
 import {inject, observer} from "mobx-react";

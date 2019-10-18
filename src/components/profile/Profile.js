@@ -46,7 +46,8 @@ export default class Profile extends React.Component<ScreenProps<>> {
                 <View style={style.row}>
                     <H1>{this.getUserInformation()}</H1>
                     <Text style={Styles.textCentered}>Parabéns por estar praticando em alta performance conosco!</Text>
-                    <Text style={Styles.textCentered}>Em breve teremos várias informações importantíssimas para que você dê um gás na sua performance, fique ligado!</Text>
+                    <Text style={Styles.textCentered}>{'\n'}Em breve teremos várias informações importantíssimas para que você dê um gás na sua performance, fique ligado!</Text>
+                    <Text style={Styles.textCentered}>{'\n'}Enquanto isso, não deixe de nos conferir nas redes sociais e ficar por dentro das novidades!</Text>
                 </View>
 
                 <View style={style.buttonsBottom}>
@@ -54,13 +55,15 @@ export default class Profile extends React.Component<ScreenProps<>> {
                         <Button transparent block style={style.btn}
                                 onPress={() => Linking.openURL("https://www.instagram.com/airtrak/")}>
                             {/* <Icon style={style.icon} name="logo-instagram" /> */}
-                            <Ionicons name="logo-instagram" size={50} color="black" />
+                            <Ionicons name="logo-instagram" size={50} color="white" />
+                            <Text style={style.buttonText}>Instagram</Text>
                         </Button>
                         <Button transparent
                                 onPress={() => Linking.openURL("https://www.facebook.com/n/?rtairqual")}
                                 block style={[style.btn, style.facebook]}>
                             {/* <Icon style={style.icon} name="logo-facebook"/> */}
-                            <Ionicons name="logo-facebook" size={50} color="black" />
+                            <Ionicons name="logo-facebook" size={50} color="white" />
+                            <Text style={style.buttonText}>Facebook</Text>
                         </Button>
                     </View>
                 </View>
@@ -74,12 +77,11 @@ const {width} = Dimensions.get("window");
 const style = StyleSheet.create({
     buttonsBottom: {
         flex: 1,
-        justifyContent: "flex-end",
         marginBottom: 10
     },
     img: {
         width,
-        height: width * 0.4,
+        height: width * 0.6,
         resizeMode: "cover"
     },
     row: {
@@ -111,5 +113,8 @@ const style = StyleSheet.create({
     },
     container: {
         flex: 1
+    },
+    buttonText: {
+        color: 'white'
     }
 });

@@ -151,7 +151,7 @@ export default {
     // FooterTab
   tabBarTextColor: 'white',
   tabBarTextSize: 14,
-  activeTab: '#565656',
+  activeTab: '#000',
   sTabBarActiveTextColor: '#007aff',
   tabBarActiveTextColor: '#fff',
   tabActiveBgColor: "transparent",
@@ -160,9 +160,9 @@ export default {
   tabDefaultBg: 'transparent',
   topTabBarTextColor: '#fff',
   topTabBarActiveTextColor: '#fff',
-  topTabActiveBgColor: '#565656',
-  topTabBarBorderColor: '#fff',
-  get topTabBarActiveBorderColor() { return "white"; },
+  topTabActiveBgColor: '#000',
+  topTabBarBorderColor: '#0BFBE1',
+  get topTabBarActiveBorderColor() { return "#0BFBE1"; },
 
 
     // Header
@@ -198,7 +198,7 @@ export default {
   get inputColor() {
     return this.textColor;
   },
-  inputColorPlaceholder: "white",
+  inputColorPlaceholder: "#0BFBE1",
 
   inputGroupMarginBottom: 10,
   inputHeightBase: 50,
@@ -241,7 +241,7 @@ export default {
 
     // Radio Button
   radioBtnSize: 25,
-  radioSelectedColorAndroid: '#5067FF',
+  radioSelectedColorAndroid: '#0BFBE1',
 
     // New Variable
   radioBtnLineHeight: 29,
@@ -259,7 +259,7 @@ export default {
 
 
     // Tabs
-  tabBgColor: '#565656',
+  tabBgColor: '#000',
   tabFontSize: 15,
   tabTextColor: '#222222',
 

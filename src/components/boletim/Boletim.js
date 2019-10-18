@@ -3,13 +3,12 @@ import { inject, observer } from "mobx-react";
 import PropTypes from "prop-types";
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import { StyleSheet, View, Text, ScrollView, ListView, FlatList, ImageBackground, StatusBar } from "react-native";
+import { StyleSheet, View, Text, ScrollView, FlatList, ImageBackground, StatusBar } from "react-native";
 import { Tab, Tabs, TabHeading, H1 } from "native-base";
-import { BaseContainerBoletim, BaseContainer, Task, Styles } from "../pure-components";
+import { BaseContainer, Task, Styles } from "../pure-components";
 import { ScreenProps } from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
 import CustomRow from './CustomRow';
-import Swiper from 'react-native-swiper';
 import { format, render, cancel, register } from 'timeago.js';
 
 const BOLETIM = 1;
@@ -33,39 +32,37 @@ export default class Boletim extends React.Component<ScreenProps<>> {
                 <View style={[Styles.center, Styles.flexGrow]}>
                     <Progress.Circle
                         size={65} indeterminate
-                        color="#FFF"
+                        color="#0BFBE1"
                         borderWidth={5}
                     />
-                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Recebendos dados...</Text>
+                    <Text style={style.textoLoading}>Recebendos dados...</Text>
                 </View>
             );
         }
         return (
-            <Tabs style={{ backgroundColor: "white" }}>
-                <Tab heading={
-                    <TabHeading style={style.tabBoletim}>
-                        <Text style={style.tabHeadingBoletim}>Boletim</Text>
-                    </TabHeading>}>
-                    <OverviewTab period={BOLETIM} />
+            <Tabs>
+                <Tab heading={<TabHeading style={style.tabBoletim}><Text style={style.textoTabBoletim}>Boletim</Text></TabHeading>}>
+                <OverviewTab tela={BOLETIM} />
                 </Tab>
-                <Tab heading={<TabHeading style={style.tabAlertas}><Text style={style.tabHeadingBoletim}>Alertas</Text></TabHeading>}>
-                    <OverviewTab period={ALERTAS} />
+                <Tab heading={<TabHeading style={style.tabBoletim}><Text style={style.textoTabBoletim}>Alertas</Text></TabHeading>}>
+                <OverviewTab tela={ALERTAS} />
                 </Tab>
             </Tabs>
         );
     };
 
     render(): React.Node {
+        const sectionName = "FEED";
         return (
-            <BaseContainerBoletim title="FEED" navigation={this.props.navigation}>
+            <BaseContainer title={sectionName}navigation={this.props.navigation}>
                 {this.renderContent()}
-            </BaseContainerBoletim>
+            </BaseContainer>
         );
     }
 }
 
 type OverviewTabProps = {
-    period: 1 | 2
+    tela: 1 | 2
 };
 
 @inject("boletimStore")
@@ -75,13 +72,12 @@ class OverviewTab extends React.Component<OverviewTabProps> {
     static get propTypes(): React.Node {
         return {
             boletins: PropTypes.arrayOf(Object),
-            localization: PropTypes.any,
             boletimStore: PropTypes.any
         };
     }
 
     render(): React.Node {
-        const period = this.props.period;
+        const tela = this.props.tela;
         const diaDaSemana = new Date().getDate();
         const mesDoAno = retornaMes(new Date().getMonth() + 1);
         const ano = new Date().getFullYear();
@@ -103,30 +99,20 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         if (sec < 10) {
             sec = "0" + sec;
         }
-        const data = date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec;
 
-
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.state = {
-            dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-        };
-
-        if (period === 1) {
+        if (tela === 1) {
             return (
                 <View style={style.containerDiario}>
-                    <StatusBar
-                        backgroundColor="white"
-                        barStyle="light-content"
-                    />
                     <ScrollView >
                         <ImageBackground source={require("../../../assets/images/boletim_background.jpg")} style={{ width: '100%', height: '100%' }}>
                             <View style={[style.tab, Styles.center]}>
                                 <H1 style={{ color: "black" }}>Londrina, {diaDaSemana} de {mesDoAno} de {ano} </H1>
-                            </View>
+                            </View> 
                             {
                                 listDiary.map((item, i) => (
                                     <Task
                                         subtitle={item.descricao}
+                                        key={item.id}
                                     />
                                 ))
                             }
@@ -134,17 +120,21 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                     </ScrollView>
                 </View>
             );
-        } else if (period === 2) {
+        } else if (tela === 2) {
             return (
                 <View style={style.containerRanking}>
                     <FlatList
                         data={listRanking}
-                        renderItem={({ item }) => <CustomRow
-                        data={format(item.data, 'en_US')}
-                        classificacao={item.classificacao}
-                            title={item.local}
-                            description={item.descricao}
-                        />}
+                        renderItem={({ item }) => 
+                            <CustomRow
+                                data={format(item.data, 'pt_BR')}
+                                classificacao={item.classificacao}
+                                title={item.local}
+                                description={item.descricao}
+                                key={item.id}
+                            />
+                        }
+                        keyExtractor={(item, index) => item.id}
                     />
                 </View>
             );
@@ -205,12 +195,13 @@ const style = StyleSheet.create({
         backgroundColor: 'white'
     },
     tabBoletim: {
-        borderRightWidth: 0.3,
-        borderBottomWidth: 0.3
+        borderTopWidth: 1,
+        borderRadius: 1,
+        backgroundColor: '#2D2D2D',
     },
     tabAlertas: {
-        borderLeftWidth: 0.3,
-        borderBottomWidth: 0.3
+        borderLeftWidth: 1,
+        borderBottomWidth: 1
     },
     container: {
         flexGrow: 1,
@@ -225,7 +216,8 @@ const style = StyleSheet.create({
         elevation: 2,
     },
     containerRanking: {
-        flexGrow: 1,
+        flexGrow: 1, 
+        backgroundColor: "white"
     },
     title: {
         fontSize: 16,
@@ -234,8 +226,8 @@ const style = StyleSheet.create({
     tabHeading: {
         color: "white"
     },
-    tabHeadingBoletim: {
-        color: "#000",
+    textoTabBoletim: {
+        color: "white",
         fontSize: 20,
         fontWeight: 'bold'
     },
@@ -266,5 +258,10 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-
+    textoLoading: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20,
+        margin: 10
+    },
 });

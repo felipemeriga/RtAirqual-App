@@ -52,10 +52,10 @@ export default class Login extends React.Component<ScreenProps<>> {
                 <View style={[Styles.center, Styles.flexGrow]}>
                     <Progress.Circle
                         size={65} indeterminate
-                        color="#FFF"
+                        color="#0BFBE1"
                         borderWidth={5}
                     />
-                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Conectando...</Text>
+                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Teste...</Text>
                 </View>
             );
         }

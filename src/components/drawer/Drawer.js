@@ -35,11 +35,11 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.dispatch(DrawerActions.closeDrawer())}>
                             {/* <Icon name="ios-close-outline" style={style.closeIcon}/> */}
-                            <Ionicons name="ios-close" size={50} color="white" />
+                            <Ionicons name="ios-close" size={50} color="#0BFBE1" />
                         </Button>
                     </Left>
                     <Body>
-                        <Title>Menu</Title>
+                        <Title style={{fontWeight: 'bold'}}>Menu</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -107,7 +107,7 @@ class DrawerItem extends React.PureComponent<DrawerItemProps> {
         return (
             <TouchableHighlight {...props} activeOpacity={0.5} underlayColor="rgba(255, 255, 255, .2)">
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Icon name={icon} style={{color: variables.listBorderColor}}/>
+                    <Icon name={icon} style={{color: 'white'}}/>
                     <Text style={{marginTop: variables.contentPadding}}>{name}</Text>
                     {
                         active && <View style={style.dot}/>
@@ -145,7 +145,7 @@ const style = StyleSheet.create({
         borderColor: variables.listBorderColor
     },
     dot: {
-        backgroundColor: "white",
+        backgroundColor: "#0BFBE1",
         height: 10,
         width: 10,
         borderRadius: 5,

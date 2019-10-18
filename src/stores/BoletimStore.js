@@ -50,7 +50,8 @@ class BoletimStore {
 
                     iterableListDiario.push({
                         local: "Londrina",
-                        descricao: item.descricao
+                        descricao: item.descricao,
+                        id: item.id
                     });
                 });
                 this.listDiario = iterableListDiario;
@@ -69,12 +70,12 @@ class BoletimStore {
 
                 // ordenando rankings
                 this.listRanking = this.listRanking.slice().sort(function (a, b) {
-                    return a.id - b.id;
+                    return a.id + b.id;
                 });
 
                 // ordenando historico
                 this.listHistorico = this.listHistorico.slice().sort(function (a, b) {
-                    return b.id - a.id;
+                    return b.id + a.id;
                 });
                 this.loadingDetail = false;
 

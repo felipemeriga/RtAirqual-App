@@ -4,13 +4,13 @@ import { Asset } from 'expo-asset'
 import Platform from "react-native";
 
 
-import Gradient from "../../../assets/images/fundo_airtracking.png";
+import Gradient from "../../../assets/images/loginFundoPreto.jpg";
 // import Gradient from "../../../assets/images/loginFundoPreto.jpg";
 import LoginBackground from "../../../assets/images/loginFundoPreto.jpg";
 import SignUp from "../../../assets/images/fundo_airtracking.png";
 import Check from "../../../assets/images/fundo_airtracking.png";
 import Walkthrough from "../../../assets/images/fundo_airtracking.png";
-import Profile from "../../../assets/images/profile.jpg";
+import Profile from "../../../assets/images/profile_running.jpg";
 import LogoSymbol from "../../../assets/images/logoSymbol.png";
 import BoletimBackground from "../../../assets/images/boletim_background.jpg";
 import LogoLetter from "../../../assets/images/airtrack_logo_slogan_negativo.png";

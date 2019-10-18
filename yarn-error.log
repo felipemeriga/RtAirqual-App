@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\sussel\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add vector-icons
+  C:\Program Files\nodejs\node.exe C:\Users\sussel\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-gesture-handler@~1.3.0
 
 PATH: 
-  C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Users\sussel\AppData\Local\Microsoft\WindowsApps;C:\Users\sussel\AppData\Roaming\npm;C:\Users\sussel\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\sussel\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\sussel\AppData\Local\Programs\Python\Python37\;C:\Users\sussel\AppData\Local\Microsoft\WindowsApps;C:\Users\sussel\AppData\Roaming\npm;C:\Users\sussel\AppData\Local\Programs\Microsoft VS Code\bin
+  C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Users\sussel\AppData\Local\Microsoft\WindowsApps;C:\Users\sussel\AppData\Roaming\npm;C:\Users\sussel\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files (x86)\Microsoft Emulator Manager\1.0\;C:\Users\sussel\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\sussel\AppData\Local\Programs\Python\Python37\;C:\Users\sussel\AppData\Local\Microsoft\WindowsApps;C:\Users\sussel\AppData\Roaming\npm;C:\Users\sussel\AppData\Local\Programs\Microsoft VS Code\bin
 
 Yarn version: 
   1.17.3
@@ -14,22 +14,12 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/vector-icons: Not found
-      at Request.params.callback [as _callback] (C:\Users\sussel\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66830:18)
-      at Request.self.callback (C:\Users\sussel\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140464:22)
-      at Request.emit (events.js:198:13)
-      at Request.<anonymous> (C:\Users\sussel\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141436:10)
-      at Request.emit (events.js:198:13)
-      at IncomingMessage.<anonymous> (C:\Users\sussel\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141358:12)
-      at Object.onceWrapper (events.js:286:20)
-      at IncomingMessage.emit (events.js:203:15)
-      at endReadableNT (_stream_readable.js:1129:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\sussel\Desktop\RtAirqual-App\node_modules\@expo\xdl\binaries\windows\adb\AdbWinApi.dll'
 
 npm manifest: 
   {
-      "name": "AirTrak",
-      "version": "2.2.7",
+      "name": "Airtrak",
+      "version": "1.3.0",
       "private": true,
       "devDependencies": {
           "@babel/core": "^7.3.4",
@@ -72,38 +62,47 @@ npm manifest:
       },
       "dependencies": {
           "@aws-amplify/cli": "^1.6.4",
-          "@expo/vector-icons": "^9.0.0",
+          "@expo/vector-icons": "^10.0.5",
+          "@fortawesome/fontawesome-svg-core": "^1.2.22",
+          "@fortawesome/free-solid-svg-icons": "^5.10.2",
+          "@fortawesome/react-native-fontawesome": "^0.1.0",
           "apsl-react-native-button": "^3.1.1",
           "aws-amplify": "^1.1.26",
           "aws-amplify-react-native": "^2.1.9",
           "axios": "^0.18.0",
           "colors": "1.0.3",
-          "expo": "^33.0.0",
+          "expo": "^35.0.0",
           "expo-font": "~5.0.1",
           "jest-junit-reporter": "^1.1.0",
-          "lodash": "^4.17.4",
+          "lodash": "^4.17.15",
           "mobx": "^5.9.0",
           "mobx-react": "^5.4.3",
           "moment": "^2.18.1",
           "native-base": "^2.7.0",
           "prop-types": "^15.7.2",
           "react": "16.8.3",
-          "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+          "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
           "react-native-awesome-alerts": "^1.2.0",
           "react-native-cli": "^2.0.1",
           "react-native-extended-stylesheet": "^0.11.1",
+          "react-native-google-maps-directions": "^2.1.0",
           "react-native-maps": "^0.24.2",
           "react-native-material-textfield": "^0.12.0",
           "react-native-modal": "^9.0.0",
+          "react-native-open-maps": "^0.3.3",
           "react-native-popup-dialog": "^0.18.2",
           "react-native-progress": "^3.6.0",
           "react-native-pull-to-refresh": "^2.1.3",
           "react-native-scl-alert": "^1.2.1",
+          "react-native-simple-dialogs": "^1.2.0",
           "react-native-styled-dialogs": "0.0.7",
+          "react-native-svg": "~9.4.0",
           "react-native-swiper": "^1.5.4",
           "react-native-table-component": "^1.2.0",
+          "react-native-vector-icons": "^6.6.0",
           "react-navigation": "^3.0.9",
           "react-timer-mixin": "^0.13.4",
+          "timeago.js": "^4.0.0-beta.2",
           "yarn": "^1.15.2"
       }
   }
@@ -1366,14 +1365,7 @@ Lockfile:
     version "1.6.2"
     resolved "https://registry.yarnpkg.com/@expo/traveling-fastlane-linux/-/traveling-fastlane-linux-1.6.2.tgz#f996f0be73746f371d6d3ca87a83432e7b8962eb"
   
-  "@expo/vector-icons@6.3.1":
-    version "6.3.1"
-    resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-6.3.1.tgz#ffb97cc2343e4a330b44ce3063ee7c8571a6a50d"
-    dependencies:
-      lodash "^4.17.4"
-      react-native-vector-icons "4.5.0"
-  
-  "@expo/vector-icons@^10.0.1":
+  "@expo/vector-icons@^10.0.1", "@expo/vector-icons@^10.0.5":
     version "10.0.5"
     resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.0.5.tgz#2464fd262613ad11c9b2d5c4227e85c164fcccf4"
     integrity sha512-SWdAx2Qzxp5TgT3hZEoF/KHnaDW7ajIFztrDdaDZl3nPo7ExK0YiQ03V0z0xMd+uQwl3SZO3JMwPZ7YnuxcMEg==
@@ -1389,6 +1381,33 @@ Lockfile:
       noop-fn "^1.0.0"
       pouchdb-collections "^1.0.1"
       tiny-queue "^0.2.1"
+  
+  "@fortawesome/fontawesome-common-types@^0.2.22":
+    version "0.2.22"
+    resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.22.tgz#3f1328d232a0fd5de8484d833c8519426f39f016"
+    integrity sha512-QmEuZsipX5/cR9JOg0fsTN4Yr/9lieYWM8AQpmRa0eIfeOcl/HLYoEa366BCGRSrgNJEexuvOgbq9jnJ22IY5g==
+  
+  "@fortawesome/fontawesome-svg-core@^1.2.22":
+    version "1.2.22"
+    resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.22.tgz#9a6117c96c8b823c7d531000568ac75c3c02e123"
+    integrity sha512-Q941E4x8UfnMH3308n0qrgoja+GoqyiV846JTLoCcCWAKokLKrixCkq6RDBs8r+TtAWaLUrBpI+JFxQNX/WNPQ==
+    dependencies:
+      "@fortawesome/fontawesome-common-types" "^0.2.22"
+  
+  "@fortawesome/free-solid-svg-icons@^5.10.2":
+    version "5.10.2"
+    resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.10.2.tgz#61bcecce3aa5001fd154826238dfa840de4aa05a"
+    integrity sha512-9Os/GRUcy+iVaznlg8GKcPSQFpIQpAg14jF0DWsMdnpJfIftlvfaQCWniR/ex9FoOpSEOrlXqmUCFL+JGeciuA==
+    dependencies:
+      "@fortawesome/fontawesome-common-types" "^0.2.22"
+  
+  "@fortawesome/react-native-fontawesome@^0.1.0":
+    version "0.1.0"
+    resolved "https://registry.yarnpkg.com/@fortawesome/react-native-fontawesome/-/react-native-fontawesome-0.1.0.tgz#10d7dcd7c97481913f81c36f77147340ecbe4273"
+    integrity sha512-NVQmvAe/sKr9WSMSbJv9WZiUiWNOjPpGaprNFkUJOLh7tqogZd41G+5wQ7Z0H4jtgiJDm3RbVSX7DeUDZ8sf+A==
+    dependencies:
+      humps "^2.0.1"
+      prop-types "^15.6.2"
   
   "@graphql-modules/core@0.7.5":
     version "0.7.5"
@@ -4975,6 +4994,15 @@ Lockfile:
       strip-ansi "^4.0.0"
       wrap-ansi "^2.0.0"
   
+  cliui@^5.0.0:
+    version "5.0.0"
+    resolved "https://registry.yarnpkg.com/cliui/-/cliui-5.0.0.tgz#deefcfdb2e800784aa34f46fa08e06851c7bbbc5"
+    integrity sha512-PYeGSEmmHM6zvoef2w8TPzlrnNpXIjTipYK780YswmIP9vjxmd6Y2a3CB2Ks6/AU8NHjZugXvo8w3oWM2qnwXA==
+    dependencies:
+      string-width "^3.1.0"
+      strip-ansi "^5.2.0"
+      wrap-ansi "^5.1.0"
+  
   clone-response@1.0.2:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/clone-response/-/clone-response-1.0.2.tgz#d1dc973920314df67fbeb94223b4ee350239e96b"
@@ -6065,6 +6093,11 @@ Lockfile:
   emoji-regex@^6.5.1:
     version "6.5.1"
     resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.5.1.tgz#9baea929b155565c11ea41c6626eaa65cef992c2"
+  
+  emoji-regex@^7.0.1:
+    version "7.0.3"
+    resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
+    integrity sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA==
   
   emoji-regex@^8.0.0:
     version "8.0.0"
@@ -8071,6 +8104,11 @@ Lockfile:
     version "1.0.3"
     resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
   
+  get-caller-file@^2.0.1:
+    version "2.0.5"
+    resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
+    integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
+  
   get-proxy@^2.0.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/get-proxy/-/get-proxy-2.1.0.tgz#349f2b4d91d44c4d4d4e9cba2ad90143fac5ef93"
@@ -9180,6 +9218,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/humanize-ms/-/humanize-ms-1.2.1.tgz#c46e3159a293f6b896da29316d8b6fe8bb79bbed"
     dependencies:
       ms "^2.0.0"
+  
+  humps@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
+    integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
   
   i@0.3.x:
     version "0.3.6"
@@ -15081,6 +15124,15 @@ Lockfile:
       object-assign "^4.1.0"
       strict-uri-encode "^1.0.0"
   
+  query-string@^6.1.0:
+    version "6.8.3"
+    resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.8.3.tgz#fd9fb7ffb068b79062b43383685611ee47777d4b"
+    integrity sha512-llcxWccnyaWlODe7A9hRjkvdCKamEKTh+wH8ITdTc3OhchaqUZteiSCX/2ablWHVrkVIe04dntnaZJ7BdyW0lQ==
+    dependencies:
+      decode-uri-component "^0.2.0"
+      split-on-first "^1.0.0"
+      strict-uri-encode "^2.0.0"
+  
   query-string@^6.2.0:
     version "6.2.0"
     resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.2.0.tgz#468edeb542b7e0538f9f9b1aeb26f034f19c86e1"
@@ -15359,6 +15411,11 @@ Lockfile:
       invariant "^2.2.2"
       prop-types "^15.5.10"
   
+  react-native-google-maps-directions@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/react-native-google-maps-directions/-/react-native-google-maps-directions-2.1.0.tgz#b7b1088551f8952a8a6cc5e6d65a19702889a35b"
+    integrity sha512-qAUqI3eb+5yMXq107g05NBzBAhXufe+kdHhMso1EJrMrH7QS8pFFGI177en2xdBDOjMzdw4Yxemzfaiwb+9I3w==
+  
   react-native-iphone-x-helper@^1.0.3:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -15372,7 +15429,7 @@ Lockfile:
       prop-types "^15.6.2"
       react-native-iphone-x-helper "^1.0.3"
   
-  react-native-maps@0.24.2, react-native-maps@~0.24.0:
+  react-native-maps@0.24.2, react-native-maps@^0.24.2:
     version "0.24.2"
     resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.24.2.tgz#19974f967cb0c2e24dab74ca879118e0932571b2"
     integrity sha512-1iNIDikp2dkCG+8DguaEviYZiMSYyvwqYT7pO2YTZvuFRDSc/P9jXMhTUnSh4wNDlEeQ47OJ09l0pwWVBZ7wxg==
@@ -15391,6 +15448,13 @@ Lockfile:
     dependencies:
       prop-types "^15.6.2"
       react-native-animatable "^1.2.4"
+  
+  react-native-open-maps@^0.3.3:
+    version "0.3.3"
+    resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.3.3.tgz#5120a740dcbcf84d7205ede6ec308139a499c96f"
+    integrity sha512-Lr2eaGBq4U1Dbp6OjviJJjI4g0oB8/KIR0dkdi3jbA+9hiTMjpwaHUWojdOhXl4QFMvCohttFySXU9ZTtwDfGw==
+    dependencies:
+      query-string "^6.1.0"
   
   react-native-popup-dialog@^0.18.2:
     version "0.18.3"
@@ -15449,6 +15513,11 @@ Lockfile:
     version "1.0.0-alpha.22"
     resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   
+  react-native-simple-dialogs@^1.2.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/react-native-simple-dialogs/-/react-native-simple-dialogs-1.2.0.tgz#d3fa8e7b46ea563eed9ee4882e804b9d1b9f3c59"
+    integrity sha512-vH6uYovNeeZmYJbMVWVDF4n8acuPxO/D+iGdnF63j62sVfoR9+4ib7LzqBhYKp6jfwy8keEa/c1hOyabMQx3gQ==
+  
   react-native-styled-dialogs@0.0.7:
     version "0.0.7"
     resolved "https://registry.yarnpkg.com/react-native-styled-dialogs/-/react-native-styled-dialogs-0.0.7.tgz#0d5293c3a6a29ece5bfb7ca643811569757c1f7a"
@@ -15456,7 +15525,7 @@ Lockfile:
     dependencies:
       pod-installer "0.0.0"
   
-  react-native-svg@9.4.0:
+  react-native-svg@9.4.0, react-native-svg@~9.4.0:
     version "9.4.0"
     resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.4.0.tgz#e428e0eae55aebd2355f1ff4f22675dad4611960"
     integrity sha512-IVJlVbS2dAPerPr927fEi4uXzrPXzlra5ddgyJXZZ2IKA2ZygyYWFZDM+vsQs+Vj20CfL8nOWszQQV57vdQgFg==
@@ -15478,14 +15547,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-table-component/-/react-native-table-component-1.2.0.tgz#d4dff88abb58648086ba52a801ba9a1ab1825c03"
     integrity sha512-j9AEryfGSStJ9vbcfj63uaMxL8Ek+Xn0+rIA4o2Dvovo7C9fAGMEJxJiL57jmNIX65jRtWNwko9GqeaXXzjJVw==
   
-  react-native-vector-icons@4.5.0:
-    version "4.5.0"
-    resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.5.0.tgz#6b95619e64f62f05f579f74a01fe5640df95158b"
-    dependencies:
-      lodash "^4.0.0"
-      prop-types "^15.5.10"
-      yargs "^8.0.2"
-  
   react-native-vector-icons@6.1.0:
     version "6.1.0"
     resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.1.0.tgz#770a3f8ced692d75deb3afbb9829195ceed1eedd"
@@ -15503,6 +15564,15 @@ Lockfile:
       lodash "^4.0.0"
       prop-types "^15.5.10"
       yargs "^8.0.2"
+  
+  react-native-vector-icons@^6.6.0:
+    version "6.6.0"
+    resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"
+    integrity sha512-MImKVx8JEvVVBnaShMr7/yTX4Y062JZMupht1T+IEgbqBj4aQeQ1z2SH4VHWKNtWtppk4kz9gYyUiMWqx6tNSw==
+    dependencies:
+      lodash "^4.0.0"
+      prop-types "^15.6.2"
+      yargs "^13.2.2"
   
   react-native-view-shot@2.6.0:
     version "2.6.0"
@@ -16235,6 +16305,11 @@ Lockfile:
   require-main-filename@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
+  
+  require-main-filename@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
+    integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
   
   require-uncached@^1.0.3:
     version "1.0.3"
@@ -17304,6 +17379,15 @@ Lockfile:
       is-fullwidth-code-point "^2.0.0"
       strip-ansi "^4.0.0"
   
+  string-width@^3.0.0, string-width@^3.1.0:
+    version "3.1.0"
+    resolved "https://registry.yarnpkg.com/string-width/-/string-width-3.1.0.tgz#22767be21b62af1081574306f69ac51b62203961"
+    integrity sha512-vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==
+    dependencies:
+      emoji-regex "^7.0.1"
+      is-fullwidth-code-point "^2.0.0"
+      strip-ansi "^5.1.0"
+  
   string-width@^4.1.0:
     version "4.1.0"
     resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.1.0.tgz#ba846d1daa97c3c596155308063e075ed1c99aff"
@@ -17682,6 +17766,11 @@ Lockfile:
   time-stamp@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
+  
+  timeago.js@^4.0.0-beta.2:
+    version "4.0.0-beta.2"
+    resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-4.0.0-beta.2.tgz#4e50a7250626b67e168a934d5e15052119366db1"
+    integrity sha512-MQkHiYGoB6qZC4DNWsLc9bav+L9hpdulL6sL7okzKR8r1Ipask/tXKAio8T+4jeby8FbpbDvbnCKGrh1bLop3g==
   
   timed-out@4.0.1, timed-out@^4.0.0, timed-out@^4.0.1:
     version "4.0.1"
@@ -18567,6 +18656,15 @@ Lockfile:
       string-width "^1.0.1"
       strip-ansi "^3.0.1"
   
+  wrap-ansi@^5.1.0:
+    version "5.1.0"
+    resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-5.1.0.tgz#1fd1f67235d5b6d0fee781056001bfb694c03b09"
+    integrity sha512-QC1/iN/2/RPVJ5jYK8BGttj5z83LmSKmvbvrXPNCLZSEb32KKVDJDl/MOt2N01qU2H/FkzEa9PKto1BqDjtd7Q==
+    dependencies:
+      ansi-styles "^3.2.0"
+      string-width "^3.0.0"
+      strip-ansi "^5.0.0"
+  
   wrappy@1, wrappy@~1.0.2:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
@@ -18915,6 +19013,14 @@ Lockfile:
       camelcase "^5.0.0"
       decamelize "^1.2.0"
   
+  yargs-parser@^13.1.1:
+    version "13.1.1"
+    resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-13.1.1.tgz#d26058532aa06d365fe091f6a1fc06b2f7e5eca0"
+    integrity sha512-oVAVsHz6uFrg3XQheFII8ESO2ssAf9luWuAd6Wexsu4F3OtIW0o8IribPXYrD4WC24LWtPrJlGy87y5udK+dxQ==
+    dependencies:
+      camelcase "^5.0.0"
+      decamelize "^1.2.0"
+  
   yargs-parser@^7.0.0:
     version "7.0.0"
     resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-7.0.0.tgz#8d0ac42f16ea55debd332caf4c4038b3e3f5dfd9"
@@ -18961,6 +19067,22 @@ Lockfile:
       which-module "^2.0.0"
       y18n "^3.2.1 || ^4.0.0"
       yargs-parser "^11.1.1"
+  
+  yargs@^13.2.2:
+    version "13.3.0"
+    resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.0.tgz#4c657a55e07e5f2cf947f8a366567c04a0dedc83"
+    integrity sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
+    dependencies:
+      cliui "^5.0.0"
+      find-up "^3.0.0"
+      get-caller-file "^2.0.1"
+      require-directory "^2.1.1"
+      require-main-filename "^2.0.0"
+      set-blocking "^2.0.0"
+      string-width "^3.0.0"
+      which-module "^2.0.0"
+      y18n "^4.0.0"
+      yargs-parser "^13.1.1"
   
   yargs@^8.0.2:
     version "8.0.2"

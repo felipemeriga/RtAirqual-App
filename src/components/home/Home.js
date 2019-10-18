@@ -8,6 +8,7 @@ import { ScreenProps } from "../pure-components/Types";
 import Styles from "../pure-components/Styles";
 import { Container, Content, Card, CardItem, Body, Thumbnail, Icon, Button, Left, Right } from "native-base";
 import variables from "../../../native-base-theme/variables/commonColor";
+import Map from "./Map";
 
 pontos = [
     { id: "lago", temp: 0, umid: 0, airq: 0 }, //0
@@ -25,8 +26,10 @@ dicasPontos = [
     { id: "utfpr", dicaTemp: '0', dicaUmid: '0', dicaAirq: '0', urlDica: "https://2y3nnveut3.execute-api.us-west-2.amazonaws.com/dev?endPoint=https://api.thingspeak.com/channels/281501/feeds.json?results=2?id=281492" }
 ]
 
+const CARD = 1;
+const MAPA = 2;
+
 @inject("channelsStore")
-@inject("mapsStore")
 @observer
 export default class Home extends React.Component<ScreenProps<>> {
 
@@ -62,7 +65,7 @@ export default class Home extends React.Component<ScreenProps<>> {
                 <View style={[Styles.center, Styles.flexGrow]}>
                     <Progress.Circle
                         size={65} indeterminate
-                        color="#FFF"
+                        color="#0BFBE1"
                         borderWidth={5}
                     />
                     <Text style={style.textoLoading}>Recebendos dados...</Text>
@@ -87,441 +90,440 @@ export default class Home extends React.Component<ScreenProps<>> {
             }
             const data = date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec;
             return (
-                    <Content>
-                        <Card>
-                            <CardItem style={style.cardItem}>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
-                                    <Body>
-                                        <Text style={style.textoNomePonto}>Lago Igapó</Text>
-                                        <Text style={style.textoDica}>{data}</Text>
-                                    </Body>
-                                </Left>
-                                <Right>
-                                    <View>
-                                        <Icon
-                                            name='ios-refresh'
-                                            color='#fff'
-                                            onPress={() => this.props.channelsStore.getChannels()}
-                                        />
-                                    </View>
-                                </Right>
-                            </CardItem>
-                            <CardItem cardBody style={style.cardItem}>
-                                <ImageBackground source={require('../../../assets/images/ponto_lago.png')} style={{ height: 250, width: null, flex: 1 }} >
-                                    <View style={style.viewBotaoDados}>
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorTemp(pontos[0].temp),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaTemp)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[0].temp} °C</Text>
-                                        </Button>
+                <Content>
+                                    <Card>
+                        <CardItem style={style.cardItem}>
+                            <Left>
+                                <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
+                                <Body>
+                                    <Text style={style.textoNomePonto}>Lago Igapó</Text>
+                                    <Text style={style.textoDica}>{data}</Text>
+                                </Body>
+                            </Left>
+                            <Right>
+                                <View>
+                                    <Icon
+                                        name='ios-refresh'
+                                        color='#fff'
+                                        onPress={() => this.props.channelsStore.getChannels()}
+                                    />
+                                </View>
+                            </Right>
+                        </CardItem>
+                        <CardItem cardBody style={style.cardItem}>
+                            <ImageBackground source={require('../../../assets/images/ponto_lago.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                <View style={style.viewBotaoDados}>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorTemp(pontos[0].temp),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaTemp)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[0].temp} °C</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorUmi(pontos[0].umid),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaUmid)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[0].umid}%</Text>
-                                        </Button>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorUmi(pontos[0].umid),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaUmid)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[0].umid}%</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorPolu(pontos[0].airq),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaAirq)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[0].airq}</Text>
-                                        </Button>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                            {
-                                this.state.status ?
-                                    <View>
-                                        <Text style={style.textoDica}>
-                                            {"Conforto térmico:\n" + this.props.channelsStore.dicasPontos[0].dicaTemp + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Umidade relativa:\n" + this.props.channelsStore.dicasPontos[0].dicaUmid + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Qualidade do ar:\n" + this.props.channelsStore.dicasPontos[0].dicaAirq + "\n"}
-                                        </Text>
-                                    </View>
-                                    : null
-                            }
-                        </Card>
-                        <Card>
-                            <CardItem style={style.cardItem}>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
-                                    <Body>
-                                        <Text style={style.textoNomePonto}>Jardim Botânico</Text>
-                                        <Text note> {data}</Text>
-                                    </Body>
-                                </Left>
-                                <Right>
-                                    <View>
-                                        <Icon
-                                            name='ios-refresh'
-                                            color='black'
-                                            onPress={() => this.props.channelsStore.getChannels()}
-                                            style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
-                                    </View>
-                                </Right>
-                            </CardItem>
-                            <CardItem cardBody style={style.cardItem}>
-                                <ImageBackground source={require('../../../assets/images/ponto_jardimbotanico.png')} style={{ height: 250, width: null, flex: 1 }} >
-                                    <View style={style.viewBotaoDados}>
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorTemp(pontos[1].temp),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaTemp)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[1].temp} °C</Text>
-                                        </Button>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorPolu(pontos[0].airq),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[0].dicaAirq)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[0].airq}</Text>
+                                    </Button>
+                                </View>
+                            </ImageBackground>
+                        </CardItem>
+                        {
+                            this.state.status ?
+                                <View>
+                                    <Text style={style.textoDica}>
+                                        {"Conforto térmico:\n" + this.props.channelsStore.dicasPontos[0].dicaTemp + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Umidade relativa:\n" + this.props.channelsStore.dicasPontos[0].dicaUmid + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Qualidade do ar:\n" + this.props.channelsStore.dicasPontos[0].dicaAirq + "\n"}
+                                    </Text>
+                                </View>
+                                : null
+                        }
+                    </Card>
+                    <Card>
+                        <CardItem style={style.cardItem}>
+                            <Left>
+                                <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
+                                <Body>
+                                    <Text style={style.textoNomePonto}>Jardim Botânico</Text>
+                                    <Text note> {data}</Text>
+                                </Body>
+                            </Left>
+                            <Right>
+                                <View>
+                                    <Icon
+                                        name='ios-refresh'
+                                        color='black'
+                                        onPress={() => this.props.channelsStore.getChannels()}
+                                        style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
+                                    {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
+                                </View>
+                            </Right>
+                        </CardItem>
+                        <CardItem cardBody style={style.cardItem}>
+                            <ImageBackground source={require('../../../assets/images/ponto_jardimbotanico.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                <View style={style.viewBotaoDados}>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorTemp(pontos[1].temp),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaTemp)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[1].temp} °C</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorUmi(pontos[1].umid),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaUmid)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[1].umid}%</Text>
-                                        </Button>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorUmi(pontos[1].umid),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaUmid)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[1].umid}%</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorPolu(pontos[1].airq),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaAirq)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[1].airq}</Text>
-                                        </Button>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                            {
-                                this.state.status ?
-                                    <View>
-                                        <Text style={style.textoDica}>
-                                            {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[1].dicaTemp + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[1].dicaUmid + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[1].dicaAirq}
-                                        </Text>
-                                    </View>
-                                    : null
-                            }
-                        </Card>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorPolu(pontos[1].airq),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[1].dicaAirq)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[1].airq}</Text>
+                                    </Button>
+                                </View>
+                            </ImageBackground>
+                        </CardItem>
+                        {
+                            this.state.status ?
+                                <View>
+                                    <Text style={style.textoDica}>
+                                        {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[1].dicaTemp + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[1].dicaUmid + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[1].dicaAirq}
+                                    </Text>
+                                </View>
+                                : null
+                        }
+                    </Card>
 
-                        <Card>
-                            <CardItem style={style.cardItem}>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
-                                    <Body>
-                                        <Text style={style.textoNomePonto}>Pista de atletismo - UEL</Text>
-                                        <Text note> {data}</Text>
-                                    </Body>
-                                </Left>
-                                <Right>
-                                    <View>
-                                        <Icon
-                                            name='ios-refresh'
-                                            color='black'
-                                            onPress={() => this.props.channelsStore.getChannels()}
-                                            style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
-                                    </View>
-                                </Right>
-                            </CardItem>
-                            <CardItem cardBody style={style.cardItem}>
-                                <ImageBackground source={require('../../../assets/images/ponto_uel.png')} style={{ height: 250, width: null, flex: 1 }} >
-                                    <View style={style.viewBotaoDados}>
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorTemp(pontos[3].temp),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaTemp)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[3].temp} °C</Text>
-                                        </Button>
+                    <Card>
+                        <CardItem style={style.cardItem}>
+                            <Left>
+                                <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
+                                <Body>
+                                    <Text style={style.textoNomePonto}>Pista de atletismo - UEL</Text>
+                                    <Text note> {data}</Text>
+                                </Body>
+                            </Left>
+                            <Right>
+                                <View>
+                                    <Icon
+                                        name='ios-refresh'
+                                        color='black'
+                                        onPress={() => this.props.channelsStore.getChannels()}
+                                        style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
+                                    {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
+                                </View>
+                            </Right>
+                        </CardItem>
+                        <CardItem cardBody style={style.cardItem}>
+                            <ImageBackground source={require('../../../assets/images/ponto_uel.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                <View style={style.viewBotaoDados}>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorTemp(pontos[3].temp),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaTemp)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[3].temp} °C</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorUmi(pontos[3].umid),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaUmid)}
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorUmi(pontos[3].umid),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaUmid)}
 
-                                        >
-                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[3].umid}%</Text>
-                                        </Button>
+                                    >
+                                        <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[3].umid}%</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorPolu(pontos[3].airq),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaAirq)}
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorPolu(pontos[3].airq),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[3].dicaAirq)}
 
-                                        >
-                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[3].airq}</Text>
-                                        </Button>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                            {
-                                this.state.status ?
-                                    <View>
-                                        <Text style={style.textoDica}>
-                                            {"Conforto térmico:\n" + this.props.channelsStore.dicasPontos[3].dicaTemp + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Umidade relativa:\n" + this.props.channelsStore.dicasPontos[3].dicaUmid + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Qualidade do ar:\n" + this.props.channelsStore.dicasPontos[3].dicaAirq + "\n"}
-                                        </Text>
-                                    </View>
-                                    : null
-                            }
-                        </Card>
+                                    >
+                                        <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[3].airq}</Text>
+                                    </Button>
+                                </View>
+                            </ImageBackground>
+                        </CardItem>
+                        {
+                            this.state.status ?
+                                <View>
+                                    <Text style={style.textoDica}>
+                                        {"Conforto térmico:\n" + this.props.channelsStore.dicasPontos[3].dicaTemp + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Umidade relativa:\n" + this.props.channelsStore.dicasPontos[3].dicaUmid + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Qualidade do ar:\n" + this.props.channelsStore.dicasPontos[3].dicaAirq + "\n"}
+                                    </Text>
+                                </View>
+                                : null
+                        }
+                    </Card>
 
-                        <Card>
-                            <CardItem style={style.cardItem}>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
-                                    <Body>
-                                        <Text style={style.textoNomePonto}>UTFPR</Text>
-                                        <Text note> {data}</Text>
-                                    </Body>
-                                </Left>
-                                <Right>
-                                    <View>
-                                        <Icon
-                                            name='ios-refresh'
-                                            color='black'
-                                            onPress={() => this.props.channelsStore.getChannels()}
-                                            style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
-                                    </View>
-                                </Right>
-                            </CardItem>
-                            <CardItem cardBody style={style.cardItem}>
-                                <ImageBackground source={require('../../../assets/images/ponto_utfpr.png')} style={{ height: 250, width: null, flex: 1 }} >
-                                    <View style={style.viewBotaoDados}>
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorTemp(pontos[4].temp),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaTemp)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[4].temp} °C</Text>
-                                        </Button>
+                    <Card>
+                        <CardItem style={style.cardItem}>
+                            <Left>
+                                <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
+                                <Body>
+                                    <Text style={style.textoNomePonto}>UTFPR</Text>
+                                    <Text note> {data}</Text>
+                                </Body>
+                            </Left>
+                            <Right>
+                                <View>
+                                    <Icon
+                                        name='ios-refresh'
+                                        color='black'
+                                        onPress={() => this.props.channelsStore.getChannels()}
+                                        style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
+                                    {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
+                                </View>
+                            </Right>
+                        </CardItem>
+                        <CardItem cardBody style={style.cardItem}>
+                            <ImageBackground source={require('../../../assets/images/ponto_utfpr.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                <View style={style.viewBotaoDados}>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorTemp(pontos[4].temp),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaTemp)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[4].temp} °C</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorUmi(pontos[4].umid),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaUmid)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[4].umid}%</Text>
-                                        </Button>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorUmi(pontos[4].umid),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaUmid)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[4].umid}%</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorPolu(pontos[4].airq),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaAirq)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[4].airq}</Text>
-                                        </Button>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                            {
-                                this.state.status ?
-                                    <View>
-                                        <Text style={style.textoDica}>
-                                            {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[4].dicaTemp + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[4].dicaUmid + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[4].dicaAirq}
-                                        </Text>
-                                    </View>
-                                    : null
-                            }
-                        </Card>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorPolu(pontos[4].airq),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[4].dicaAirq)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[4].airq}</Text>
+                                    </Button>
+                                </View>
+                            </ImageBackground>
+                        </CardItem>
+                        {
+                            this.state.status ?
+                                <View>
+                                    <Text style={style.textoDica}>
+                                        {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[4].dicaTemp + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[4].dicaUmid + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[4].dicaAirq}
+                                    </Text>
+                                </View>
+                                : null
+                        }
+                    </Card>
 
-                        <Card>
-                            <CardItem style={style.cardItem}>
-                                <Left>
-                                    <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
-                                    <Body>
-                                        <Text style={style.textoNomePonto}>Zerão</Text>
-                                        <Text note> {data}</Text>
-                                    </Body>
-                                </Left>
-                                <Right>
-                                    <View>
-                                        <Icon
-                                            name='ios-refresh'
-                                            color='black'
-                                            onPress={() => this.props.channelsStore.getChannels()}
-                                            style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
-                                        {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
-                                    </View>
-                                </Right>
-                            </CardItem>
-                            <CardItem cardBody style={style.cardItem}>
-                                <ImageBackground source={require('../../../assets/images/ponto_zerao.png')} style={{ height: 250, width: null, flex: 1 }} >
-                                    <View style={style.viewBotaoDados}>
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorTemp(pontos[2].temp),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaTemp)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[2].temp} °C</Text>
-                                        </Button>
+                    <Card>
+                        <CardItem style={style.cardItem}>
+                            <Left>
+                                <Thumbnail source={require('../../../assets/images/atk_icon_black.png')} />
+                                <Body>
+                                    <Text style={style.textoNomePonto}>Zerão</Text>
+                                    <Text note> {data}</Text>
+                                </Body>
+                            </Left>
+                            <Right>
+                                <View>
+                                    <Icon
+                                        name='ios-refresh'
+                                        color='black'
+                                        onPress={() => this.props.channelsStore.getChannels()}
+                                        style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', alignSelf: 'center' }} />
+                                    {/* <Text onPress={() => this.props.channelsStore.getChannels()} >Atualizar</Text> */}
+                                </View>
+                            </Right>
+                        </CardItem>
+                        <CardItem cardBody style={style.cardItem}>
+                            <ImageBackground source={require('../../../assets/images/ponto_zerao.png')} style={{ height: 250, width: null, flex: 1 }} >
+                                <View style={style.viewBotaoDados}>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorTemp(pontos[2].temp),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaTemp)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Conforto térmico: {'\n'} {pontos[2].temp} °C</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorUmi(pontos[2].umid),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaUmid)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[2].umid}%</Text>
-                                        </Button>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorUmi(pontos[2].umid),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaUmid)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Umidade relativa: {'\n'} {pontos[2].umid}%</Text>
+                                    </Button>
 
-                                        <Button transparent large style={{
-                                            borderWidth: 3,
-                                            borderColor: this.retornaCorPolu(pontos[2].airq),
-                                            flex: 1,
-                                            borderRadius: 15,
-                                            justifyContent: 'center',
-                                            margin: 3
-                                        }}
-                                            // onPress={() => this.ShowHideTextComponentView()}
-                                            onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaAirq)}
-                                        >
-                                            <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[2].airq}</Text>
-                                        </Button>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                            {
-                                this.state.status ?
-                                    <View>
-                                        <Text style={style.textoDica}>
-                                            {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[2].dicaTemp + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[2].dicaUmid + "\n"}
-                                        </Text>
-                                        <Text style={style.textoDica}>
-                                            {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[2].dicaAirq}
-                                        </Text>
-                                    </View>
-                                    : null
-                            }
-                        </Card>
-                    </Content>
+                                    <Button transparent large style={{
+                                        borderWidth: 3,
+                                        borderColor: this.retornaCorPolu(pontos[2].airq),
+                                        flex: 1,
+                                        borderRadius: 15,
+                                        justifyContent: 'center',
+                                        margin: 3
+                                    }}
+                                        // onPress={() => this.ShowHideTextComponentView()}
+                                        onPress={() => this.exibeDialogDica(this.props.channelsStore.dicasPontos[2].dicaAirq)}
+                                    >
+                                        <Text style={style.textoBotaoDados}>Qualidade do ar: {'\n'} {pontos[2].airq}</Text>
+                                    </Button>
+                                </View>
+                            </ImageBackground>
+                        </CardItem>
+                        {
+                            this.state.status ?
+                                <View>
+                                    <Text style={style.textoDica}>
+                                        {"Para o conforto térmico:\n" + this.props.channelsStore.dicasPontos[2].dicaTemp + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Para a umidade relativa:\n" + this.props.channelsStore.dicasPontos[2].dicaUmid + "\n"}
+                                    </Text>
+                                    <Text style={style.textoDica}>
+                                        {"Para a qualidade do ar:\n" + this.props.channelsStore.dicasPontos[2].dicaAirq}
+                                    </Text>
+                                </View>
+                                : null
+                        }
+                    </Card>
+                </Content>
             );
         }
     }
 
-    exibeDialogDica(dica){
-        console.log(dica);
+    exibeDialogDica(dica) {
         Alert.alert(
             'Dica:',
             dica,
             [
-              {text: 'Voltar'}
+                { text: 'Voltar' }
             ],
-            {cancelable: true},
-          );
+            { cancelable: true },
+        );
     }
 
     getTempUmidAirqToCards() {
@@ -603,7 +605,70 @@ export default class Home extends React.Component<ScreenProps<>> {
     }
 }
 
+type OverviewTabProps = {
+    tela: 1 | 2
+};
+
+@inject("channelsStore")
+@observer
+class OverviewTab extends React.Component<OverviewTabProps> {
+
+    constructor(props: React.Node) {
+        super(props);
+        this.props.channelsStore.getChannels();
+    }
+
+    componentDidUpdate(): React.Node {
+
+    }
+
+    render(): React.Node {
+        const { tela } = this.props;
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+        var year = new Date().getFullYear(); //Current Year
+        var hours = new Date().getHours(); //Current Hours
+        if (hours<10){
+            hours = "0"+hours;
+        }
+        var min = new Date().getMinutes(); //Current Minutes
+        if (min<10){
+            min = "0"+min;
+        }
+        // var sec = new Date().getSeconds(); //Current Seconds
+
+        const data = date + '/' + month + '/' + year + ' ' + hours + ':' + min;
+        // + ':' + sec;
+        if (tela === 1) {
+            if (this.props.channelsStore.loadingChannels === false
+                && this.props.channelsStore.loadingLocalization === false) {
+                return (
+                    // <Map channels={this.props.channelsStore.channels} localization={this.props.channelsStore.localization} />
+                <Container>
+
+                </Container>
+                );
+            }
+            return (
+                <View style={[Styles.center, Styles.flexGrow]}>
+                    <Progress.Circle size={50} indeterminate />
+                </View>
+            );
+        } else if (tela === 2) {
+            this.carregaCards();
+            return (
+                <Container>
+                </Container>
+            );
+        }
+    }
+//retorna cores
+}
+
 const style = StyleSheet.create({
+    map: {
+        ...StyleSheet.absoluteFillObject,
+      },
     viewBotaoDados: {
         flex: 1,
         flexDirection: 'row',

@@ -2,7 +2,7 @@
     "expo": {
 		"name": "Airtrak",
         "sdkVersion": "35.0.0",
-        "version": "1.5.0",
+        "version": "2.0.4",
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/images/atk_icon_black.png",
@@ -29,7 +29,7 @@
         },
 		"android": {
             "package": "com.rt.AirTrak",
-            "versionCode": 9
+            "versionCode": 13
 		},
         "assetBundlePatterns": [
             "**/*.ttf",

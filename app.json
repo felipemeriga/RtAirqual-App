@@ -24,21 +24,7 @@
         "packagerOpts": {
             "assetExts": ["otf", "ttf"]
         },
-        "ios": {
-            "bundleIdentifier": "com.rt.AirTrak",
-            "config": {
-                "googleMapsApiKey": "AIzaSyCkGfjyfNeG3-tpTGhL19kjzfRWJ17lpG8"
-            }
-        },
-		"android": {
-            "package": "com.rt.AirTrak",
-            "versionCode": 301,
-            "config": {
-                "googleMaps": {
-                    "apiKey": "AIzaSyCkGfjyfNeG3-tpTGhL19kjzfRWJ17lpG8"
-                }
-            }
-		},
+
         "assetBundlePatterns": [
             "**/*.ttf",
             "**/*.otf",

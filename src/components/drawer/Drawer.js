@@ -1,14 +1,14 @@
 // @flow
 import * as React from "react";
-import {inject, observer} from "mobx-react";
-import {View, StyleSheet, Image, TouchableHighlight, Linking, Alert, console} from "react-native";
-import {Button, Icon, Header, Text, Left, Title, Body, Right} from "native-base";
+import { inject, observer } from "mobx-react";
+import { View, StyleSheet, Image, TouchableHighlight, Linking, Alert, console } from "react-native";
+import { Button, Icon, Header, Text, Left, Title, Body, Right } from "native-base";
 import Constants from 'expo-constants'
-import {DrawerActions} from "react-navigation";
+import { DrawerActions } from "react-navigation";
 import { Ionicons } from '@expo/vector-icons';
 
-import {Images, Styles, WindowDimensions, Container} from "../pure-components";
-import type {NavigationProps} from "../pure-components/Types";
+import { Images, Styles, WindowDimensions, Container } from "../pure-components";
+import type { NavigationProps } from "../pure-components/Types";
 
 import variables from "../../../native-base-theme/variables/commonColor";
 
@@ -27,10 +27,10 @@ export default class Drawer extends React.Component<NavigationProps<>> {
     };
 
     render(): React.Node {
-        const {navigation} = this.props;
+        const { navigation } = this.props;
         return (
             <Container safe>
-                <Image source={Images.gradient} style={style.img}/>
+                <Image source={Images.gradient} style={style.img} />
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.dispatch(DrawerActions.closeDrawer())}>
@@ -39,23 +39,28 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={{fontWeight: 'bold'}}>Menu</Title>
+                        <Title style={{ fontWeight: 'bold' }}>Menu</Title>
                     </Body>
-                    <Right/>
+                    <Right />
                 </Header>
                 <View style={style.itemContainer}>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Pontos AirTrak" icon="ios-map" left descricao="Home"/>
-                        <DrawerItem {...{navigation}} name="Feed" icon="ios-calendar" descricao="Boletim"/* icon="ios-analytics-outline" */ />
+                        <DrawerItem {...{ navigation }} name="Pontos AirTrak" icon="ios-map" left descricao="Home" />
+                        <DrawerItem {...{ navigation }} name="Feed" icon="ios-calendar" descricao="Boletim"/* icon="ios-analytics-outline" */ />
 
                     </View>
                     <View style={style.row}>
-                        <DrawerItem {...{navigation}} name="Blog" icon="ios-globe" descricao="Blog" left/>
-                        <DrawerItem {...{navigation}} name="WhatsApp" icon="logo-whatsapp" descricao="Whats"/>
+                        <DrawerItem {...{ navigation }} name="Reportar treino" icon="stats" descricao="Create" left />
+                        <DrawerItem {...{ navigation }} descricao=""/>
+
+                    </View>
+                    <View style={style.row}>
+                        <DrawerItem {...{ navigation }} name="Blog" icon="ios-globe" descricao="Blog" left />
+                        <DrawerItem {...{ navigation }} name="WhatsApp" icon="logo-whatsapp" descricao="Whats" />
                     </View>
                 </View>
                 <Button transparent block onPress={this.login}>
-                    <Text style={{fontWeight: 'bold'}}>Sair</Text>
+                    <Text style={{ fontWeight: 'bold' }}>Sair</Text>
                 </Button>
             </Container>
         );
@@ -74,43 +79,63 @@ class DrawerItem extends React.PureComponent<DrawerItemProps> {
     render(): React.Node {
 
         function seleciona(descricao) {
-            if (descricao === "Blog") {
-                Alert.alert(
-                    "Você será direcionado para nosso blog",
-                    "Deseja continuar?",
-                    [
-                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                        {
-                            text: "Cancel",
-                            // onPress: () => console.log('Cancel Pressed'),
-                            style: "cancel"
-                        },
-                        {text: "OK", onPress: () => Linking.openURL("https://www.rtairqual.com.br/blog")}
-                    ],
-                    {cancelable: false}
-                );
-            } else if (descricao === "Whats") {
-                Linking.openURL("whatsapp://send?phone=5543991461916");
-            } else {
-                navigation.navigate(descricao);
+            if (descricao === "") {
+        
             }
+            else
+            // if (descricao === "Reportar") {
+            //     Alert.alert(
+            //         "Em breve!",
+            //         "Fique atento às novidades visitando nosso blog!",
+            //         [
+            //             //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+            //             {
+            //                 text: "Voltar",
+            //                 // onPress: () => console.log('Cancel Pressed'),
+            //                 style: "cancel"
+            //             }
+            //         ],
+            //         { cancelable: false }
+            //     );
+            // }
+            // else
+                if (descricao === "Blog") {
+                    Alert.alert(
+                        "Você será direcionado para nosso blog",
+                        "Deseja continuar?",
+                        [
+                            //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                            {
+                                text: "Voltar",
+                                // onPress: () => console.log('Cancel Pressed'),
+                                style: "cancel"
+                            },
+                            { text: "Confirmar", onPress: () => Linking.openURL("https://www.airtrak.com.br/blog") }
+                        ],
+                        { cancelable: false }
+                    );
+                } else if (descricao === "Whats") {
+                    Linking.openURL("whatsapp://send?phone=5543991461916");
+                } else {
+                    navigation.navigate(descricao);
+                }
         }
 
-        const {name, navigation, icon, left, descricao} = this.props;
+        const { name, navigation, icon, left, descricao } = this.props;
         const navState = this.props.navigation.state;
         const active = navState.routes[navState.index].key === descricao;
         const props = {
             // onPress: () => navigation.navigate(descricao),
             onPress: () => seleciona(descricao),
-            style: [style.item, left ? {borderRightWidth: variables.borderWidth} : undefined]
+            style: [style.item, left ? { borderRightWidth: variables.borderWidth } : undefined]
         };
         return (
             <TouchableHighlight {...props} activeOpacity={0.5} underlayColor="rgba(255, 255, 255, .2)">
                 <View style={[Styles.center, Styles.flexGrow]}>
-                    <Icon name={icon} style={{color: 'white'}}/>
-                    <Text style={{marginTop: variables.contentPadding}}>{name}</Text>
+                    <Icon name={icon} style={{ color: 'white' }} />
+                    <Text style={{ marginTop: variables.contentPadding }}>{name}</Text>
                     {
-                        active && <View style={style.dot}/>
+                        active && <View style={style.dot} />
                     }
                 </View>
             </TouchableHighlight>

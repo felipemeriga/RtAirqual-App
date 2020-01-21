@@ -5,6 +5,7 @@ import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
 import {Facebook, Google, Notifications} from "expo";
 import Constants from "../components/constants/Constants";
+import { Alert } from "react-native";
 
 
 class AuthStore {
@@ -64,19 +65,71 @@ class AuthStore {
             let message: string;
             if (err.code === "UserNotConfirmedException") {
                 message = "Seu usuário não esta confirmado!";
+                Alert.alert(
+                    "Erro",
+                    "Usuário não confirmado",
+                    [
+                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                        {
+                            text: "Voltar",
+                            // onPress: () => console.log('Cancel Pressed'),
+                            style: "cancel"
+                        }
+                    ],
+                    {cancelable: false}
+                );
                 // The error happens if the user didn"t finish the confirmation step when signing up
                 // In this case you need to resend the code and confirm the user
                 // About how to resend the code and confirm the user, please check the signUp part
             } else if (err.code === "PasswordResetRequiredException") {
                 message = "Sua senha foi resetada, acesse esqueci minha senha";
+                Alert.alert(
+                    "Erro",
+                    "Sua senha foi resetada, acesse o esqueci minha senha",
+                    [
+                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                        {
+                            text: "Voltar",
+                            // onPress: () => console.log('Cancel Pressed'),
+                            style: "cancel"
+                        }
+                    ],
+                    {cancelable: false}
+                );
                 // The error happens when the password is reset in the Cognito console
                 // In this case you need to call forgotPassword to reset the password
                 // Please check the Forgot Password part.
             } else if (err.code === "NotAuthorizedException") {
                 message = "Senha inválida";
+                Alert.alert(
+                    "Erro",
+                    "Senha inválida",
+                    [
+                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                        {
+                            text: "Voltar",
+                            // onPress: () => console.log('Cancel Pressed'),
+                            style: "cancel"
+                        }
+                    ],
+                    {cancelable: false}
+                );
                 // The error happens when the incorrect password is provided
             } else if (err.code === "UserNotFoundException") {
                 message = "Usuário inexistente";
+                Alert.alert(
+                    "Erro",
+                    "Usuário inexistente",
+                    [
+                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                        {
+                            text: "Voltar",
+                            // onPress: () => console.log('Cancel Pressed'),
+                            style: "cancel"
+                        }
+                    ],
+                    {cancelable: false}
+                );
                 // The error happens when the supplied username/email does not exist in the Cognito user pool
             } else {
                 console.log(err);
@@ -219,10 +272,49 @@ class AuthStore {
     signUpError(err: any): React.Node {
         if (err.code === "UsernameExistsException") {
             this.error = "Já existe um usuário com esse email";
+            Alert.alert(
+                "Erro",
+                "Já existe um usuário com esse email!",
+                [
+                    //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                    {
+                        text: "Voltar",
+                        // onPress: () => console.log('Cancel Pressed'),
+                        style: "cancel"
+                    }
+                ],
+                {cancelable: false}
+            );
         } else if (err.code === "NotAuthorizedException") {
             this.error = "Senha inválida";
+            Alert.alert(
+                "Erro",
+                "Senha inválida",
+                [
+                    //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                    {
+                        text: "Voltar",
+                        // onPress: () => console.log('Cancel Pressed'),
+                        style: "cancel"
+                    }
+                ],
+                {cancelable: false}
+            );
         } else if (err.code === "InvalidParameterException") {
             this.error = "Formato de telefone inválido, o correto é DDD+Número sem espaços";
+            Alert.alert(
+                "Erro",
+                "Formato inválido para o telefone, favor preencher com DDD+número",
+                [
+                    //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                    {
+                        text: "Voltar",
+                        // onPress: () => console.log('Cancel Pressed'),
+                        style: "cancel"
+                    }
+                ],
+                {cancelable: false}
+            );
         }
         this.animation = new Animated.Value(0);
         this.authenticated = false;

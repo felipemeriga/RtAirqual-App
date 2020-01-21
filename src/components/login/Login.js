@@ -5,6 +5,7 @@ import { StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroi
 import { inject, observer } from "mobx-react";
 import { Button, Text, Content } from "native-base";
 import Constants from 'expo-constants'
+import { Alert } from "react-native";
 
 import { Images, WindowDimensions, Field, Small, Styles } from "../pure-components";
 import { AnimatedView } from "../pure-components/Animations";
@@ -55,7 +56,7 @@ export default class Login extends React.Component<ScreenProps<>> {
                         color="#0BFBE1"
                         borderWidth={5}
                     />
-                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Teste...</Text>
+                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Conectando. . .</Text>
                 </View>
             );
         }
@@ -88,7 +89,7 @@ export default class Login extends React.Component<ScreenProps<>> {
                     </View>
                     <View>
                         <Button transparent full onPress={this.signUp}>
-                            <Small style={Styles.whiteText}>Ainda não possui conta? Crie agora!</Small>
+                            <Small style={Styles.whiteText}>Cadastre-se!</Small>
                         </Button>
                     </View>
                 </View>
@@ -100,16 +101,18 @@ export default class Login extends React.Component<ScreenProps<>> {
     setPasswordRef = (input: TextInput) => this.password = input._root;
     setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
-    //signIn = () => this.props.navigation.navigate("Walkthrough");
-    signIn = () => {
-        if (this.email._getText() === "" || this.password._getText() === "") {
-            this.props.authStore.logInError("É necessário preencher os campos corretamente!");
-        } else {
-            this.props.authStore.signIn(this.email._getText()
-                .toLocaleLowerCase(), this.password._getText());
-        }
+    signIn = () => this.props.navigation.navigate("Home");
+    // signIn = () => {
+    //     if (this.email._getText() === "" || this.password._getText() === "") {
+    //         this.props.authStore.logInError("É necessário preencher os campos corretamente!");
+    //     } else {
+    //         this.props.authStore.signIn(this.email._getText()
+    //             .toLocaleLowerCase(), this.password._getText());
+    //     }
+    // };
 
-    };
+
+
     signUp = () => this.props.navigation.navigate("SignUp");
 
     render(): React.Node {

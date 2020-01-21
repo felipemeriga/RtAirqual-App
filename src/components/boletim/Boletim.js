@@ -35,7 +35,7 @@ export default class Boletim extends React.Component<ScreenProps<>> {
                         color="#0BFBE1"
                         borderWidth={5}
                     />
-                    <Text style={style.textoLoading}>Recebendos dados...</Text>
+                    <Text style={style.textoLoading}>Carregando boletim...</Text>
                 </View>
             );
         }
@@ -123,7 +123,7 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         } else if (tela === 2) {
             return (
                 <View style={style.containerRanking}>
-                    <FlatList
+                    {/* <FlatList
                         data={listRanking}
                         renderItem={({ item }) => 
                             <CustomRow
@@ -135,7 +135,10 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                             />
                         }
                         keyExtractor={(item, index) => item.id}
-                    />
+                    /> */}
+                        <View style={style.containerBoletim}>
+                            <Text style={{ fontSize: 25, color: "#FFF" }}>Em breve!</Text>
+                        </View>
                 </View>
             );
         }
@@ -216,8 +219,8 @@ const style = StyleSheet.create({
         elevation: 2,
     },
     containerRanking: {
-        flexGrow: 1, 
-        backgroundColor: "white"
+        flexGrow: 1
+        // backgroundColor: "white"
     },
     title: {
         fontSize: 16,
@@ -263,5 +266,12 @@ const style = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         margin: 10
+    },
+    containerRanking: {
+        flex: 1,
+        backgroundColor: '#000',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
     },
 });

@@ -26,6 +26,8 @@ class MapsStore {
                 this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
                 this.airQualityMessage = this.markDetail.airQualityMessage[0];
                 this.loadingDetail = false;
+                console.log("chamou mapsstore");
+                console.log("-> " +this.markDetail.airQualityMessage[0]);
             })
             .catch((err) => {
                 console.log(err);

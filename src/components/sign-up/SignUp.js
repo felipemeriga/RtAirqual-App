@@ -86,6 +86,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                         color="#0BFBE1"
                         borderWidth={5}
                     />
+                    <Text style={style.textoLoading}>Conectando...</Text>
                 </View>
             );
         }

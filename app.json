@@ -24,7 +24,21 @@
         "packagerOpts": {
             "assetExts": ["otf", "ttf"]
         },
-
+        "ios": {
+            "bundleIdentifier": "com.rt.AirTrak",
+            "config": {
+                "googleMapsApiKey": ""
+            }
+        },
+		"android": {
+            "package": "com.rt.AirTrak",
+            "versionCode": 301,
+            "config": {
+                "googleMaps": {
+                    "apiKey": ""
+                }
+            }
+		},
         "assetBundlePatterns": [
             "**/*.ttf",
             "**/*.otf",
@@ -33,3 +47,5 @@
         ]
     }
 }
+
+

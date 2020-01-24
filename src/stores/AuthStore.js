@@ -3,9 +3,10 @@ import {Animated} from "react-native";
 import axios from "axios";
 import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
-import {Facebook, Google, Notifications} from "expo";
+import {Facebook, Notifications} from "expo";
 import Constants from "../components/constants/Constants";
 import { Alert } from "react-native";
+import * as Google from 'expo-google-app-auth'
 
 
 class AuthStore {
@@ -101,19 +102,19 @@ class AuthStore {
                 // Please check the Forgot Password part.
             } else if (err.code === "NotAuthorizedException") {
                 message = "Senha inválida";
-                Alert.alert(
-                    "Erro",
-                    "Senha inválida",
-                    [
-                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                        {
-                            text: "Voltar",
-                            // onPress: () => console.log('Cancel Pressed'),
-                            style: "cancel"
-                        }
-                    ],
-                    {cancelable: false}
-                );
+                // Alert.alert(
+                //     "Erro",
+                //     "Senha inválida",
+                //     [
+                //         //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                //         {
+                //             text: "Voltar",
+                //             // onPress: () => console.log('Cancel Pressed'),
+                //             style: "cancel"
+                //         }
+                //     ],
+                //     {cancelable: false}
+                // );
                 // The error happens when the incorrect password is provided
             } else if (err.code === "UserNotFoundException") {
                 message = "Usuário inexistente";
@@ -287,19 +288,19 @@ class AuthStore {
             );
         } else if (err.code === "NotAuthorizedException") {
             this.error = "Senha inválida";
-            Alert.alert(
-                "Erro",
-                "Senha inválida",
-                [
-                    //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                    {
-                        text: "Voltar",
-                        // onPress: () => console.log('Cancel Pressed'),
-                        style: "cancel"
-                    }
-                ],
-                {cancelable: false}
-            );
+            // Alert.alert(
+            //     "Erro",
+            //     "Senha inválida",
+            //     [
+            //         //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+            //         {
+            //             text: "Voltar",
+            //             // onPress: () => console.log('Cancel Pressed'),
+            //             style: "cancel"
+            //         }
+            //     ],
+            //     {cancelable: false}
+            // );
         } else if (err.code === "InvalidParameterException") {
             this.error = "Formato de telefone inválido, o correto é DDD+Número sem espaços";
             Alert.alert(

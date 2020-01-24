@@ -27,7 +27,7 @@
         "ios": {
             "bundleIdentifier": "com.rt.AirTrak",
             "config": {
-                "googleMapsApiKey": ""
+                "googleMapsApiKey": "AIzaSyDpFDZpVH6QX5VMKMC82cTDIL1qTZKNVug"
             }
         },
 		"android": {
@@ -35,7 +35,7 @@
             "versionCode": 301,
             "config": {
                 "googleMaps": {
-                    "apiKey": ""
+                    "apiKey": "AIzaSyDpFDZpVH6QX5VMKMC82cTDIL1qTZKNVug"
                 }
             }
 		},

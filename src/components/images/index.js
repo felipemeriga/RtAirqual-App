@@ -13,7 +13,7 @@ import Walkthrough from "../../../assets/images/fundo_airtracking.png";
 import Profile from "../../../assets/images/profile_running.jpg";
 import LogoSymbol from "../../../assets/images/logoSymbol.png";
 import BoletimBackground from "../../../assets/images/boletim_background.jpg";
-import LogoLetter from "../../../assets/images/airtrack_logo_slogan_negativo.png";
+import LogoLetter from "../../../assets/images/airtrack_logo_slogan_negativo_2.png";
 import SmartCity from "../../../assets/images/smartCityRT.png";
 import Notifications from "../../../assets/images/notifications.png";
 import Boletim from "../../../assets/images/boletim.png"; 

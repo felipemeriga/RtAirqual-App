@@ -23,11 +23,12 @@ class MapsStore {
             .then((response) => {
                 this.markDetail = response.data.body[0];
                 this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
+                if(!this.markDetail.relativeHumityMessage[0].message){
+                    this.relativeHumityMessage = 'Forte sensação de abafado ao se exercitar. Risco: suor excessivo, fadiga precoce e queda de desempenho. Indica-se atividades mais leves.';
+                }
                 this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
                 this.airQualityMessage = this.markDetail.airQualityMessage[0];
                 this.loadingDetail = false;
-                console.log("chamou mapsstore");
-                console.log("-> " +this.markDetail.airQualityMessage[0]);
             })
             .catch((err) => {
                 console.log(err);

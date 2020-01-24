@@ -102,6 +102,8 @@ export default class Map extends React.Component<{}> {
                         <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
 
                             <SCLAlert
+                            
+                                subtitle = "Dados de monitoramento:"
                                 theme="atk"
                                 show={this.state.show}
                                 cancellable={true}
@@ -144,7 +146,7 @@ export default class Map extends React.Component<{}> {
                                 </SCLAlertButton>
 
                                 <SCLAlertButton
-                                    theme="success"
+                                    theme={this.retornaCorPolu(this.props.mapsStore.markDetail.field3)}
                                     onPress={() => {
                                         Alert.alert(
                                             "O que esse número diz sobre o índice de qualidade do ar: ",

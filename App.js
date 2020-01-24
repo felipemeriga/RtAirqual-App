@@ -138,8 +138,4 @@ const AppNavigator = createAppContainer(createSwitchNavigator({
         backgroundColor: variables.brandInfo
     }
 }));
-
-
-// You can get the current config object
-
 export { AppNavigator };

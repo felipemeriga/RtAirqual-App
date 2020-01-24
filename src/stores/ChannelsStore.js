@@ -10,9 +10,7 @@ class ChannelsStore {
     @observable channels: Channel = [];
     @observable error;
     @observable cardsDetail: Object = {};
-    @observable thermalConfortMessage: Object = {};
-    @observable relativeHumityMessage: Object = {};
-    @observable airQualityMessage: Object = {};
+    @observable channel: any = {};
     @observable markDetail: Object = {};
 
     @observable dicasPontos = [
@@ -26,16 +24,17 @@ class ChannelsStore {
     @action
     async getChannels(): React.node {
         this.loadingChannels = true;
+        this.loadingDetail = true;
         axios.get("https://fep6atgqtd.execute-api.us-west-2.amazonaws.com/dev")
             .then((response) => {
                 this.channels = response.data.body;
                 this.cardsDetail = response.data.body;
-                console.log('atualizou valores');
             })
             .catch((error) => {
                 this.error = error;
                 this.errorFlag = true;
                 this.loadingChannels = false;
+                this.loadingDetail = false;
                 console.log(this.error);
             });
 
@@ -43,19 +42,6 @@ class ChannelsStore {
         axios.get(dicasPontos[0].urlDica)
             .then((response) => {
                 this.markDetail = response.data.body[0];
-                this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                if (this.markDetail.relativeHumityMessage.length < 1) {
-                    this.markDetail.relativeHumityMessage = this.markDetail.thermalConfortMessage;
-                }
-                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
-                this.airQualityMessage = this.markDetail.airQualityMessage[0];
-                this.dicasPontos[0].dicaTemp = this.thermalConfortMessage.message;
-                if (this.thermalConfortMessage.message === this.relativeHumityMessage.message) {
-                    this.dicasPontos[0].dicaUmid = 'Forte sensação de abafado ao se exercitar. Risco: suor excessivo, fadiga precoce e queda de desempenho. Indica-se atividades mais leves.';
-                } else {
-                    this.dicasPontos[0].dicaUmid = this.relativeHumityMessage.message;
-                }
-                this.dicasPontos[0].dicaAirq = this.airQualityMessage.message;
             })
             .catch((err) => {
                 console.log(err);
@@ -68,19 +54,6 @@ class ChannelsStore {
         axios.get(dicasPontos[1].urlDica)
             .then((response) => {
                 this.markDetail = response.data.body[0];
-                this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                if (this.markDetail.relativeHumityMessage.length < 1) {
-                    this.markDetail.relativeHumityMessage = this.markDetail.thermalConfortMessage;
-                }
-                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
-                this.airQualityMessage = this.markDetail.airQualityMessage[0];
-                this.dicasPontos[1].dicaTemp = this.thermalConfortMessage.message;
-                if (this.thermalConfortMessage.message === this.relativeHumityMessage.message) {
-                    this.dicasPontos[1].dicaUmid = 'Forte sensação de abafado ao se exercitar. Risco: suor excessivo, fadiga precoce e queda de desempenho. Indica-se atividades mais leves.';
-                } else {
-                    this.dicasPontos[1].dicaUmid = this.relativeHumityMessage.message;
-                }
-                this.dicasPontos[1].dicaAirq = this.airQualityMessage.message;
             })
             .catch((err) => {
                 console.log(err);
@@ -88,23 +61,10 @@ class ChannelsStore {
                 this.loadingDetail = false;
             });
 
-        //PUC
+        //ZERAO
         axios.get(dicasPontos[2].urlDica)
             .then((response) => {
                 this.markDetail = response.data.body[0];
-                this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                if (this.markDetail.relativeHumityMessage.length < 1) {
-                    this.markDetail.relativeHumityMessage = this.markDetail.thermalConfortMessage;
-                }
-                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
-                this.airQualityMessage = this.markDetail.airQualityMessage[0];
-                this.dicasPontos[2].dicaTemp = this.thermalConfortMessage.message;
-                if (this.thermalConfortMessage.message === this.relativeHumityMessage.message) {
-                    this.dicasPontos[2].dicaUmid = 'Forte sensação de abafado ao se exercitar. Risco: suor excessivo, fadiga precoce e queda de desempenho. Indica-se atividades mais leves.';
-                } else {
-                    this.dicasPontos[2].dicaUmid = this.relativeHumityMessage.message;
-                }
-                this.dicasPontos[2].dicaAirq = this.airQualityMessage.message;
             })
             .catch((err) => {
                 console.log(err);
@@ -117,19 +77,6 @@ class ChannelsStore {
         axios.get(dicasPontos[3].urlDica)
             .then((response) => {
                 this.markDetail = response.data.body[0];
-                this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                if (this.markDetail.relativeHumityMessage.length < 1) {
-                    this.markDetail.relativeHumityMessage = this.markDetail.thermalConfortMessage;
-                }
-                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
-                this.airQualityMessage = this.markDetail.airQualityMessage[0];
-                this.dicasPontos[3].dicaTemp = this.thermalConfortMessage.message;
-                if (this.thermalConfortMessage.message === this.relativeHumityMessage.message) {
-                    this.dicasPontos[3].dicaUmid = 'Forte sensação de abafado ao se exercitar. Risco: suor excessivo, fadiga precoce e queda de desempenho. Indica-se atividades mais leves.';
-                } else {
-                    this.dicasPontos[3].dicaUmid = this.relativeHumityMessage.message;
-                }
-                this.dicasPontos[3].dicaAirq = this.airQualityMessage.message;
             })
             .catch((err) => {
                 console.log(err);
@@ -142,26 +89,15 @@ class ChannelsStore {
         axios.get(dicasPontos[4].urlDica)
             .then((response) => {
                 this.markDetail = response.data.body[0];
-                this.thermalConfortMessage = this.markDetail.thermalConfortMessage[0];
-                if (this.markDetail.relativeHumityMessage.length < 1) {
-                    this.markDetail.relativeHumityMessage = this.markDetail.thermalConfortMessage;
-                }
-                this.relativeHumityMessage = this.markDetail.relativeHumityMessage[0];
-                this.airQualityMessage = this.markDetail.airQualityMessage[0];
-                this.dicasPontos[4].dicaTemp = this.thermalConfortMessage.message;
-                if (this.thermalConfortMessage.message === this.relativeHumityMessage.message) {
-                    this.dicasPontos[4].dicaUmid = 'Forte sensação de abafado ao se exercitar. Risco: suor excessivo, fadiga precoce e queda de desempenho. Indica-se atividades mais leves.';
-                } else {
-                    this.dicasPontos[4].dicaUmid = this.relativeHumityMessage.message;
-                }
-                this.dicasPontos[4].dicaAirq = this.airQualityMessage.message;
-                this.loadingChannels = false;
             })
             .catch((err) => {
                 console.log(err);
                 this.error = true;
                 this.loadingDetail = false;
             });
+        this.loadingDetail = false;
+        this.loadingChannels = false;
+        console.log("Chegou aqui getChannels");
     }
 
     @action

@@ -45,17 +45,17 @@ export default class Drawer extends React.Component<NavigationProps<>> {
                 </Header>
                 <View style={style.itemContainer}>
                     <View style={style.row}>
-                        <DrawerItem {...{ navigation }} name="Pontos AirTrak" icon="ios-map" left descricao="Home" />
+                        <DrawerItem {...{ navigation }} name="Pontos Airtrak" icon="ios-map" left descricao="Home" />
                         <DrawerItem {...{ navigation }} name="Feed" icon="ios-calendar" descricao="Boletim"/* icon="ios-analytics-outline" */ />
 
                     </View>
                     <View style={style.row}>
                         <DrawerItem {...{ navigation }} name="Reportar treino" icon="stats" descricao="Create" left />
-                        <DrawerItem {...{ navigation }} descricao=""/>
+                        <DrawerItem {...{ navigation }} name="Mudar região" icon="md-globe" descricao="Create" />
 
                     </View>
                     <View style={style.row}>
-                        <DrawerItem {...{ navigation }} name="Blog" icon="ios-globe" descricao="Blog" left />
+                        <DrawerItem {...{ navigation }} name="Blog" icon="md-browsers" descricao="Blog" left />
                         <DrawerItem {...{ navigation }} name="WhatsApp" icon="logo-whatsapp" descricao="Whats" />
                     </View>
                 </View>
@@ -83,22 +83,22 @@ class DrawerItem extends React.PureComponent<DrawerItemProps> {
         
             }
             else
-            // if (descricao === "Reportar") {
-            //     Alert.alert(
-            //         "Em breve!",
-            //         "Fique atento às novidades visitando nosso blog!",
-            //         [
-            //             //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-            //             {
-            //                 text: "Voltar",
-            //                 // onPress: () => console.log('Cancel Pressed'),
-            //                 style: "cancel"
-            //             }
-            //         ],
-            //         { cancelable: false }
-            //     );
-            // }
-            // else
+            if (descricao === "Create") {
+                Alert.alert(
+                    "Em breve!",
+                    "Fique atento que logo teremos novidades em nosso app!",
+                    [
+                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                        {
+                            text: "Voltar",
+                            // onPress: () => console.log('Cancel Pressed'),
+                            style: "cancel"
+                        }
+                    ],
+                    { cancelable: false }
+                );
+            }
+            else
                 if (descricao === "Blog") {
                     Alert.alert(
                         "Você será direcionado para nosso blog",

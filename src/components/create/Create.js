@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { StyleSheet, View, Button, Text, Alert,Platform } from "react-native";
+import { StyleSheet, View, Button, Text, Alert, Platform } from "react-native";
 
 import { BaseContainer, Avatar, Field, Styles } from "../pure-components";
 import type { ScreenProps } from "../pure-components/Types";
@@ -10,8 +10,8 @@ import variables from "../../../native-base-theme/variables/commonColor";
 import atividadeStore from "../../stores/AtividadeStore";
 import { inject, observer } from "mobx-react";
 import { Slider } from 'react-native';
-
-import {Component} from 'react';
+import DatePicker from 'react-native-datepicker';
+import { Component } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
@@ -71,7 +71,7 @@ export default class Create extends React.PureComponent<ScreenProps<>> {
             };
         });
     }
-    
+
 
     render(): React.Node {
         const { rangeValue } = this.state;
@@ -117,6 +117,33 @@ export default class Create extends React.PureComponent<ScreenProps<>> {
                         onPress={() => this.props.atividadeStore.getReportActivity()}
                     />
                 </View>
+                <View style={styles.container}>
+
+                    <DatePicker
+                        style={{ width: 200 }}
+                        date={this.state.date} //initial date from state
+                        mode="date" //The enum of date, datetime and time
+                        placeholder="select date"
+                        format="DD-MM-YYYY"
+                        minDate="01-01-2019"
+                        maxDate="01-01-2020"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                            dateInput: {
+                                marginLeft: 36
+                            }
+                        }}
+                        onDateChange={(date) => { this.setState({ date: date }) }}
+                    />
+
+                </View>
             </BaseContainer>
         );
     }
@@ -141,6 +168,13 @@ const styles = StyleSheet.create({
     },
     view: {
         backgroundColor: "#fff"
-    }
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent:'center',
+        marginTop: 50,
+        padding:16
+     }
 
 });

@@ -44,7 +44,7 @@ export default class Profile extends React.Component<ScreenProps<>> {
             <BaseContainer title="Airtrak" navigation={this.props.navigation} scrollable style={style.container}>
                 {this.returnUserPhoto()}
                 <View style={style.row}>
-                    <H1>{this.getUserInformation()}</H1>
+                    <H1>Olá, {this.getUserInformation()}</H1>
                     <Text style={Styles.textCentered}>Parabéns por estar praticando em alta performance conosco!</Text>
                     <Text style={Styles.textCentered}>{'\n'}Em breve teremos várias informações importantíssimas para que você dê um gás na sua performance, fique ligado!</Text>
                     <Text style={Styles.textCentered}>{'\n'}Enquanto isso, não deixe de nos conferir nas redes sociais e ficar por dentro das novidades!</Text>
@@ -67,7 +67,7 @@ export default class Profile extends React.Component<ScreenProps<>> {
                         </Button>
                     </View>
                 </View>
-
+                <Text style={style.version}>V. 4.0.2</Text>
             </BaseContainer>
         );
     }
@@ -116,5 +116,12 @@ const style = StyleSheet.create({
     },
     buttonText: {
         color: 'white'
+    },
+    version: {
+        color: 'white',
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        textAlign: "center"
     }
 });

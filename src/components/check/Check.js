@@ -31,6 +31,7 @@ export default class Check extends React.Component<ScreenProps<>> {
     }
 
     handleNotification = notification => {
+        console.log("aqui false");
         console.log(notification);
     };
 
@@ -42,7 +43,9 @@ export default class Check extends React.Component<ScreenProps<>> {
 
     async allValidationsCompleted(): React.Node {
         try {
+            console.log("user1: " + user);
             const user = await Auth.currentAuthenticatedUser();
+            console.log("user2: " + user);
             if (user.hasOwnProperty("attributes")) {
                 user.attributes.id = user.attributes.sub;
                 await this.props.authStore.getUserAuthMethod(user.attributes);
@@ -50,8 +53,10 @@ export default class Check extends React.Component<ScreenProps<>> {
                 await this.props.authStore.getUserAuthMethod(user);
             }
             this.props.navigation.navigate("Home");
+            console.log("MANDOU PRA HOME");
         } catch (err) {
-            console.log(err);
+            console.log(" erro: -> " + err);
+            console.log("LOGAR");
             this.props.navigation.navigate("Login");
         }
     }

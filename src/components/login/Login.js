@@ -1,19 +1,15 @@
 // @flow
 import * as React from "react";
 import * as Progress from "react-native-progress";
-import { StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid, KeyboardAvoidingView, StatusBar, AppRegistry, Dimensions, TouchableOpacity, ImageBackground } from "react-native";
+import { StyleSheet, Image, View, TextInput, SafeAreaView, Animated, ToastAndroid, Platform, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, StatusBar, AppRegistry, Dimensions, TouchableOpacity, ImageBackground } from "react-native";
 import { inject, observer } from "mobx-react";
 import { Button, Text, Content } from "native-base";
 import Constants from 'expo-constants'
 import { Alert } from "react-native";
-
 import { Images, WindowDimensions, Field, Small, Styles } from "../pure-components";
 import { AnimatedView } from "../pure-components/Animations";
 import type { ScreenProps } from "../pure-components/Types";
-
-
 import variables from "../../../native-base-theme/variables/commonColor";
-
 
 const background = require("../../../assets/images/fundo_1.png");
 
@@ -23,6 +19,13 @@ export default class Login extends React.Component<ScreenProps<>> {
     // $FlowFixMe
     password: TextInput;
     email: TextInput;
+
+    // state={
+    //     email:"",
+    //     password:""
+    //   }
+
+    googleFederatedSignIn = () => this.props.authStore.googleFederatedSignIn();
 
     componentDidUpdate(): React.Node {
         if (this.props.authStore.authenticated) {
@@ -40,6 +43,12 @@ export default class Login extends React.Component<ScreenProps<>> {
     }
 
     componentWillMount(): React.Node {
+        console.log("bateu compwillmount");
+        if (this.props.authStore.logado == true) {
+            console.log("VALOR=TRUE");
+        } else {
+            console.log("VALOR=FALSE");
+        }
         this.props.authStore.signOut();
         this.props.authStore.animation = new Animated.Value(0);
         this.props.authStore.errorAlreadyShown();
@@ -50,7 +59,7 @@ export default class Login extends React.Component<ScreenProps<>> {
             ToastAndroid.show(this.props.authStore.error, ToastAndroid.LONG);
         }
     }
-
+    
     renderContent(): React.Node {
         if (this.props.authStore.autheticating) {
             return (
@@ -60,56 +69,22 @@ export default class Login extends React.Component<ScreenProps<>> {
                         color="#0BFBE1"
                         borderWidth={5}
                     />
-                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 20, margin: 10 }}>Conectando. . .</Text>
+                    <Text style={styles.textoLoading}>Conectando ao servidor...</Text>
                 </View>
             );
         }
         return (
-            // <KeyboardAvoidingView behavior="padding">
-            //     <StatusBar
-            //         backgroundColor="black"
-            //         barStyle="light-content"
-            //     />
-            //     <Field
-            //         label="Usuário ou email"
-            //         autoCapitalize="none"
-            //         returnKeyType="next"
-            //         textInputRef={this.setEmailRef}
-            //     />
-            //     <Field
-            //         label="Senha"
-            //         secureTextEntry
-            //         autoCapitalize="none"
-            //         returnKeyType="go"
-            //         textInputRef={this.setPasswordRef}
-            //         onSubmitEditing={this.signIn}
-            //         last
-            //     />
-            //     <View>
-            //         <View>
-            //             <Button info full onPress={this.signIn}>
-            //                 <Text>Entrar</Text>
-            //             </Button>
-            //         </View>
-            //         <View>
-            //             <Button transparent full onPress={this.signUp}>
-            //                 <Small style={Styles.whiteText}>Cadastre-se!</Small>
-            //             </Button>
-            //         </View>
-            //     </View>
-            // </KeyboardAvoidingView>
             <View style={styles.container}>
                 <ImageBackground source={background} style={styles.background} resizeMode="cover">
                     <View style={styles.markWrap}>
                         <Image source={Images.logoLetter} style={styles.logoLetter} resizeMode="contain" />
-                        {/* <Image source={mark} style={styles.mark} resizeMode="contain" /> */}
                     </View>
                     <View style={styles.wrapper}>
                         <Field
                             label="Email"
                             autoCapitalize="none"
                             returnKeyType="next"
-                            style={styles.input} 
+                            style={styles.input}
                             textInputRef={this.setEmailRef}
                             last
                         />
@@ -122,23 +97,20 @@ export default class Login extends React.Component<ScreenProps<>> {
                             onSubmitEditing={this.signIn}
                             last
                         />
-                        {/* <TouchableOpacity activeOpacity={.5}>
-                            <View>
-                                <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
-                            </View>
-                        </TouchableOpacity> */}
-                        <TouchableOpacity activeOpacity={.5} onPress={this.signIn}>
-                            <View style={styles.button} >
-                                <Text style={styles.buttonText} >Entrar</Text>
-                            </View>
+                        <TouchableOpacity activeOpacity={.5} style={styles.button} onPress={this.signIn}>
+                            <Text style={styles.buttonText}>Entrar</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity activeOpacity={.5} onPress={this.googleFederatedSignIn} style={styles.buttonGoogle}>
+                            <Text style={styles.buttonText} >Entrar com Google</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.container}>
                         <View style={styles.signupWrap}>
-                            <Text style={styles.accountText}>Ainda não tem uma conta?</Text>
-                            <TouchableOpacity activeOpacity={.5}>
+                            {/* <Text style={styles.accountText}>Ainda não tem uma conta?</Text> */}
+                            <TouchableOpacity>
                                 <View>
-                                    <Text style={styles.signupLinkText} onPress={this.signUp}>Cadastrar!</Text>
+                                    <Text style={styles.signupLinkText} onPress={this.signUp}>Criar nova conta</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -152,15 +124,15 @@ export default class Login extends React.Component<ScreenProps<>> {
     setPasswordRef = (input: TextInput) => this.password = input._root;
     setEmailRef = (input: TextInput) => this.email = input._root;
     goToPassword = () => this.password.focus();
-    signIn = () => this.props.navigation.navigate("Home");
-    // signIn = () => {
-        // if (this.email._getText() === "" || this.password._getText() === "") {
-        //     this.props.authStore.logInError("É necessário preencher os campos corretamente!");
-        // } else {
-        // this.props.authStore.signIn(this.email._getText()
-            // .toLocaleLowerCase(), this.password._getText());
-        // }
-    // };
+    // signIn = () => this.props.navigation.navigate("Home");
+    signIn = () => {
+        if (this.email._getText() === "" || this.password._getText() === "") {
+            this.props.authStore.logInError("É necessário preencher os campos corretamente!");
+        } else {
+            this.props.authStore.signIn(this.email._getText()
+                .toLocaleLowerCase(), this.password._getText());
+        }
+    };
 
 
 
@@ -170,83 +142,25 @@ export default class Login extends React.Component<ScreenProps<>> {
         this.onLoad();
         this.hasError();
         return (
-            <View style={styles.container}>
-                <Image source={Images.loginBackground} style={styles.image} />
-                <SafeAreaView style={StyleSheet.absoluteFill}>
-                    <Content style={[StyleSheet.absoluteFill, styles.content]}>
-                        <AnimatedView style={styles.innerContent}>
-                            <Animated.View style={{ opacity: this.props.authStore.animation }}>
-                                {/* <View style={styles.verticalAlign}> */}
-                                {/* <View style={styles.logo}>
-                                        <View>
-                                            <Image source={Images.logoSymbol} style={styles.logoSymbol} />
-                                        </View>
-                                    </View> */}
-                                {/* <View style={styles.logoLetterView}>
-                                    <View>
-                                        <Image source={Images.logoLetter} style={styles.logoLetter} />
-                                    </View>
-                                </View> */}
-                                {/* </View> */}
-                            </Animated.View>
-                            {this.renderContent()}
-                        </AnimatedView>
-                    </Content>
-                </SafeAreaView>
+            <View style={styles.containerLoading}>
+                {this.renderContent()}
             </View>
         );
     }
 }
 
 const { height, width } = WindowDimensions;
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1
-//     },
-//     image: {
-//         height,
-//         width
-//     },
-//     content: {
-//         flexGrow: 1
-//     },
-//     innerContent: {
-//         height: height - Constants.statusBarHeight,
-//         justifyContent: "flex-end"
-//     },
-//     verticalAlign: {
-//         flexDirection: "column"
-//     },
-//     logo: {
-//         marginVertical: variables.contentPadding * 2,
-//         alignItems: "center",
-//         justifyContent: "center",
-//         marginTop: 200
-
-//     },
-//     logoLetterView: {
-//         alignItems: "center",
-//         justifyContent: "center"
-//     },
-//     loadingCircle: {
-//         alignItems: "center",
-//         justifyContent: "center"
-//     },
-//     logoSymbol: {
-//         width: width * 0.25,
-//         height: height * 0.15,
-//         alignItems: "center",
-//         justifyContent: "center",
-//     },
-//     logoLetter: {
-//         width: width,
-//         height: height * 0.11,
-//         marginBottom: height * 0.15
-//     }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    containerLoading: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor:"black"
     },
     markWrap: {
         flex: 1,
@@ -287,17 +201,26 @@ const styles = StyleSheet.create({
     },
     button: {
         //	HTML code:	#01FEE9
-// RGB code:	R: 1 G: 254 B: 233  
+        // RGB code:	R: 1 G: 254 B: 233  
         backgroundColor: "rgba(1,254,254, 0.5)",
-        // backgroundColor: "#111",
         paddingVertical: 20,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 30,
+        borderRadius: 25
     },
+    buttonGoogle: {
+        backgroundColor: "#db3236",
+        paddingVertical: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 30,
+        borderRadius: 25
+    },
+
     buttonText: {
         color: "#FFF",
-        fontSize: 18,
+        fontSize: 20,
     },
     forgotPasswordText: {
         color: "#D8D8D8",
@@ -306,21 +229,99 @@ const styles = StyleSheet.create({
         paddingRight: 15,
     },
     signupWrap: {
-        backgroundColor: "transparent",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
     },
     accountText: {
-        color: "#D8D8D8"
+        color: "#D8D8D8",
+        fontSize: 20
     },
     signupLinkText: {
         color: "#FFF",
-        marginLeft: 5,
+        fontSize: 25
     },
     logoLetter: {
         width: width,
         height: height * 0.11,
         marginTop: height * 0.15
+    },
+    textoLoading: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20,
+        margin: 10
+    },
+
+
+
+
+    inner: {
+        padding: 24,
+        flex: 1,
+        justifyContent: "space-around"
+    },
+    header: {
+        fontSize: 36,
+        marginBottom: 48
+    },
+    textInput: {
+        height: 40,
+        borderColor: "#000000",
+        borderBottomWidth: 1,
+        marginBottom: 36
+    },
+    btnContainer: {
+        backgroundColor: "white",
+        marginTop: 12
+    },
+    logo: {
+        fontWeight: "bold",
+        fontSize: 50,
+        color: "#fb5b5a",
+        marginBottom: 40
+    },
+    inputView: {
+        width: "90%",
+        // backgroundColor: "#fff",
+        backgroundColor: "rgba(247,252,252, 0.7)",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputText: {
+        height: 60,
+        color: "black"
+    },
+    forgot: {
+        color: "white",
+        fontSize: 11
+    },
+    loginBtn: {
+        width: "85%",
+        // backgroundColor: "#fb5b5a",
+        backgroundColor: "rgba(1,254,254, 0.5)",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
+        marginBottom: 10
+    },
+    loginBtnGoogle: {
+        width: "85%",
+        backgroundColor: "#db3236",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        marginBottom: 10
+    },
+    loginText: {
+        color: "white",
+        fontSize: 20
     }
 });

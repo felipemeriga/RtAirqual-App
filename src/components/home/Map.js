@@ -102,8 +102,8 @@ export default class Map extends React.Component<{}> {
                         <View style={this.props.mapsStore.loadingDetail ? styles.hideLoadingDialog : {}}>
 
                             <SCLAlert
-                            
-                                subtitle = "Dados de monitoramento:"
+
+                                subtitle="Dados de monitoramento:"
                                 theme="atk"
                                 show={this.state.show}
                                 cancellable={true}

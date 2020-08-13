@@ -11,12 +11,15 @@ class BoletimStore {
     @observable diario: any = {};
     @observable historico: any = {};
     @observable ranking: any = {};
+    @observable alertas: any = {};
 
     @observable listDiario = [];
 
     @observable listRanking = [];
 
     @observable listHistorico = [];
+
+    @observable listAlertas = [];
 
     @action
     async getBoletim(): React.node {
@@ -29,7 +32,27 @@ class BoletimStore {
                 this.listRanking = [];
                 this.diario = this.boletimDetail.diario;
                 this.historico = this.boletimDetail.historico;
+                this.alertas = this.boletimDetail.alertas;
                 this.ranking = this.boletimDetail.ranking;
+
+                const iterableListAlertas = [];
+                this.alertas.forEach((item) => {
+                    const alerta = {
+                        id: item.ID,
+                        categoria: item.categoria,
+                        classificacao: item.classificacao,
+                        descricao: item.descricao,
+                        horario: item.horario,
+                        localizacao: item.localizacao,
+                    };
+                    iterableListAlertas.push(alerta);
+                });
+                this.listAlertas = iterableListAlertas;
+
+                this.listAlertas = this.listAlertas.sort((a, b) =>{
+                    return a.id < b.id ? 1 : -1;
+                });
+
                 // Populating the Ranking List
                 const iterableListRanking = [];
                 this.ranking.forEach((item) => {
@@ -40,7 +63,6 @@ class BoletimStore {
                         data: item.data,
                         classificacao: item.classificacao
                     };
-
                     iterableListRanking.push(ite);
                 });
                 this.listRanking = iterableListRanking;

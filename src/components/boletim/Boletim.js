@@ -8,8 +8,9 @@ import { Tab, Tabs, TabHeading, H1 } from "native-base";
 import { BaseContainer, Task, Styles } from "../pure-components";
 import { ScreenProps } from "../pure-components/Types";
 import variables from "../../../native-base-theme/variables/commonColor";
-import CustomRow from './CustomRow';
-import { format, render, cancel, register } from 'timeago.js';
+// import CustomRow from './CustomRow';
+// import { format, render, cancel, register } from 'timeago.js';
+import Timeline from 'react-native-timeline-flatlist';
 
 const BOLETIM = 1;
 const ALERTAS = 2;
@@ -18,6 +19,7 @@ const ALERTAS = 2;
 @inject("boletimStore")
 @observer
 export default class Boletim extends React.Component<ScreenProps<>> {
+    
 
     componentWillUnmount() {
     }
@@ -42,10 +44,10 @@ export default class Boletim extends React.Component<ScreenProps<>> {
         return (
             <Tabs>
                 <Tab heading={<TabHeading style={style.tabBoletim}><Text style={style.textoTabBoletim}>Boletim</Text></TabHeading>}>
-                <OverviewTab tela={BOLETIM} />
+                    <OverviewTab tela={BOLETIM} />
                 </Tab>
                 <Tab heading={<TabHeading style={style.tabBoletim}><Text style={style.textoTabBoletim}>Alertas</Text></TabHeading>}>
-                <OverviewTab tela={ALERTAS} />
+                    <OverviewTab tela={ALERTAS} />
                 </Tab>
             </Tabs>
         );
@@ -54,7 +56,7 @@ export default class Boletim extends React.Component<ScreenProps<>> {
     render(): React.Node {
         const sectionName = "FEED";
         return (
-            <BaseContainer title={sectionName}navigation={this.props.navigation}>
+            <BaseContainer title={sectionName} navigation={this.props.navigation}>
                 {this.renderContent()}
             </BaseContainer>
         );
@@ -82,11 +84,11 @@ class OverviewTab extends React.Component<OverviewTabProps> {
         const mesDoAno = retornaMes(new Date().getMonth() + 1);
         const ano = new Date().getFullYear();
         const listDiary = this.props.boletimStore.listDiario;
-        const listRanking = this.props.boletimStore.listRanking;
+        const listAlertas = this.props.boletimStore.listAlertas;
 
-        var date = new Date().getDate(); //Current Date
-        var month = new Date().getMonth() + 1; //Current Month
-        var year = new Date().getFullYear(); //Current Year
+        // var date = new Date().getDate(); //Current Date
+        // var month = new Date().getMonth() + 1; //Current Month
+        // var year = new Date().getFullYear(); //Current Year
         var hours = new Date().getHours(); //Current Hours
         if (hours < 10) {
             hours = "0" + hours;
@@ -104,10 +106,10 @@ class OverviewTab extends React.Component<OverviewTabProps> {
             return (
                 <View style={style.containerDiario}>
                     <ScrollView >
-                        <ImageBackground source={require("../../../assets/images/boletim_background.jpg")} style={{ width: '100%', height: '100%' }}>
+                        {/* <ImageBackground source={require("../../../assets/images/boletim_background.jpg")} style={{ width: '100%', height: '100%' }}> */}
                             <View style={[style.tab, Styles.center]}>
                                 <H1 style={{ color: "black" }}>Londrina, {diaDaSemana} de {mesDoAno} de {ano} </H1>
-                            </View> 
+                            </View>
                             {
                                 listDiary.map((item, i) => (
                                     <Task
@@ -116,29 +118,24 @@ class OverviewTab extends React.Component<OverviewTabProps> {
                                     />
                                 ))
                             }
-                        </ImageBackground>
+                        {/* </ImageBackground> */}
                     </ScrollView>
                 </View>
             );
         } else if (tela === 2) {
+            this.dadosTimeline = [];
+            listAlertas.forEach((item) => {
+                const alerta = {
+                    time: item.horario,
+                    title: item.classificacao + " | " + item.localizacao,
+                    description: item.descricao, 
+                    category: item.categoria,
+                };
+                this.dadosTimeline.push(alerta);
+            });
             return (
-                <View style={style.containerRanking}>
-                    {/* <FlatList
-                        data={listRanking}
-                        renderItem={({ item }) => 
-                            <CustomRow
-                                data={format(item.data, 'pt_BR')}
-                                classificacao={item.classificacao}
-                                title={item.local}
-                                description={item.descricao}
-                                key={item.id}
-                            />
-                        }
-                        keyExtractor={(item, index) => item.id}
-                    /> */}
-                        <View style={style.containerBoletim}>
-                            <Text style={{ fontSize: 25, color: "#FFF" }}>Em breve!</Text>
-                        </View>
+                <View style={style.timelineContainer}>
+                    <Timeline style={{ flex: 1 }} data={this.dadosTimeline} />
                 </View>
             );
         }
@@ -194,8 +191,14 @@ function retornaMes(date) {
 }
 
 const style = StyleSheet.create({
+    timelineContainer: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: 'white',
+    },
     containerDiario: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        flex: 1
     },
     tabBoletim: {
         borderTopWidth: 1,
@@ -220,7 +223,6 @@ const style = StyleSheet.create({
     },
     containerRanking: {
         flexGrow: 1
-        // backgroundColor: "white"
     },
     title: {
         fontSize: 16,

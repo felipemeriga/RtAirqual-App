@@ -106,7 +106,7 @@ export default class SignUp extends React.Component<ScreenProps<>> {
                                 </Button>
                             </Left>
                             <Body>
-                                <Title>Criar Conta</Title>
+                                <Title>Novo cadastro</Title>
                             </Body>
                             <Right />
                         </Header>

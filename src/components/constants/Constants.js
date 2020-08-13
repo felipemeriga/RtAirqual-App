@@ -4,8 +4,9 @@
 class Constants {
     // Authentication and Authorization Constants
     facebookAppClient = "2286396934947742";
-    androidClientId = "46612203335-t91gcovpqlpf8ecvld53lbl80noqd49a.apps.googleusercontent.com";
-    iosClientId = "46612203335-bnqr0359icq524cohsvrouql30hasias.apps.googleusercontent.com";
+    androidClientId = "392315602601-9d5mnk7o3njoaonajfjki7tfufls4q0s.apps.googleusercontent.com";
+    //iosClientId = "46612203335-bnqr0359icq524cohsvrouql30hasias.apps.googleusercontent.com";
+    iosClientId = "392315602601-8ea5bmorc21ljcsq8ja92h5jaeqnpo9o.apps.googleusercontent.com";
     authMethod = {
         USER_POOLS: "USER_POOLS",
         FEDERATED: {
@@ -30,7 +31,7 @@ class Constants {
 
     formValidationMessages = {
         email: "Email no formato inválido",
-        password: "A senha deve ter no mínimo 8 dígitos, uma letra maiúscula e um caracter especial",
+        password: "A senha deve ter no mínimo 8 dígitos, uma letra maiúscula e um caractere especial",
         phone: "O telefone deve estar no formato Código de área + número"
     };
 

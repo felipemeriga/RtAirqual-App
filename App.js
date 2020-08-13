@@ -30,6 +30,7 @@ import atividadeStore from "./src/stores/AtividadeStore";
 
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";
+import { MemoryStorageNew } from './src/components/login/MemoryStorageNew'
 
 const stores = {
     channelsStore,
@@ -70,7 +71,7 @@ export default class App extends React.Component<{}, AppState> {
                 mandatorySignIn: false,
 
                 // OPTIONAL - customized storage object
-                // storage: new MyStorage(),
+                 storage: MemoryStorageNew,
 
                 // OPTIONAL - Manually set the authentication flow type. Default is "USER_SRP_AUTH"
                 authenticationFlowType: "USER_PASSWORD_AUTH"

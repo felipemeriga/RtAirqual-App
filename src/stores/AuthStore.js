@@ -5,11 +5,12 @@ import {observable, action} from "mobx";
 import {Auth} from "aws-amplify";
 import {Facebook, Notifications} from "expo";
 import Constants from "../components/constants/Constants";
-import { Alert } from "react-native";
-import * as Google from 'expo-google-app-auth'
+import { Alert, AsyncStorage } from "react-native";
+import * as Google from 'expo-google-app-auth';
 
 
 class AuthStore {
+    @observable logado: boolean = false;
     @observable authenticated: boolean = false;
     @observable autheticating: boolean = false;
     @observable authenticationType: string;
@@ -27,7 +28,7 @@ class AuthStore {
 
     @observable authMethod: string;
     @observable expoToken: string;
-
+ 
     @action
     async signIn(username: string, password: string): React.node {
         this.animation = new Animated.Value(0);
@@ -57,10 +58,13 @@ class AuthStore {
                 // More info please check the Enabling MFA part
                 Auth.setupTOTP(user);
             } else {
+                
                 // The user directly signs in
                 user.attributes.id = user.attributes.sub;
                 this.authenticationType = "USER_POOLS";
                 this.registerUserAccess(user.attributes);
+                console.log("(user.attributes.id): " + user.attributes.id);
+                //afdd2198-d623-4e0c-93b8-454db947b9b9
             }
         } catch (err) {
             let message: string;
@@ -235,6 +239,7 @@ class AuthStore {
         this.hasError = false;
         this.user = user;
         this.error = "";
+        console.log("userIsAlreadyAuthenticated: " + user);
     }
 
     @action
@@ -253,6 +258,8 @@ class AuthStore {
         this.hasError = false;
         this.user = user;
         this.error = "";
+        this.retornaLogin();
+        console.log("successfulSignIn: " + user);
     }
 
     signInError(message: string): React.Node {
@@ -261,6 +268,7 @@ class AuthStore {
         this.autheticating = false;
         this.error = message;
         this.hasError = true;
+        console.log("signInError: " + JSON.stringify(message));
     }
 
     logInError(message: string): React.Node {
@@ -268,6 +276,7 @@ class AuthStore {
         this.autheticating = false;
         this.error = message;
         this.hasError = true;
+        console.log("logInError: " + message);
     }
 
     signUpError(err: any): React.Node {
@@ -371,6 +380,7 @@ class AuthStore {
             expoToken: this.expoToken
         })
             .then((response) => {
+                console.log("printou o menino");
                 console.log(JSON.stringify(response));
                 this.successfulSignIn(user);
             })

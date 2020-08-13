@@ -88,7 +88,8 @@ class ChannelsStore {
         //UTFPR
         axios.get(dicasPontos[4].urlDica)
             .then((response) => {
-                this.markDetail = response.data.body[0];
+                console.log("response.data.body: " + response.data);
+                // this.markDetail = response.data.body[0];
             })
             .catch((err) => {
                 console.log(err);

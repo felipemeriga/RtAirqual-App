@@ -2,7 +2,7 @@
     "expo": {
 		"name": "Airtrak",
         "sdkVersion": "35.0.0",
-        "version": "3.0.1",
+        "version": "4.0.4",
         "orientation": "portrait",
         "privacy": "public",
         "icon": "./assets/images/atk_icon_black.png",
@@ -27,15 +27,15 @@
         "ios": {
             "bundleIdentifier": "com.rt.AirTrak",
             "config": {
-                "googleMapsApiKey": "AIzaSyDpFDZpVH6QX5VMKMC82cTDIL1qTZKNVug"
+                "googleMapsApiKey": "AIzaSyB8UZLXQFZRoe5W2ah1jed4UIaRr2LQ9Cc"
             }
         },
 		"android": {
             "package": "com.rt.AirTrak",
-            "versionCode": 301,
+            "versionCode": 404,
             "config": {
                 "googleMaps": {
-                    "apiKey": "AIzaSyDpFDZpVH6QX5VMKMC82cTDIL1qTZKNVug"
+                    "apiKey": "AIzaSyB8UZLXQFZRoe5W2ah1jed4UIaRr2LQ9Cc"
                 }
             }
 		},

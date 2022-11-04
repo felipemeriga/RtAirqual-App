@@ -42,7 +42,7 @@
         }
     },
     "dependencies": {
-        "@aws-amplify/cli": "^1.6.4",
+        "@aws-amplify/cli": "^1.12.0",
         "@expo/vector-icons": "^10.0.5",
         "@fortawesome/fontawesome-svg-core": "^1.2.22",
         "@fortawesome/free-solid-svg-icons": "^5.10.2",
